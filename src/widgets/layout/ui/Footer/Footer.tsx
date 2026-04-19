@@ -9,9 +9,7 @@ const Footer = () => {
       <Link href="/">
         <Image
           src={logo}
-          alt='Хуета'
-          width={200}
-          height={50}
+          alt='Логотип сайта "Погнали"'
         />
       </Link>
     </footer>

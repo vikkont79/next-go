@@ -1,63 +1,74 @@
 .header {
-  background-color: var(--color-base-400);
-  color: var(--color-white);
-}
-
-.nav {
-  position: relative;
-  z-index: 2;
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   align-items: center;
-  padding-block-start: 46px;
-}
+  padding-block: 35px 50px;
+  background-color: var(--color-base-500);
+  color: var(--color-white);
 
-.image {
-  display: block;
-}
+  &:has(.nav:popover-open) {
+    background-color: var(--color-white);
 
-.navList {
-  display: flex;
-  margin-inline-start: 145px;
-  margin-block: 0;
-  padding-inline-start: 0;
-  gap: var(--indent-4);
-  list-style-type: none;
+    & .imageMob {
+      display: none;
+    }
 
-  @media(max-width: 1025px) {
-    margin-inline-start: 85px;
+    & .image {
+      display: none;
+    }
+
+    & .imagePopup {
+      display: block;
+    }
   }
+}
 
-  @media(max-width: 769px) {
+.imageMob {
+  display: block;
+  inline-size: 100px;
+
+  @media (min-width: 768px) {
     display: none;
   }
 }
 
-.popup {
+.imagePopup {
   display: none;
-  inline-size: 100%;
-  padding: var(--indent-6);
-  border: none;
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
+  inline-size: 100px;
 
-}
-
-.popup:popover-open {
-  display: flex;
-  align-items: center;
-  gap: 70px;
-  inset: 0 0 auto 0;
-
-  @media(max-width: 376px) {
-    flex-direction: column;
-    align-items: start;
-    gap: 32px;
+  @media (min-width: 768px) {
+    inline-size: 202px;
   }
 }
 
+.image {
+  display: none;
 
-.navListMob {
+  @media (min-width: 768px) {
+    display: block;
+  }
+}
+
+.nav {
+  inline-size: 100%;
+  padding: var(--indent-6);
+  border: none;
+
+  &:popover-open {
+    inset: 120px 0 auto 0;
+  }
+
+  @media (min-width: 1024px) {
+    display: block;
+    position: static;
+    inline-size: auto;
+    min-block-size: auto;
+    background-color: transparent;
+    color: var(--color-white);
+  }
+}
+
+.navList {
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -66,33 +77,34 @@
   margin-block: 0;
   padding-inline-start: 0;
   list-style-type: none;
-}
 
-.navItem {
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-  text-transform: uppercase;
-
-  @media(max-width: 376px) {
-    font-size: var(--font-size-lg);
+  @media (min-width: 768px) {
+    flex-direction: row;
+    gap: var(--indent-4);
+    justify-content: center;
   }
 }
 
-.open {
-  display: none;
+.navItem {
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  text-transform: uppercase;
+}
 
-  @media(max-width: 769px) {
-    display: block;
-    margin-inline-start: auto;
+.open {
+  @media (min-width: 1024px) {
+    display: none;
   }
 }
 
 .close {
-  position: absolute;
-  top: 24px;
-  right: 0;
+  display: none;
+}
 
-  @media(max-width: 376px) {
-    right: 28px;
-  }
+.header:has(.nav:popover-open) .open {
+  display: none;
+}
+
+.header:has(.nav:popover-open) .close {
+  display: block;
 }
