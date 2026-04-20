@@ -1,9 +1,15 @@
 .footer {
   position: relative;
-  padding-block: 50px;
-  border-top-left-radius: 60px;
-  border-top-right-radius: 60px;
+  padding-block: 20px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
   background-color: var(--color-white);
   box-shadow: 0px -5px 20px 0px #00000040;
   text-align: start;
+
+  @media (min-width: 768px) {
+    padding-block: 50px;
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
+  }
 }

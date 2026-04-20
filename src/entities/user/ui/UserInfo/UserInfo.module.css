@@ -1,0 +1,38 @@
+.user {
+  display: flex;
+  gap: 40px;
+
+  @media(max-width: 1025px) {
+    gap: 20px;
+  }
+
+  @media(max-width: 769px) {
+    justify-content: space-between;
+    padding-inline: 60px;
+  }
+}
+
+.avatar {
+  border-radius: var(--border-radius-lg);
+
+  @media(max-width: 1025px) {
+    inline-size: 165px;
+  }
+
+  @media(max-width: 376px) {
+    border-radius: 50%;
+  }
+}
+
+.level {
+  color: var(--color-white);
+
+  @media(max-width: 1025px) {
+    inline-size: 95px;
+    block-size: 95px;
+  }
+
+  @media(max-width: 769px) {
+    color: var(--color-base-500);
+  }
+}
