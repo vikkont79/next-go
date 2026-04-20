@@ -13,16 +13,19 @@ const Header = () => {
           className={styles.imageMob}
           src={logoMob}
           alt='Логотип сайта "Погнали"'
+          loading="eager"
         />
         <Image
           className={styles.imagePopup}
           src={logoPopup}
           alt='Логотип сайта "Погнали"'
+          loading="eager"
         />
         <Image
           className={styles.image}
           src={logo}
           alt='Логотип сайта "Погнали"'
+          loading="eager"
         />
       </Link>
       <nav
@@ -54,6 +57,7 @@ const Header = () => {
         popoverTargetAction='hide'
         aria-label='Закрыть меню'
       />
+
     </header>
   )
 }

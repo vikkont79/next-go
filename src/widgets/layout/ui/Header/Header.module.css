@@ -61,8 +61,7 @@
   @media (min-width: 1024px) {
     display: block;
     position: static;
-    inline-size: auto;
-    min-block-size: auto;
+    inline-size: fit-content;
     background-color: transparent;
     color: var(--color-white);
   }

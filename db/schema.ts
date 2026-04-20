@@ -6,7 +6,7 @@ export const users = sqliteTable('users', {
   name: text('name').notNull(),
   email: text('email').notNull().unique(),
   passwordHash: text('password_hash').notNull(),
-  avatar: text('avatar').notNull().default('/default-avatar.png'),
+  avatar: text('avatar').notNull().default('/icons/unknown-raccoon.svg'),
   level: integer('level').notNull().default(1),
   likes: integer('likes').notNull().default(0),
   createdAt: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`CURRENT_TIMESTAMP`),

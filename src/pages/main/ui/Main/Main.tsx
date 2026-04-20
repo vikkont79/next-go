@@ -9,12 +9,12 @@ const MainPage = () => {
   const mockUser = {
     id: '1',
     name: 'Анна Иванова',
-    avatar: '/icons/unknown-raccoon.svg',
-    level: 87,
+    avatar: '/images/avatar.jpg',
+    level: 67,
     likes: 42,
   }
   return (
-    <main>
+    <main className='wrapper'>
       <Image
         src={bgMob}
         alt=''
