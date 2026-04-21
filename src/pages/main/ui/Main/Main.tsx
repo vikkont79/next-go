@@ -1,5 +1,6 @@
 import Image from 'next/image'
-import { UserInfo } from '@/entities/user/ui'
+import { UserInfo } from '@/entities/user'
+import { Modal } from '@/shared/ui'
 import bgMob from '@/shared/assets/images/bg-mob.png'
 import bgTab from '@/shared/assets/images/bg-tablet.png'
 import bg from '@/shared/assets/images/bg-desktop.png'
@@ -33,7 +34,13 @@ const MainPage = () => {
         priority
         className={`${styles.bg} ${styles.bgDesk}`}
       />
+      <button {...{ command: 'show-modal', commandfor: 'auth-modal' } as any}>
+        Войти
+      </button>
       <UserInfo user={mockUser} />
+      <Modal id='auth-modal'>
+        Контент Модалки
+      </Modal>
     </main>
   )
 }
