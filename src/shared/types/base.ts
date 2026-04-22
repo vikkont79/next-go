@@ -12,10 +12,6 @@ export interface BasePressableProps {
 
 /* Базовые пропсы для инпутов/форм */
 export interface BaseInputProps {
-  /** Значение поля */
-  value: string;
-  /** Обработчик изменения значения */
-  onChange: (value: string) => void;
   /** Плейсхолдер */
   placeholder?: string;
   /** Отключено ли поле */

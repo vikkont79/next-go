@@ -1,34 +1,32 @@
-import { NextRequest, NextResponse } from 'next/server'
-import jwt from 'jsonwebtoken'
+import { NextRequest, NextResponse } from 'next/server';
+import jwt from 'jsonwebtoken';
 
-const PROTECTED_ROUTES = ['/profile', '/trips/create']
-const PUBLIC_ROUTES = ['/', '/trips']
+export const config = {
+  matcher: ['/profile/:path*', '/trips/create/:path*'],
+};
+
+function redirectHome(request: NextRequest) {
+  const url = new URL('/', request.url);
+  return NextResponse.redirect(url);
+}
 
 export function proxy(request: NextRequest) {
-  const { pathname } = request.nextUrl
-
-  // Проверяем, защищён ли маршрут
-  const isProtected = PROTECTED_ROUTES.some(route => pathname.startsWith(route))
-
-  // Если не защищён — пропускаем
-  if (!isProtected) {
-    return NextResponse.next()
+  const secret = process.env.JWT_SECRET;
+  if (!secret) {
+    // Явно логируем/бросаем в dev, но для продакшна безопаснее редирект
+    if (process.env.NODE_ENV === 'development') {
+      throw new Error('Missing JWT_SECRET');
+    }
+    return redirectHome(request);
   }
 
-  // Достаём токен из cookie
-  const token = request.cookies.get('token')?.value
+  const token = request.cookies.get('token')?.value;
+  if (!token) return redirectHome(request);
 
-  if (!token) {
-    // Нет токена — редирект на главную
-    return NextResponse.redirect(new URL('/', request.url))
-  }
-
-  // Проверяем валидность токена
   try {
-    jwt.verify(token, process.env.JWT_SECRET!)
-    return NextResponse.next()
-  } catch (error) {
-    // Токен невалиден (просрочен, подделан)
-    return NextResponse.redirect(new URL('/', request.url))
+    jwt.verify(token, secret);
+    return NextResponse.next();
+  } catch (err) {
+    return redirectHome(request);
   }
 }

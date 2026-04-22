@@ -8,11 +8,6 @@ import { users } from '../../../../db/schema'
 import { eq } from 'drizzle-orm'
 import { loginSchema } from '@/shared/lib'
 
-interface LoginInput {
-  email: string;
-  password: string;
-}
-
 export async function login(input: unknown) {
   const result = loginSchema.safeParse(input);
   if (!result.success) {

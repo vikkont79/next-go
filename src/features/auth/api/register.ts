@@ -6,12 +6,6 @@ import { users } from '../../../../db/schema'
 import { eq } from 'drizzle-orm'
 import { registerSchema } from '@/shared/lib'
 
-interface RegisterInput {
-  name: string;
-  email: string;
-  password: string;
-}
-
 export async function register(input: unknown) {
   const result = registerSchema.safeParse(input);
   if (!result.success) {

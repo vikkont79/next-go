@@ -5,15 +5,9 @@ import bgMob from '@/shared/assets/images/bg-mob.png'
 import bgTab from '@/shared/assets/images/bg-tablet.png'
 import bg from '@/shared/assets/images/bg-desktop.png'
 import styles from './Main.module.css'
+import { AuthModal } from '@/features/auth'
 
 const MainPage = () => {
-  const mockUser = {
-    id: '1',
-    name: 'Анна Иванова',
-    avatar: '/images/avatar.jpg',
-    level: 67,
-    likes: 42,
-  }
   return (
     <main className='wrapper'>
       <Image
@@ -37,9 +31,9 @@ const MainPage = () => {
       <button {...{ command: 'show-modal', commandfor: 'auth-modal' } as any}>
         Войти
       </button>
-      <UserInfo user={mockUser} />
+      <UserInfo />
       <Modal id='auth-modal'>
-        Контент Модалки
+        <AuthModal />
       </Modal>
     </main>
   )

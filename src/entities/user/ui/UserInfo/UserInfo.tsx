@@ -1,15 +1,18 @@
 'use client'
+
 import Image from 'next/image'
 import { Level } from '@/shared/ui'
-import styles from './UserInfo.module.css'
+import { useUserStore } from '@/entities/user/store/user-store';
 import type { User } from '@/entities/user'
+import styles from './UserInfo.module.css'
 
 interface UserInfoProps {
   user?: User | null;
   className?: string;
 }
 
-const UserInfo = ({ user, className = '' }: UserInfoProps) => {
+const UserInfo = ({ className = '' }: UserInfoProps) => {
+  const user = useUserStore((state) => state.user)
   const avatarSrc = user?.avatar || '/icons/unknown-raccoon.svg'
   return (
     <section className={`${styles.user} ${className}`}>
