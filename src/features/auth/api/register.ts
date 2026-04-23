@@ -28,6 +28,21 @@ export async function register(input: unknown) {
     passwordHash: hashedPassword,
   }).returning()
 
+  const token = jwt.sign(
+    { userId: newUser[0].id, email: newUser[0].email },
+    process.env.JWT_SECRET!,
+    { expiresIn: '7d' }
+  )
+
+  const cookieStore = await cookies()
+  cookieStore.set('token', token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/',
+    maxAge: 60 * 60 * 24 * 7,
+  })
+
   const { passwordHash, ...userWithoutPassword } = newUser[0];
   return { success: true, user: userWithoutPassword }
 }

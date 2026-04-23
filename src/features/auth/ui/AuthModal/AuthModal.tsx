@@ -1,36 +1,37 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { login, register as registerAction } from '../../api';
-import { useUserStore } from '@/entities/user';
-import { loginSchema, registerSchema, type RegisterInput, type LoginInput } from '@/shared/lib/validation/auth-schemas';
-import { Input, Button } from '@/shared/ui';
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { login, register as registerAction } from '../../api'
+import { useUserStore } from '@/entities/user'
+import { loginSchema, registerSchema, type RegisterInput, type LoginInput } from '@/shared/lib/validation/auth-schemas'
+import { Input, Button } from '@/shared/ui'
 
 const AuthModal = () => {
-  const [mode, setMode] = useState<'login' | 'register'>('login');
-  const [serverError, setServerError] = useState<string | null>(null);
+  const [mode, setMode] = useState<'login' | 'register'>('login')
+  const [serverError, setServerError] = useState<string | null>(null)
   const setUser = useUserStore((state) => state.setUser);
 
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<RegisterInput | LoginInput>({
+  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<RegisterInput | LoginInput>({
     resolver: zodResolver(mode === 'login' ? loginSchema : registerSchema),
   });
 
   const onSubmit = async (data: RegisterInput | LoginInput) => {
-    setServerError(null);
+    setServerError(null)
 
-    const action = mode === 'login' ? login : registerAction;
-    const result = await action(data);
+    const action = mode === 'login' ? login : registerAction
+    const result = await action(data)
 
     if ('error' in result && result.error) {
-      setServerError(result.error);
-      return;
+      setServerError(result.error)
+      return
     }
 
     if ('success' in result && result.success && result.user) {
-      setUser(result.user);
-      (document.getElementById('auth-modal') as HTMLDialogElement)?.close();
+      setUser(result.user)
+      reset();
+      (document.getElementById('auth-modal') as HTMLDialogElement)?.close()
     }
   };
 
@@ -78,7 +79,7 @@ const AuthModal = () => {
         </Button>
       </form>
     </div>
-  );
-};
+  )
+}
 
 export { AuthModal }

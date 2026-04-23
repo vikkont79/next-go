@@ -5,7 +5,7 @@ import bgMob from '@/shared/assets/images/bg-mob.png'
 import bgTab from '@/shared/assets/images/bg-tablet.png'
 import bg from '@/shared/assets/images/bg-desktop.png'
 import styles from './Main.module.css'
-import { AuthModal } from '@/features/auth'
+import { AuthModal, LogoutButton } from '@/features/auth'
 
 const MainPage = () => {
   return (
@@ -31,6 +31,7 @@ const MainPage = () => {
       <button {...{ command: 'show-modal', commandfor: 'auth-modal' } as any}>
         Войти
       </button>
+      <LogoutButton />
       <UserInfo />
       <Modal id='auth-modal'>
         <AuthModal />
