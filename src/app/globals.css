@@ -52,6 +52,8 @@
   /* 20px */
   --indent-6: calc(var(--base-indent) * 6);
   /* 24px */
+  --indent-7: calc(var(--base-indent) * 7);
+  /* 28px */
   --indent-8: calc(var(--base-indent) * 8);
   /* 32px */
 

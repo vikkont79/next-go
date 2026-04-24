@@ -88,6 +88,10 @@
   font-size: var(--font-size-lg);
   font-weight: 500;
   text-transform: uppercase;
+
+  @media(min-width: 768px) {
+    font-size: var(--font-size-base);
+  }
 }
 
 .open {
@@ -106,4 +110,8 @@
 
 .header:has(.nav:popover-open) .close {
   display: block;
+}
+
+.header:has(.nav:popover-open) .auth {
+  display: none;
 }

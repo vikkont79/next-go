@@ -8,6 +8,8 @@ export interface BasePressableProps {
   // Добавляем popover-атрибуты
   popoverTarget?: string;
   popoverTargetAction?: 'toggle' | 'show' | 'hide';
+  commandfor?: string;
+  command?: 'show-modal' | 'close';
 }
 
 /* Базовые пропсы для инпутов/форм */

@@ -4,6 +4,7 @@ import logo from '@/shared/assets/images/logo-white.png'
 import logoMob from '@/shared/assets/images/logo-white.png'
 import logoPopup from '@/shared/assets/images/logo-black.png'
 import styles from './Header.module.css'
+import { AuthButtons } from '@/features/auth'
 
 const Header = () => {
   return (
@@ -57,7 +58,7 @@ const Header = () => {
         popoverTargetAction='hide'
         aria-label='Закрыть меню'
       />
-
+      <AuthButtons className={styles.auth} />
     </header>
   )
 }

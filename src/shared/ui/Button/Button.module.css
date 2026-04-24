@@ -59,16 +59,18 @@
 }
 
 .base {
-  padding-inline: calc(var(--base-indent) * 8);
-  padding-block: calc(var(--base-indent) * 7);
-  font-size: var(--font-size-base);
-  line-height: 1;
+  padding: var(--indent-2);
+  font-size: 16px;
+  /*line-height: 30px;*/
+  text-transform: uppercase;
 
-  @media(max-width: 376px) {
-    padding: calc(var(--base-indent)*2);
-    font-size: 16px;
-    /*line-height: 30px;*/
-    text-transform: uppercase;
+
+
+  @media(min-width: 768px) {
+    padding-inline: var(--indent-8);
+    padding-block: var(--indent-7);
+    font-size: var(--font-size-base);
+    line-height: 1;
   }
 }
 

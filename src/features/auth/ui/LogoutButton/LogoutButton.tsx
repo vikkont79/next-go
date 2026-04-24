@@ -5,7 +5,11 @@ import { logout } from '../../api'
 import { useUserStore } from '@/entities/user'
 import { Button } from '@/shared/ui'
 
-const LogoutButton = () => {
+interface LogoutButtonProps {
+  className?: string;
+}
+
+const LogoutButton = ({ className }: LogoutButtonProps) => {
   const router = useRouter()
   const clearUser = useUserStore((state) => state.clearUser)
 
@@ -16,7 +20,7 @@ const LogoutButton = () => {
   }
 
   return (
-    <Button onClick={handleLogout}>
+    <Button className={className} onClick={handleLogout}>
       Выйти
     </Button>
   )
