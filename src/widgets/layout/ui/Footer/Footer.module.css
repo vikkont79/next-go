@@ -1,5 +1,6 @@
 .footer {
   position: relative;
+  margin-block-start: -30px;
   padding-block: 20px;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
@@ -8,6 +9,7 @@
   text-align: start;
 
   @media (min-width: 768px) {
+    margin-block-start: -60px;
     padding-block: 50px;
     border-top-left-radius: 60px;
     border-top-right-radius: 60px;

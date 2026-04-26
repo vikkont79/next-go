@@ -1,0 +1,156 @@
+.hero {
+  position: relative;
+}
+
+.slogan {
+  margin-block: 0 295px;
+  color: var(--color-white);
+  font-size: var(--font-size-xxl);
+  line-height: 40px;
+  font-weight: 700;
+  font-variant: small-caps;
+  text-transform: lowercase;
+  text-align: start;
+
+  @media (min-width: 768px) {
+    margin-block-end: 440px;
+    font-size: 60px;
+    line-height: 70px;
+  }
+
+  @media (min-width: 1024px) {
+    margin-block-end: 160px;
+    font-size: 70px;
+  }
+}
+
+.roadmap {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin-block: 0;
+  padding-inline-start: 0;
+  list-style-type: none;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1440px) {
+    display: flex;
+  }
+}
+
+.roadmapItem {
+  padding-inline: var(--indent-6) 60px;
+  padding-block: var(--indent-5) var(--indent-8);
+  border-radius: 10px;
+  color: var(--color-base-600);
+  font-size: 18px;
+  font-weight: 700;
+  text-align: start;
+
+  @media (min-width: 768px) {
+    padding-inline: var(--indent-8) 90px;
+    padding-block-start: var(--indent-8);
+    border-radius: 20px;
+    font-size: var(--font-size-base);
+  }
+
+  @media (min-width: 1024px) {
+    padding-inline-end: 120px;
+  }
+}
+
+.roadmapItem:not(:first-child) {
+  margin-block-start: -16px;
+
+  @media (min-width: 768px) {
+    margin-block-start: 0;
+  }
+}
+
+.roadmapItem:first-child {
+  background-color: var(--color-primary-500);
+
+  @media (min-width: 768px) {
+    border-bottom-left-radius: 0;
+  }
+
+  @media (min-width: 1440px) {
+    border-bottom-left-radius: 20px;
+  }
+}
+
+.roadmapItem:nth-child(2) {
+  background-color: var(--color-primary-400);
+
+  @media (min-width: 768px) {
+    margin-inline-start: -35px;
+    border-bottom-right-radius: 0;
+  }
+}
+
+.roadmapItem:nth-child(3) {
+  background-color: var(--color-primary-200);
+
+  @media (min-width: 768px) {
+    border-top-left-radius: 0;
+  }
+
+  @media (min-width: 1440px) {
+    margin-inline-start: -35px;
+    border-top-left-radius: 20px;
+  }
+}
+
+.roadmapItem:last-child {
+  padding-block-end: var(--indent-5);
+  background-color: var(--color-primary-100);
+
+  @media (min-width: 768px) {
+    margin-inline-start: -35px;
+    border-top-right-radius: 0;
+  }
+
+  @media (min-width: 1440px) {
+    border-top-right-radius: 20px;
+  }
+}
+
+.bg {
+  position: absolute;
+  right: 0;
+}
+
+.bgMob {
+  display: block;
+  top: 160px;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
+.bgTab {
+  display: none;
+  top: 120px;
+
+  @media (min-width: 768px) {
+    display: block;
+  }
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}
+
+.bgDesk {
+  display: none;
+  z-index: -1;
+  right: 115px;
+  top: -48px;
+
+  @media (min-width: 1024px) {
+    display: block;
+  }
+}

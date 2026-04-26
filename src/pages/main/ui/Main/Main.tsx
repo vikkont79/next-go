@@ -1,15 +1,15 @@
 import Image from 'next/image'
-import { UserInfo } from '@/entities/user'
 import { Modal, Button } from '@/shared/ui'
 import bgMob from '@/shared/assets/images/bg-mob.png'
 import bgTab from '@/shared/assets/images/bg-tablet.png'
 import bg from '@/shared/assets/images/bg-desktop.png'
+import { Hero } from '../Hero/Hero'
+import { AuthModal } from '@/features/auth'
 import styles from './Main.module.css'
-import { AuthModal, LogoutButton } from '@/features/auth'
 
 const MainPage = () => {
   return (
-    <main className='wrapper'>
+    <main className={`${styles.main} wrapper`}>
       <Image
         src={bgMob}
         alt=''
@@ -28,6 +28,7 @@ const MainPage = () => {
         priority
         className={`${styles.bg} ${styles.bgDesk}`}
       />
+      <Hero />
       <Modal id='auth-modal'>
         <AuthModal />
       </Modal>
