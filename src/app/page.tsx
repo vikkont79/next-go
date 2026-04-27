@@ -1,4 +1,4 @@
-import { MainPage } from '@/pages/main'
+import { MainPage } from '@/sections/main'
 
 export default function Home() {
 

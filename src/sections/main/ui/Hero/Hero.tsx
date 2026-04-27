@@ -6,7 +6,10 @@ import styles from './Hero.module.css'
 
 const Hero = () => {
   return (
-    <section className={styles.hero}>
+    <section className={`${styles.hero} wrapper`}>
+      <h1 className='visually-hidden'>
+        Приложение для поиска попутчиков
+      </h1>
       <p className={styles.slogan}>
         В путешествие<br />
         с крутыми<br />
@@ -32,19 +35,19 @@ const Hero = () => {
       </ul>
       <Image
         src={bgMob}
-        alt=''
+        alt='Изображение попутчика'
         priority
         className={`${styles.bg} ${styles.bgMob}`}
       />
       <Image
         src={bgTab}
-        alt=''
+        alt='Изображение попутчика'
         priority
         className={`${styles.bg} ${styles.bgTab}`}
       />
       <Image
         src={bgDesk}
-        alt=''
+        alt='Изображение попутчика'
         priority
         className={`${styles.bg} ${styles.bgDesk}`}
       />

@@ -37,10 +37,12 @@
 
   @media (min-width: 1440px) {
     display: flex;
+    padding-block-end: 110px;
   }
 }
 
 .roadmapItem {
+  min-block-size: 76px;
   padding-inline: var(--indent-6) 60px;
   padding-block: var(--indent-5) var(--indent-8);
   border-radius: 10px;
@@ -50,6 +52,7 @@
   text-align: start;
 
   @media (min-width: 768px) {
+    min-block-size: 112px;
     padding-inline: var(--indent-8) 90px;
     padding-block-start: var(--indent-8);
     border-radius: 20px;

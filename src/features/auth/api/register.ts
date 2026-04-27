@@ -1,6 +1,8 @@
 'use server'
 
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import { cookies } from 'next/headers'
 import { db } from '../../../../db/client'
 import { users } from '../../../../db/schema'
 import { eq } from 'drizzle-orm'

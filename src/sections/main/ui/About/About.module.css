@@ -1,0 +1,129 @@
+.about {
+  position: relative;
+  color: var(--color-white);
+  text-align: start;
+}
+
+.content {
+  max-inline-size: 365px;
+
+  @media (min-width: 1440px) {
+    max-inline-size: 630px;
+  }
+}
+
+.title {
+  margin-block: 48px var(--indent-5);
+  font-size: 50px;
+  line-height: 24px;
+  font-variant: small-caps;
+  text-transform: lowercase;
+
+  @media (min-width: 768px) {
+    margin-block: 118px 36px;
+    font-size: 95px;
+    line-height: 45px
+  }
+
+  @media (min-width: 1024px) {
+    margin-block: 80px var(--indent-8);
+  }
+}
+
+.intro {
+  margin-block: 0 var(--indent-6);
+  font-size: 14px;
+  line-height: 22px;
+
+  @media (min-width: 768px) {
+    margin-block-end: 84px;
+    font-size: var(--font-size-base);
+    line-height: 34px;
+    font-weight: 500;
+  }
+
+  @media (min-width: 1024px) {
+    margin-block-end: 58px;
+  }
+}
+
+.intro:nth-of-type(2) {
+  font-weight: 300;
+  font-stretch: 75%;
+  letter-spacing: -0.02em;
+
+  @media (min-width: 768px) {
+    font-size: var(--font-size-sm);
+    line-height: 24px;
+  }
+}
+
+.btn {
+  max-inline-size: 270px;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  margin-block: var(--indent-7) var(--indent-7);
+  padding-inline: var(--indent-8);
+  padding-block: var(--indent-7);
+
+  @media (min-width: 768px) {
+    margin-block: 60px 88px;
+  }
+
+  @media (min-width: 1024px) {
+    margin-block: 60px 115px;
+  }
+
+  @media (min-width: 1440px) {
+    margin-block: 85px 158px;
+  }
+}
+
+.bg {
+  position: absolute;
+  z-index: -1;
+  right: -24px;
+
+  @media (min-width: 768px) {
+    right: -38px;
+  }
+
+  @media (min-width: 1440px) {
+    right: 0;
+  }
+}
+
+.bgMob {
+  top: 30px;
+  inline-size: 292px;
+  block-size: 353px;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
+.bgTab {
+  display: none;
+  top: 55px;
+  inline-size: 368px;
+  block-size: 546px;
+
+  @media (min-width: 768px) {
+    display: block;
+  }
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}
+
+.bgDesk {
+  display: none;
+  top: 0;
+  inline-size: 655px;
+
+  @media (min-width: 1024px) {
+    display: block;
+  }
+}
