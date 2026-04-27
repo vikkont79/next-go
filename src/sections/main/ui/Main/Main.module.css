@@ -1,6 +1,7 @@
 .main {
   z-index: -1;
-  padding-inline: 0;
+  inline-size: min(1440px, 100%);
+  margin-inline: auto;
   padding-block-end: 30px;
   background-color: var(--color-base-600);
 

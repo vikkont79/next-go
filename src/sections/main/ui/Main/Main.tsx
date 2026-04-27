@@ -10,7 +10,7 @@ import styles from './Main.module.css'
 
 const MainPage = () => {
   return (
-    <main className={`${styles.main} wrapper`}>
+    <main className={styles.main}>
       <Image
         src={bgMob}
         alt=''
