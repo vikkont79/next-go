@@ -82,14 +82,10 @@
 .bg {
   position: absolute;
   z-index: -1;
-  right: -24px;
-
-  @media (min-width: 768px) {
-    right: -38px;
-  }
+  right: 0;
 
   @media (min-width: 1440px) {
-    right: 0;
+    right: 60px;
   }
 }
 

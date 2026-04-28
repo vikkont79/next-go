@@ -122,11 +122,11 @@
 
 .bg {
   position: absolute;
-  right: 0;
 }
 
 .bgMob {
   display: block;
+  right: 24px;
   top: 160px;
 
   @media (min-width: 768px) {
@@ -136,6 +136,7 @@
 
 .bgTab {
   display: none;
+  right: 40px;
   top: 120px;
 
   @media (min-width: 768px) {
