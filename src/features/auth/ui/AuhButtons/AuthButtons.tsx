@@ -2,15 +2,15 @@
 
 import { Button } from '@/shared/ui'
 import { LogoutButton } from '../LogoutButton/LogoutButton'
-import { useUserStore } from '@/entities/user'
+import { User } from '@/entities/user'
 import styles from './AuthButtons.module.css'
 
 interface AuthButtonsProps {
   className?: string;
+  user: User | null;
 }
 
-const AuthButtons = ({ className }: AuthButtonsProps) => {
-  const user = useUserStore((state) => state.user)
+const AuthButtons = ({ className, user }: AuthButtonsProps) => {
   return (
     <div className={className}>
       {user ? (

@@ -4,8 +4,10 @@ import logo from '@/shared/assets/images/logo-white.png'
 import logoPopup from '@/shared/assets/images/logo-black.png'
 import styles from './Header.module.css'
 import { AuthButtons } from '@/features/auth'
+import { getCurrentUser } from '@/shared/lib'
 
-const Header = () => {
+const Header = async () => {
+  const user = await getCurrentUser()
   return (
     <header className={`${styles.header} wrapper`}>
       <Link href='/'>
@@ -26,6 +28,7 @@ const Header = () => {
         className={styles.nav}
         id='nav-list'
         popover='auto'
+        aria-label='Основное меню'
       >
         <ul className={styles.navList}>
           <li><Link className={styles.navItem}>о сервисе</Link></li>
@@ -51,7 +54,7 @@ const Header = () => {
         popoverTargetAction='hide'
         aria-label='Закрыть меню'
       />
-      <AuthButtons className={styles.auth} />
+      <AuthButtons className={styles.auth} user={user} />
     </header>
   )
 }

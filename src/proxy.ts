@@ -5,8 +5,9 @@ export const config = {
   matcher: ['/profile/:path*', '/trips/create/:path*'],
 };
 
-function redirectHome(request: NextRequest) {
+function redirectAuth(request: NextRequest) {
   const url = new URL('/', request.url);
+  url.searchParams.set('auth', 'open')
   return NextResponse.redirect(url);
 }
 
@@ -17,16 +18,16 @@ export function proxy(request: NextRequest) {
     if (process.env.NODE_ENV === 'development') {
       throw new Error('Missing JWT_SECRET');
     }
-    return redirectHome(request);
+    return redirectAuth(request);
   }
 
   const token = request.cookies.get('token')?.value;
-  if (!token) return redirectHome(request);
+  if (!token) return redirectAuth(request);
 
   try {
     jwt.verify(token, secret);
     return NextResponse.next();
   } catch (err) {
-    return redirectHome(request);
+    return redirectAuth(request);
   }
 }
