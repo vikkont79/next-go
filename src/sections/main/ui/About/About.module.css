@@ -37,7 +37,7 @@
 
   @media (min-width: 768px) {
     margin-block-end: 84px;
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-md);
     line-height: 34px;
     font-weight: 500;
   }

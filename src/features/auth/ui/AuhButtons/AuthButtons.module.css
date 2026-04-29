@@ -1,10 +1,8 @@
 .authBtn {
-  border: 1px solid var(--color-white);
-  background-color: transparent;
-  color: var(--color-white);
-  font-weight: 500;
+  padding: var(--indent-3);
 
   @media(min-width: 768px) {
-    padding: var(--indent-5);
+    padding-inline: var(--indent-5);
+    padding-block: var(--indent-4);
   }
 }

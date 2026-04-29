@@ -1,0 +1,10 @@
+.modal {
+  padding: var(--indent-6);
+  border: none;
+  border-radius: 20px;
+
+  @media(min-width: 768px) {
+    padding: 40px;
+    border-radius: 30px;
+  }
+}

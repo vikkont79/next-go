@@ -7,6 +7,7 @@ import { login, register as registerAction } from '../../api'
 import { useUserStore } from '@/entities/user'
 import { loginSchema, registerSchema, type RegisterInput, type LoginInput } from '@/shared/lib/validation/auth-schemas'
 import { Input, Button } from '@/shared/ui'
+import styles from './AuthModal.module.css'
 
 const AuthModal = () => {
   const [mode, setMode] = useState<'login' | 'register'>('login')
@@ -36,45 +37,64 @@ const AuthModal = () => {
   };
 
   return (
-    <div>
-      <div>
-        <button type="button" onClick={() => setMode('login')} className={mode === 'login' ? 'active' : ''}>
+    <div className={styles.content}>
+      <div className={styles.buttons}>
+        <Button
+          className={mode === 'login' ? 'active' : ''}
+          size='small'
+          onClick={() => setMode('login')}
+        >
           Вход
-        </button>
-        <button type="button" onClick={() => setMode('register')} className={mode === 'register' ? 'active' : ''}>
+        </Button>
+        <Button
+          className={mode === 'register' ? 'active' : ''}
+          size='small'
+          onClick={() => setMode('register')}
+        >
           Регистрация
-        </button>
+        </Button>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         {mode === 'register' && (
           <Input
+            className={styles.input}
+            placeholder="Ваше имя"
             label="Имя"
-            placeholder="Введите имя"
+            size='small'
             {...register('name')}
             error={'name' in errors ? errors.name?.message : undefined}
           />
         )}
 
         <Input
+          className={styles.input}
+          placeholder="Ваш e-mail"
           label="Email"
+          size='small'
           type="email"
-          placeholder="ivan@example.com"
           {...register('email')}
           error={errors.email?.message}
         />
 
         <Input
+          className={styles.input}
           label="Пароль"
+          placeholder="••••••"
+          size='small'
           type="password"
-          placeholder="••••••••"
           {...register('password')}
           error={errors.password?.message}
         />
 
         {serverError && <div className="error">{serverError}</div>}
 
-        <Button type="submit" disabled={isSubmitting}>
+        <Button
+          className={styles.submit}
+          type="submit"
+          size='small'
+          disabled={isSubmitting}
+        >
           {isSubmitting ? 'Загрузка...' : mode === 'login' ? 'Войти' : 'Зарегистрироваться'}
         </Button>
       </form>
