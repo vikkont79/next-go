@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { login, register as registerAction } from '../../api'
 import { useUserStore } from '@/entities/user'
 import { loginSchema, registerSchema, type RegisterInput, type LoginInput } from '@/shared/lib/validation/auth-schemas'
-import { Input, Button } from '@/shared/ui'
+import { Input, Button, IconButton } from '@/shared/ui'
 import styles from './AuthModal.module.css'
 
 const AuthModal = () => {
@@ -98,6 +98,16 @@ const AuthModal = () => {
           {isSubmitting ? 'Загрузка...' : mode === 'login' ? 'Войти' : 'Зарегистрироваться'}
         </Button>
       </form>
+      <IconButton
+        className={styles.close}
+        icon='close'
+        iconSize={20}
+        iconColor='var(--color-base-500)'
+        variant='transparent'
+        commandfor='auth-modal'
+        command='close'
+        aria-label='Закрыть форму авторизации'
+      />
     </div>
   )
 }

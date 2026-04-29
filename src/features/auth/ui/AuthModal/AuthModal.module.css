@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--indent-6);
-  font-size: 12px;
+  padding-block: var(--indent-4);
 
   @media(min-width: 768px) {
     gap: var(--indent-8);
@@ -12,7 +12,13 @@
 
 .buttons {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .form {

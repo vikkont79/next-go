@@ -77,12 +77,13 @@
 
 .small {
   padding-inline: var(--indent-4);
-  padding-block: var(--indent-2);
+  padding-block: var(--indent-3);
   border-radius: var(--border-radius-sm);
 
   @media(min-width: 768px) {
     padding-inline: var(--indent-5);
-    padding-block: var(--indent-3);
+    padding-block: var(--indent-4);
+    border-radius: 20px;
     font-size: var(--font-size-sm);
   }
 }
