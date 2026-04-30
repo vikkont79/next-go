@@ -20,7 +20,6 @@ export default function RootLayout({
         <Layout>
           {children}
         </Layout>
-        <AuthModalOpener />
       </body>
     </html>
   );
