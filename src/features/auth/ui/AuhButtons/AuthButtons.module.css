@@ -1,8 +1,0 @@
-.authBtn {
-  padding: var(--indent-3);
-
-  @media(min-width: 768px) {
-    padding-inline: var(--indent-5);
-    padding-block: var(--indent-4);
-  }
-}

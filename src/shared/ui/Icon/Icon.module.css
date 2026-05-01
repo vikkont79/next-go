@@ -14,7 +14,7 @@
   -webkit-mask-position: center;
   -webkit-mask-size: contain;
 
-  @media(max-width: 376px) {
+  @media(max-width: 767px) {
     width: var(--icon-size-mob, 16px);
     height: var(--icon-size-mob, 16px);
   }

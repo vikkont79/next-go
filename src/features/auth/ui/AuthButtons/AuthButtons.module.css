@@ -1,0 +1,26 @@
+.userMenu {
+  display: flex;
+  align-items: normal;
+  gap: var(--indent-3);
+}
+
+.avatarBtn {
+  padding: 0;
+}
+
+.avatar {
+  display: block;
+  inline-size: 48px;
+  border-radius: 50%;
+  align-self: center;
+}
+
+.authBtn {
+  padding: var(--indent-2);
+  font-size: var(--font-size-base);
+
+  @media(min-width: 768px) {
+    padding: var(--indent-4);
+    font-size: var(--font-size-base);
+  }
+}

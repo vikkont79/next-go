@@ -3,13 +3,15 @@
 import { useRouter } from 'next/navigation'
 import { logout } from '../../api'
 import { useUserStore } from '@/entities/user'
-import { Button } from '@/shared/ui'
+import { IconButton } from '@/shared/ui'
+
 
 interface LogoutButtonProps {
   className?: string;
+  children?: string;
 }
 
-const LogoutButton = ({ className }: LogoutButtonProps) => {
+const LogoutButton = ({ className, children }: LogoutButtonProps) => {
   const router = useRouter()
   const clearUser = useUserStore((state) => state.clearUser)
 
@@ -20,9 +22,13 @@ const LogoutButton = ({ className }: LogoutButtonProps) => {
   }
 
   return (
-    <Button className={className} onClick={handleLogout}>
-      Выйти
-    </Button>
+    <IconButton
+      className={className}
+      icon='exit'
+      onClick={handleLogout}
+    >
+      {children}
+    </IconButton>
   )
 }
 
