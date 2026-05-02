@@ -6,6 +6,8 @@ import Image from 'next/image'
 import { User } from '@/entities/user'
 import styles from './AuthButtons.module.css'
 import { useEffect, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
+import { getRouteConfig } from '@/shared/lib/get-route-config'
 
 interface AuthButtonsProps {
   className?: string;
@@ -13,6 +15,8 @@ interface AuthButtonsProps {
 }
 
 const AuthButtons = ({ className, user }: AuthButtonsProps) => {
+  const pathname = usePathname()
+  const routeConfig = getRouteConfig(pathname)
   const [showMenu, setShowMenu] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const avatarSrc = user?.avatar || '/icons/unknown-raccoon.svg'
@@ -31,6 +35,8 @@ const AuthButtons = ({ className, user }: AuthButtonsProps) => {
   const handleAvatarClick = () => {
     setShowMenu(true)
   }
+
+  if (routeConfig.isPrivate) return null
 
   if (!user) {
     return (

@@ -2,12 +2,13 @@ import { IconButton, Link } from '@/shared/ui'
 import Image from 'next/image'
 import logo from '@/shared/assets/images/logo-white.png'
 import logoPopup from '@/shared/assets/images/logo-black.png'
-import styles from './Header.module.css'
 import { AuthButtons } from '@/features/auth'
 import { getCurrentUser } from '@/shared/lib/get-current-user'
+import styles from './Header.module.css'
 
 const Header = async () => {
   const user = await getCurrentUser()
+
   return (
     <header className={`${styles.header} wrapper`}>
       <Link href='/'>
