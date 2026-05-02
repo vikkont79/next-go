@@ -1,5 +1,5 @@
 export type RouteConfig = {
-  title: string;
+  title?: string;
   isPrivate: boolean;
   headerTitle?: string; // подпись в хедере (как "Направления" на скриншоте)
   headerAction?: 'auth' | 'userInfo'; // что показывать справа в хедере

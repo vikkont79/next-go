@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-block: 35px 50px;
+  padding-block: 10px 52px;
   background-color: transparent;
   color: var(--color-white);
 
@@ -16,6 +16,10 @@
     & .imagePopup {
       display: block;
     }
+  }
+
+  @media (min-width: 768px) {
+    padding-block: 30px 80px;
   }
 }
 

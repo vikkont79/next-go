@@ -17,7 +17,6 @@ export const getRouteConfig = (pathname: string): RouteConfig => {
 
   // дефолтный конфиг
   return {
-    title: 'Страница',
     isPrivate: false,
     headerAction: 'auth',
   }

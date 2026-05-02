@@ -1,0 +1,33 @@
+.title {
+  display: block;
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: -1;
+  padding-block: 60px 10px;
+  padding-inline-start: 30px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  background-color: var(--color-base-400);
+  color: var(--color-white);
+  font-size: var(--font-size-xxl);
+  line-height: 40px;
+  font-weight: 700;
+  font-variant: small-caps;
+  text-transform: lowercase;
+  text-align: start;
+
+  @media (min-width: 768px) {
+    padding-inline-start: 60px;
+    padding-block: 102px 20px;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    font-size: 60px;
+    line-height: 60px;
+  }
+
+  @media (min-width: 1024px) {
+    padding-inline-start: 85px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+  }
+}
