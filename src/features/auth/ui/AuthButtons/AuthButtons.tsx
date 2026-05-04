@@ -36,8 +36,6 @@ const AuthButtons = ({ className, user }: AuthButtonsProps) => {
     setShowMenu(true)
   }
 
-  if (routeConfig.isPrivate) return null
-
   if (!user) {
     return (
       <div className={className}>
@@ -50,6 +48,10 @@ const AuthButtons = ({ className, user }: AuthButtonsProps) => {
       </div>
     )
   }
+
+  if (routeConfig.isPrivate)
+    return <LogoutButton className={styles.authBtn} />
+
   return (
     <>
       {!showMenu ? (

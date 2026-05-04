@@ -53,7 +53,7 @@
 }
 
 .transparent {
-  border-radius: var(--border-radius-sm);
+  border-radius: var(--border-radius-md);
   background-color: transparent;
   color: var(--color-base-500);
 }

@@ -27,6 +27,7 @@
 
   @media (min-width: 1024px) {
     padding-inline-start: 85px;
+    padding-block: 150px 50px;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
   }
