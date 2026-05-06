@@ -1,3 +1,11 @@
+.profile {
+  padding-block-end: 30px;
+
+  @media (min-width: 768px) {
+    padding-block-end: 60px;
+  }
+}
+
 .user {
   padding-block: var(--indent-5);
 
