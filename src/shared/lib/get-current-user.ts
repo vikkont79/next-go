@@ -4,13 +4,14 @@ import { cookies } from 'next/headers'
 import { db } from '../../../db/client'
 import { users } from '../../../db/schema'
 import { eq } from 'drizzle-orm'
+import { cache } from 'react'
 
 interface JWTPayload {
   userId: string;
   email: string;
 }
 
-export async function getCurrentUser() {
+export const getCurrentUser = cache(async () => {
   // 1. Получаем cookie
   const cookieStore = await cookies()
   const token = cookieStore.get('token')?.value
@@ -30,13 +31,12 @@ export async function getCurrentUser() {
 
   // 3. Ищем пользователя в БД
   const foundUsers = await db.select().from(users).where(eq(users.id, payload.userId))
-  if (foundUsers.length === 0) {
-    return null
-  }
+
+  if (foundUsers.length === 0) return null
 
   const user = foundUsers[0]
 
   // 4. Возвращаем без пароля
   const { passwordHash, ...userWithoutPassword } = user
   return userWithoutPassword
-}
+})
