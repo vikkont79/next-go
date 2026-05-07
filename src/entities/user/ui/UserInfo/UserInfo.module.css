@@ -45,20 +45,3 @@
     border-radius: var(--border-radius-lg);
   }
 }
-
-.photoBtn {
-  grid-column: 1/-1;
-  background-color: var(--color-neutral-300);
-  padding-block: var(--indent-3);
-  font-size: var(--font-size-sm);
-  line-height: 18px;
-  text-transform: uppercase;
-
-  @media (min-width: 768px) {
-    padding-block: var(--indent-5);
-  }
-
-  @media (min-width: 1024px) {
-    display: none;
-  }
-}

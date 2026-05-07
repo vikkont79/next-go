@@ -14,7 +14,7 @@ const UserInfo = ({ className, user }: UserInfoProps) => {
   const avatarSrc = user?.avatar || '/icons/unknown-raccoon.svg'
   return (
     <section className={`${styles.user} ${className}`}>
-      <h2 className='visually-hidden'>Информация о пользователе</h2>
+      <h2 className='visually-hidden'>Базовая информация о пользователе</h2>
       {user &&
         <Level
           className={styles.level}
@@ -31,11 +31,6 @@ const UserInfo = ({ className, user }: UserInfoProps) => {
           e.currentTarget.src = '/icons/unknown-raccoon.svg';
         }}
       />
-      <Button
-        className={styles.photoBtn}
-        variant='transparent'
-        size='large'
-      >Сменить фото</Button>
     </section>
   )
 }

@@ -1,0 +1,37 @@
+.edit {
+  display: flex;
+}
+
+.input input {
+  max-inline-size: 170px;
+
+  @media(min-width: 768px) {
+    max-inline-size: none;
+  }
+
+  @media (min-width: 1024px) {
+    border-radius: var(--border-radius-md);
+  }
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  padding-inline-start: var(--indent-4);
+  border: 1px solid var(--color-neutral-50);
+  border-radius: 10px;
+
+  @media(min-width: 768px) {
+    padding-block: 2px;
+    padding-inline-start: var(--indent-6);
+    font-size: var(--font-size-sm);
+  }
+
+  @media (min-width: 1024px) {
+    border-radius: var(--border-radius-md);
+  }
+}
+
+.check {
+  margin-inline-start: auto;
+}

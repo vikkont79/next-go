@@ -1,0 +1,36 @@
+.info {
+  display: grid;
+  row-gap: var(--indent-5);
+  padding-block-end: var(--indent-5);
+
+
+  @media (min-width: 768px) {
+    row-gap: var(--indent-6);
+    padding-inline: 36px;
+    padding-block-end: 36px;
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: 1fr 200px;
+    grid-auto-flow: dense;
+    column-gap: var(--indent-8);
+    padding-inline: 80px;
+    padding-block-start: 90px;
+  }
+}
+
+.photoBtn {
+  background-color: var(--color-neutral-300);
+  padding-block: var(--indent-3);
+  font-size: var(--font-size-sm);
+  line-height: 18px;
+  text-transform: uppercase;
+
+  @media (min-width: 768px) {
+    padding-block: var(--indent-5);
+  }
+
+  @media (min-width: 1024px) {
+    grid-column: 2;
+  }
+}

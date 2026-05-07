@@ -10,7 +10,7 @@ interface InlineEditorProps {
   onSave: (newValue: string) => Promise<{ error?: string; success?: boolean }>;
 }
 
-const InlineEditor = ({ className, value, onSave }: InlineEditorProps) => {
+const InlineEditor = ({ value, onSave }: InlineEditorProps) => {
   const [isEditing, setIsEditing] = useState(false)
   const [editValue, setEditValue] = useState(value)
   const [error, setError] = useState<string | undefined>()
@@ -41,25 +41,37 @@ const InlineEditor = ({ className, value, onSave }: InlineEditorProps) => {
 
   if (isEditing) {
     return (
-      <div className={styles.editContainer}>
+      <div className={styles.edit}>
         <Input
+          className={styles.input}
           label='Имя'
+          hiddenLabel
           value={editValue}
           onChange={(e) => setEditValue(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSave()}
           autoFocus
           error={error}
         />
-        <IconButton icon="check" onClick={handleSave} />
-        <IconButton icon="close" onClick={handleCancel} />
+        <IconButton
+          icon="tick"
+          variant='transparent'
+          onClick={handleSave} />
+        <IconButton
+          icon="close"
+          variant='transparent'
+          onClick={handleCancel} />
       </div>
     )
   }
 
   return (
-    <div className={styles.nameContainer}>
+    <div className={styles.name}>
       <span>{value}</span>
-      <IconButton icon="edit" onClick={() => setIsEditing(true)} />
+      <IconButton
+        className={styles.check}
+        icon="edit"
+        variant='transparent'
+        onClick={() => setIsEditing(true)} />
     </div>
   )
 }

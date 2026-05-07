@@ -4,11 +4,11 @@
   display: flex;
   align-items: center;
   gap: var(--indent-2);
+  color: var(--color-base-500);
+  font-size: var(--font-size-base);
 }
 
 .label {
-  color: var(--color-base-500);
-  font-size: var(--font-size-sm);
   font-weight: 500;
   text-align: start;
 }
@@ -19,7 +19,15 @@
   border-radius: 10px;
   outline: none;
   background-color: transparent;
+  color: inherit;
   font: inherit;
+  font-size: 14px;
+  line-height: 16px;
+
+  @media(min-width: 768px) {
+    font-size: var(--font-size-base);
+    line-height: 20px;
+  }
 }
 
 .error {
@@ -32,8 +40,13 @@
 }
 
 .base {
-  padding-inline: var(--indent-6);
-  padding-block: var(--indent-7);
+  padding-inline: var(--indent-4);
+  padding-block: var(--indent-4);
+
+  @media(min-width: 768px) {
+    padding-inline: var(--indent-6);
+    padding-block: var(--indent-7);
+  }
 }
 
 .small {
