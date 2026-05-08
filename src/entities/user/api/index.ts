@@ -1,2 +1,1 @@
-export * from './update-user-name'
-export * from './update-avatar'
+export * from './update-user-data'
