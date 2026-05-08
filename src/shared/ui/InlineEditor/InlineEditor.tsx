@@ -8,9 +8,15 @@ interface InlineEditorProps {
   className?: string;
   value: string;
   onSave: (newValue: string) => Promise<{ error?: string; success?: boolean }>;
+  isOwner: boolean;
 }
 
-const InlineEditor = ({ value, onSave }: InlineEditorProps) => {
+const InlineEditor = ({
+  className = '',
+  value,
+  onSave,
+  isOwner
+}: InlineEditorProps) => {
   const [isEditing, setIsEditing] = useState(false)
   const [editValue, setEditValue] = useState(value)
   const [error, setError] = useState<string | undefined>()
@@ -41,7 +47,7 @@ const InlineEditor = ({ value, onSave }: InlineEditorProps) => {
 
   if (isEditing) {
     return (
-      <div className={styles.edit}>
+      <div className={styles.editField}>
         <Input
           className={styles.input}
           label='Имя'
@@ -65,13 +71,14 @@ const InlineEditor = ({ value, onSave }: InlineEditorProps) => {
   }
 
   return (
-    <div className={styles.name}>
-      <span>{value}</span>
-      <IconButton
-        className={styles.check}
+    <div className={`${styles.infoField} ${className || ''}`.trim()}>
+      <p>{value}</p>
+      {isOwner && (<IconButton
+        className={styles.checkBtn}
         icon="edit"
         variant='transparent'
         onClick={() => setIsEditing(true)} />
+      )}
     </div>
   )
 }

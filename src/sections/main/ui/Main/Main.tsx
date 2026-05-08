@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import Image from 'next/image'
-import { Modal, Button } from '@/shared/ui'
+import { Modal } from '@/shared/ui'
 import bgMob from '@/shared/assets/images/bg-mob.png'
 import bgTab from '@/shared/assets/images/bg-tablet.png'
 import bg from '@/shared/assets/images/bg-desktop.png'

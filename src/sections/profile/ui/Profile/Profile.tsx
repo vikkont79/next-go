@@ -20,11 +20,7 @@ const ProfilePage = async ({ userId }: ProfilePageProps) => {
     <main className={`${styles.profile} wrapper`} >
       <h1 className='visually-hidden'>Страница профиля пользователя</h1>
       <UserInfo className={styles.user} user={user} />
-      {isOwner ? (
-        <EditingInfo user={user} />
-      ) : (
-        <div>Просмотр чужого профиля</div>
-      )}
+      <EditingInfo user={user} isOwner={isOwner} />
     </main >
   )
 }

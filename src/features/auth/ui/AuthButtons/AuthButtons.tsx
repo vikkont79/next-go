@@ -20,6 +20,7 @@ const AuthButtons = ({ className, user }: AuthButtonsProps) => {
   const [showMenu, setShowMenu] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const avatarSrc = user?.avatar || '/icons/unknown-raccoon.svg'
+
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
@@ -32,6 +33,11 @@ const AuthButtons = ({ className, user }: AuthButtonsProps) => {
       return () => document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [showMenu])
+
+  useEffect(() => {
+    setShowMenu(false)
+  }, [pathname])
+
   const handleAvatarClick = () => {
     setShowMenu(true)
   }
