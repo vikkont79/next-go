@@ -1,0 +1,21 @@
+.infoField {
+  display: flex;
+  align-items: center;
+  padding-inline-start: var(--indent-4);
+  border: 1px solid var(--color-neutral-50);
+  border-radius: 10px;
+
+  @media(min-width: 768px) {
+    padding-inline-start: var(--indent-6);
+    padding-block: 2px;
+    font-size: var(--font-size-sm);
+  }
+
+  @media (min-width: 1024px) {
+    border-radius: var(--border-radius-md);
+  }
+}
+
+.checkBtn {
+  margin-inline-start: auto;
+}

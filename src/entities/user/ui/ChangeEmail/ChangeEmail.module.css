@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--indent-6);
-  padding-block-start: var(--indent-4);
 
   @media(min-width: 768px) {
     gap: var(--indent-8);
@@ -10,29 +9,28 @@
   }
 }
 
-.buttons {
-  display: flex;
-  justify-content: space-around;
+.title {
+  margin: 0;
+  color: var(--color-base-500);
 }
 
 .form {
   display: grid;
-  grid-template-columns: min-content 160px;
+  grid-template-columns: repeat(2, 1fr);
   row-gap: var(--indent-6);
+  column-gap: var(--indent-4);
 
   @media(min-width: 768px) {
-    grid-template-columns: min-content 1fr;
     gap: var(--indent-8);
   }
 }
 
 .input {
   grid-column: 1/-1;
-  display: grid;
-  grid-template-columns: subgrid;
 }
 
-.submit,
-.close {
+.actions {
   grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: subgrid;
 }

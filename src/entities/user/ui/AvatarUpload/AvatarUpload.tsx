@@ -62,12 +62,14 @@ const AvatarUpload = () => {
   }
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.title}>Сменить фото</h2>
+    <div className={styles.content}>
+      <h2 className={styles.title} id='email-modal-title'>
+        Сменить фото
+      </h2>
 
       <div className={styles.preview}>
         {preview ? (
-          <img src={preview} alt="Предпросмотр" className={styles.image} />
+          <img src={preview} alt='Предпросмотр' className={styles.image} />
         ) : (
           <div className={styles.placeholder}>Нет фото</div>
         )}
@@ -75,8 +77,8 @@ const AvatarUpload = () => {
 
       <input
         ref={inputRef}
-        type="file"
-        accept="image/*"
+        type='file'
+        accept='image/*'
         onChange={handleFileChange}
         className={styles.input}
       />
@@ -84,10 +86,18 @@ const AvatarUpload = () => {
       {error && <div className={styles.error}>{error}</div>}
 
       <div className={styles.actions}>
-        <Button onClick={handleSave} disabled={!file || isLoading}>
+        <Button
+          size='small'
+          onClick={handleSave}
+          disabled={!file || isLoading}
+        >
           {isLoading ? 'Загрузка...' : 'Сохранить'}
         </Button>
-        <Button onClick={handleCancel} variant="transparent">
+        <Button
+          size='small'
+          variant='transparent'
+          onClick={handleCancel}
+        >
           Отмена
         </Button>
       </div>

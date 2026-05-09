@@ -1,2 +1,5 @@
 export { UserInfo } from './UserInfo/UserInfo'
 export { AvatarUpload } from './AvatarUpload/AvatarUpload'
+export { ChangeEmail } from './ChangeEmail/ChangeEmail'
+export { ChangePassword } from './ChangePassword/ChangePassword'
+export { DeleteUser } from './DeleteUser/DeleteUser'

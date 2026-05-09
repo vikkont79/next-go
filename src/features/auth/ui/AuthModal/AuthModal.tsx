@@ -14,9 +14,14 @@ const AuthModal = () => {
   const [serverError, setServerError] = useState<string | null>(null)
   const setUser = useUserStore((state) => state.setUser);
 
-  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<RegisterInput | LoginInput>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<RegisterInput | LoginInput>({
     resolver: zodResolver(mode === 'login' ? loginSchema : registerSchema),
-  });
+  })
 
   const onSubmit = async (data: RegisterInput | LoginInput) => {
     setServerError(null)
@@ -34,10 +39,16 @@ const AuthModal = () => {
       reset();
       (document.getElementById('auth-modal') as HTMLDialogElement)?.close()
     }
-  };
+  }
+
+  const handleCancel = () => {
+    reset();
+    (document.getElementById('auth-modal') as HTMLDialogElement)?.close()
+  }
 
   return (
     <div className={styles.content}>
+
       <div className={styles.buttons}>
         <Button
           className={mode === 'login' ? 'active' : ''}
@@ -59,8 +70,8 @@ const AuthModal = () => {
         {mode === 'register' && (
           <Input
             className={styles.input}
-            placeholder="Ваше имя"
-            label="Имя"
+            placeholder='Ваше имя'
+            label='Имя'
             size='small'
             {...register('name')}
             error={'name' in errors ? errors.name?.message : undefined}
@@ -69,45 +80,44 @@ const AuthModal = () => {
 
         <Input
           className={styles.input}
-          placeholder="Ваш e-mail"
-          label="Email"
+          placeholder='Ваш e-mail'
+          label='Email'
           size='small'
-          type="email"
+          type='email'
           {...register('email')}
           error={errors.email?.message}
         />
 
         <Input
           className={styles.input}
-          label="Пароль"
-          placeholder="••••••"
+          label='Пароль'
+          placeholder='••••••'
           size='small'
-          type="password"
+          type='password'
           {...register('password')}
           error={errors.password?.message}
         />
 
-        {serverError && <div className="error">{serverError}</div>}
+        {serverError && <div className='error'>{serverError}</div>}
 
         <Button
           className={styles.submit}
-          type="submit"
+          type='submit'
           size='small'
           disabled={isSubmitting}
         >
           {isSubmitting ? 'Загрузка...' : mode === 'login' ? 'Войти' : 'Зарегистрироваться'}
         </Button>
+        <Button
+          className={styles.close}
+          size='small'
+          variant='transparent'
+          onClick={handleCancel}
+        >
+          Отмена
+        </Button>
+
       </form>
-      <IconButton
-        className={styles.close}
-        icon='close'
-        iconSize={20}
-        iconColor='var(--color-base-500)'
-        variant='transparent'
-        commandfor='auth-modal'
-        command='close'
-        aria-label='Закрыть форму авторизации'
-      />
     </div>
   )
 }

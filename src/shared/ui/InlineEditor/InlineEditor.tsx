@@ -73,11 +73,14 @@ const InlineEditor = ({
   return (
     <div className={`${styles.infoField} ${className || ''}`.trim()}>
       <p>{value}</p>
-      {isOwner && (<IconButton
-        className={styles.checkBtn}
-        icon="edit"
-        variant='transparent'
-        onClick={() => setIsEditing(true)} />
+      {isOwner && (
+        <IconButton
+          className={styles.checkBtn}
+          icon="edit"
+          variant='transparent'
+          iconLabel='Редактировать'
+          onClick={() => setIsEditing(true)}
+        />
       )}
     </div>
   )

@@ -1,0 +1,66 @@
+// entities/user/ui/DeleteAccount/DeleteAccount.tsx
+'use client'
+
+import { useState } from 'react'
+import { Button } from '@/shared/ui'
+import { deleteUser } from '../../api'
+import { useRouter } from 'next/navigation'
+import styles from './DeleteUser.module.css'
+
+const DeleteUser = () => {
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [confirmed, setConfirmed] = useState(false)
+  const router = useRouter()
+
+  const handleDelete = async () => {
+    setIsLoading(true)
+    const result = await deleteUser()
+
+    if (result.error) {
+      setError(result.error)
+      setIsLoading(false)
+      return
+    }
+
+    (document.getElementById('delete-modal') as HTMLDialogElement)?.close()
+    router.refresh()
+  }
+
+  const handleCancel = () => {
+    (document.getElementById('delete-modal') as HTMLDialogElement)?.close()
+    setError(null)
+  }
+
+  return (
+    <div className={styles.content}>
+      <h2 className={styles.title} id='delete-modal-title'>
+        Удалить аккаунт
+      </h2>
+      <p className={styles.warning}>
+        Это действие необратимо. Все ваши данные будут удалены навсегда.
+      </p>
+      {error && <div className={styles.error}>{error}</div>}
+      <div className={styles.confirm}>
+        <input type="checkbox" onChange={(e) => setConfirmed(e.target.checked)} />
+        <span>Я понимаю, что данные будут удалены безвозвратно</span>
+      </div>
+      <Button
+        onClick={handleDelete}
+        disabled={!confirmed || isLoading}
+        size='small'
+      >
+        {isLoading ? 'Удаление...' : 'Удалить навсегда'}
+      </Button>
+      <Button
+        onClick={handleCancel}
+        variant='transparent'
+        size='small'
+      >
+        Отмена
+      </Button>
+    </div>
+  )
+}
+
+export { DeleteUser }
