@@ -1,7 +1,7 @@
 export type RouteConfig = {
   title?: string;
   isPrivate: boolean;
-  headerTitle?: string; // подпись в хедере (как "Направления" на скриншоте)
+  headerTitle?: string;
   headerAction?: 'auth' | 'userInfo'; // что показывать справа в хедере
 }
 
@@ -22,5 +22,4 @@ export const routesConfig: Record<string, RouteConfig> = {
     isPrivate: true,
     headerTitle: 'Направления',
   },
-  // добавишь другие приватные роуты сюда
 }
