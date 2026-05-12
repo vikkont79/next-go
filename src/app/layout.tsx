@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { roboto } from '@/shared/config'
+import { roboto } from '@/shared/assets/fonts'
 import { Layout } from '@/widgets/layout'
 import { AuthModalOpener } from '@/features/auth'
 import './globals.css'

@@ -5,7 +5,7 @@ export type Country = {
 }
 
 
-export const contries: Country[] = [
+export const countries: Country[] = [
   {
     "code": "AF",
     "name_ru": "Афганистан",
