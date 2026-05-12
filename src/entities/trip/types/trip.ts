@@ -1,4 +1,5 @@
 import type { User } from '@/entities/user'
+import type { Country } from '@/shared/config'
 import type { TRANSPORT_OPTIONS } from '@/shared/config'
 
 export type TransportType = typeof TRANSPORT_OPTIONS[number];
@@ -8,11 +9,8 @@ export type TripDateRange = {
   to: Date;
 };
 
-export type Country = {
-  id?: string;
-  code: string;
-  name_ru: string;
-  continent: string;
+export type TripCountry = {
+  code: Country['code'];
   plan?: string;
 }
 
@@ -24,7 +22,7 @@ export interface Trip {
   companions: number;
   duration: number;
   dates: TripDateRange;
-  countries: Country[];
+  countries: TripCountry[];
   likes: number;
   createdAt: string;
 }
