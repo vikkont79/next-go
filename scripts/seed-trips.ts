@@ -38,7 +38,8 @@ async function seedTrips() {
           code: country.code,
           plan: faker.lorem.sentence()
         })),
-        likes: faker.number.int({ min: 0, max: 50 })
+        likes: faker.number.int({ min: 0, max: 50 }),
+        createdAt: faker.date.recent(),
       })
     }
   }

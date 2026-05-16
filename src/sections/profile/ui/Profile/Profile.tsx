@@ -1,9 +1,8 @@
 import { getCurrentUser } from '@/shared/lib/get-current-user'
 import { UserInfo } from '@/entities/user'
-import { InlineEditor } from '@/shared/ui'
-import styles from './Profile.module.css'
 import { EditingInfo } from '../EditingInfo/EditingInfo'
 import { getUserById } from '@/shared/lib/get-user-by-id'
+import styles from './Profile.module.css'
 
 interface ProfilePageProps {
   userId?: string | undefined;
