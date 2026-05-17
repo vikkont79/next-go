@@ -1,12 +1,11 @@
 'use client'
 
-import Image from 'next/image'
-import { Level, Button } from '@/shared/ui'
+import { Avatar, Level } from '@/shared/ui'
 import type { User } from '@/entities/user'
 import styles from './UserInfo.module.css'
 
 interface UserInfoProps {
-  user?: User | null;
+  user: User;
   className?: string;
 }
 
@@ -15,21 +14,14 @@ const UserInfo = ({ className, user }: UserInfoProps) => {
   return (
     <section className={`${styles.user} ${className}`}>
       <h2 className='visually-hidden'>Базовая информация о пользователе</h2>
-      {user &&
-        <Level
-          className={styles.level}
-          level={user.level}
-        />
-      }
-      <Image
+      <Level
+        className={styles.level}
+        level={user.level}
+      />
+      <Avatar
         className={styles.avatar}
         src={avatarSrc}
-        alt='Аватар попутчика'
-        width={220}
-        height={237}
-        onError={(e) => {
-          e.currentTarget.src = '/icons/unknown-raccoon.svg';
-        }}
+        alt='Аватар пользователя'
       />
     </section>
   )

@@ -15,7 +15,7 @@ const CatalogPage = async () => {
         <h1>Каталог маршрутов</h1>
         <div className={styles.grid}>
           {trips.map((trip) => (
-            <TripCard key={trip.id} trip={trip} />
+            <TripCard key={trip.id} trip={trip} className={styles.card} />
           ))}
         </div>
       </div>
