@@ -11,11 +11,11 @@ const CatalogPage = async () => {
   }
   return (
     <main>
-      <div className={styles.catalog}>
-        <h1>Каталог маршрутов</h1>
-        <div className={styles.grid}>
+      <div className={`${styles.catalog} wrapper`}>
+        <h1 className='visually-hidden'>Каталог маршрутов</h1>
+        <div className={styles.list}>
           {trips.map((trip) => (
-            <TripCard key={trip.id} trip={trip} className={styles.card} />
+            <TripCard key={trip.id} trip={trip} />
           ))}
         </div>
       </div>

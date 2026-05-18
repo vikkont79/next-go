@@ -1,12 +1,12 @@
 import { TripCard } from '@/entities/trip'
 import { getTripById } from '@/shared/lib/get-current-trip';
+import styles from './Trip.module.css'
 
 interface TripPageProps {
-  className?: string;
   id: string;
 }
 
-const TripPage = async ({ className = '', id }: TripPageProps) => {
+const TripPage = async ({ id }: TripPageProps) => {
   const trip = await getTripById(id)
 
   if (!trip) {
@@ -14,9 +14,8 @@ const TripPage = async ({ className = '', id }: TripPageProps) => {
   }
 
   return (
-    <main>
+    <main className={`${styles.main} wrapper`}>
       <TripCard
-        className={className}
         trip={trip}
       />
     </main>
