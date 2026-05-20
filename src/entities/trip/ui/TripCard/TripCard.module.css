@@ -32,6 +32,9 @@
 .tags {
   grid-column: 1/-1;
   grid-row: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--indent-2);
   color: var(--color-black);
 }
 

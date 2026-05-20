@@ -15,9 +15,12 @@ export const getRouteConfig = (pathname: string): RouteConfig => {
     return routesConfig['/trips/create']
   }
 
+  if (/^\/trips\/[^/]+$/.test(pathname)) {
+    return routesConfig['/trips/[id]']
+  }
+
   // дефолтный конфиг
   return {
     isPrivate: false,
-    headerAction: 'auth',
   }
 }

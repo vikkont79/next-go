@@ -110,7 +110,7 @@ body {
 body {
   min-block-size: 100%;
   margin: 0;
-  background-color: var(--color-white);
+  background-color: var(--color-neutral-50);
   color: var(--color-base-500);
   font-family: var(--font-family-sans);
   font-size: var(--font-size-base);

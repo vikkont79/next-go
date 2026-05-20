@@ -1,24 +1,25 @@
 export type RouteConfig = {
-  title?: string;
   isPrivate: boolean;
   headerTitle?: string;
-  headerAction?: 'auth' | 'userInfo'; // что показывать справа в хедере
 }
 
 export const routesConfig: Record<string, RouteConfig> = {
   '/': {
-    title: 'Главная',
     isPrivate: false,
-    headerAction: 'auth',
   },
   '/profile': {
-    title: 'Профиль',
     isPrivate: true,
     headerTitle: 'Профиль',
-    headerAction: 'userInfo',
+  },
+  '/trips': {
+    isPrivate: false,
+    headerTitle: 'Попутчики',
+  },
+  '/trips/[id]': {
+    isPrivate: false,
+    headerTitle: 'Маршрут',
   },
   '/trips/create': {
-    title: 'Создание маршрута',
     isPrivate: true,
     headerTitle: 'Направления',
   },
