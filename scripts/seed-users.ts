@@ -18,10 +18,10 @@ async function seedUsers() {
     const avatar = `https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/${sex}/512/${idx}.jpg`
     await db.insert(users).values({
       id: crypto.randomUUID(),
-      name: faker.person.fullName(),
+      name: `${faker.person.firstName()} ${faker.person.lastName()}`,
       email: faker.internet.email(),
       passwordHash: hashedPassword,
-      level: faker.number.int({ min: 1, max: 10 }),
+      level: faker.number.int({ min: 10, max: 90 }),
       avatar,
     })
   }

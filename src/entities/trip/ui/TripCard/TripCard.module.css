@@ -10,13 +10,14 @@
   text-align: start;
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.25);
   overflow: hidden;
+  anchor-scope: --trip-avatar;
 }
 
 .avatar {
-  grid-row: 1;
   max-inline-size: 70px;
   margin-block-end: var(--indent-3);
   border-radius: 50%;
+  anchor-name: --trip-avatar;
 }
 
 .name {
@@ -90,4 +91,55 @@
   align-items: center;
   grid-column: 1/-1;
   margin-block: var(--indent-6);
+}
+
+.call {
+  inline-size: 100%;
+  padding-block: var(--indent-3);
+}
+
+.likes {
+  position: absolute;
+  position-anchor: --trip-avatar;
+  position-area: right center;
+  transform: translateX(-24px) translateY(50%);
+}
+
+.likeBtn {
+  margin-inline-end: var(--indent-2);
+  padding: var(--indent-2);
+  background-color: var(--color-neutral-100);
+  color: var(--color-base-400);
+
+  &:hover {
+    background-color: var(--color-white);
+    color: var(--color-neutral-400);
+  }
+
+  &:active,
+  &:focus,
+  &:focus-visible {
+    background-color: var(--color-neutral-100);
+    color: var(--color-base-500);
+    opacity: var(--opacity-disabled);
+  }
+
+  &[aria-pressed='true'] {
+    color: var(--color-base-500);
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    &:active,
+    &:focus,
+    &:focus-visible {
+      opacity: var(--opacity-base);
+    }
+  }
+}
+
+.likeQty {
+  color: var(--color-base-600);
+  font-weight: 700;
 }

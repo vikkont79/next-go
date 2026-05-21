@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 1fr;
   padding-block-start: var(--indent-7);
+  padding-block-end: 76px;
 }
 
 .list {

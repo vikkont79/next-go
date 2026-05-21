@@ -2,5 +2,5 @@
   display: grid;
   grid-template-columns: max-content 1fr;
   column-gap: var(--indent-4);
-  padding-block-end: 60px;
+  padding-block: var(--indent-7) 60px;
 }

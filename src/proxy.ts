@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 
 export const config = {
-  matcher: ['/profile/:path*', '/trips/create/:path*'],
+  matcher: ['/profile/:path*', '/trips/:path'],
 };
 
 function redirectAuth(request: NextRequest) {
