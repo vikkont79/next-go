@@ -15,7 +15,7 @@ const TripCard = ({ trip, className }: TripCardProps) => {
   const avatarSrc = trip.user.avatar || '/icons/unknown-raccoon.svg'
   return (
     <article className={`${styles.card} ${className || ''}`.trim()}>
-      <Link href={`/trips/${trip.id}`}>
+      <Link href={`/trips/${trip.id}`} className={styles.link}>
         <Avatar
           className={styles.avatar}
           src={avatarSrc}

@@ -3,4 +3,16 @@
   grid-template-columns: max-content 1fr;
   column-gap: var(--indent-4);
   padding-block: var(--indent-7) 60px;
+
+  @media (min-width: 768px) {
+    grid-template-columns: max-content 1fr min-content;
+    grid-auto-rows: 332px;
+    column-gap: 32px;
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: max-content 1fr min-content;
+    grid-auto-rows: 285px;
+    column-gap: 62px;
+  }
 }

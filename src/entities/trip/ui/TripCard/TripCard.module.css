@@ -11,13 +11,50 @@
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.25);
   overflow: hidden;
   anchor-scope: --trip-avatar;
+
+  @media (min-width: 768px) {
+    grid-template-rows: min-content min-content min-content auto;
+    padding-inline: 35px 25px;
+    padding-block: 35px 25px;
+    font-size: var(--font-size-sm);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-rows: min-content auto min-content;
+    padding: 0;
+    padding-inline-end: 40px;
+  }
+}
+
+.link {
+  grid-row: 1;
+  margin-block-end: var(--indent-3);
+
+  @media (min-width: 768px) {
+    grid-row: 1/-2;
+    margin-block-end: 0;
+  }
+
+  @media (min-width: 1024px) {
+    grid-row: 1/-1;
+  }
 }
 
 .avatar {
+  display: block;
   max-inline-size: 70px;
-  margin-block-end: var(--indent-3);
   border-radius: 50%;
   anchor-name: --trip-avatar;
+
+  @media (min-width: 768px) {
+    max-inline-size: 190px;
+    border-radius: 20px;
+  }
+
+  @media (min-width: 1024px) {
+    max-inline-size: 285px;
+    border-radius: 0;
+  }
 }
 
 .name {
@@ -28,6 +65,14 @@
   font-size: var(--font-size-sm);
   font-weight: 700;
   text-decoration: none;
+
+  @media(min-width: 768px) {
+    font-size: 30px;
+  }
+
+  @media (min-width: 1024px) {
+    padding-block-start: 36px;
+  }
 }
 
 .tags {
@@ -37,25 +82,43 @@
   flex-wrap: wrap;
   gap: var(--indent-2);
   color: var(--color-black);
+
+  @media(min-width: 768px) {
+    grid-column: 2;
+    line-height: 24px;
+  }
 }
 
 .countries {
   grid-column: 1/-1;
   grid-row: 3;
-  margin-block: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--indent-3);
   margin-block: var(--indent-5);
   padding-inline-start: 0;
   list-style-type: none;
   text-transform: uppercase;
   text-align: start;
+
+  @media(min-width: 768px) {
+    grid-row: 4;
+    flex-direction: row;
+    margin-block: auto 0;
+  }
+
+  @media (min-width: 1024px) {
+    grid-column: 3;
+    grid-row: 1/-2;
+    flex-direction: column;
+    margin-block: 0;
+    padding-block-start: 36px;
+  }
 }
 
 .country {
   display: flex;
-  gap: 18px;
+  gap: var(--indent-3);
   align-items: center;
 }
 
@@ -65,6 +128,19 @@
   grid-row: 4;
   grid-template-columns: auto min-content;
   column-gap: 40px;
+
+  @media (min-width: 768px) {
+    grid-column: 3;
+    grid-row: 1/-2;
+    grid-template-columns: min-content;
+    row-gap: var(--indent-2);
+  }
+
+  @media (min-width: 1024px) {
+    grid-row: 3;
+    grid-template-columns: auto auto;
+    align-items: center;
+  }
 }
 
 .transport {
@@ -74,6 +150,16 @@
   margin-block: 0;
   padding-inline-start: 0;
   list-style-type: none;
+
+  @media (min-width: 768px) {
+    grid-row: 1/-1;
+    flex-direction: column;
+    gap: var(--indent-2);
+  }
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
+  }
 }
 
 .icon {
@@ -83,6 +169,10 @@
 .level {
   --size: 45px;
   --stroke-color: #ff8d30;
+
+  @media (min-width: 768px) {
+    --size: 60px;
+  }
 }
 
 .actions {
@@ -91,22 +181,44 @@
   align-items: center;
   grid-column: 1/-1;
   margin-block: var(--indent-6);
+
+  @media (min-width: 768px) {
+    grid-column: 2;
+    justify-content: flex-start;
+    gap: var(--base-indent);
+    margin-block: auto 0;
+  }
+
+  @media (min-width: 1024px) {
+    padding-block-end: 36px;
+  }
 }
 
 .call {
   inline-size: 100%;
   padding-block: var(--indent-3);
+
+  @media (min-width: 768px) {
+    max-inline-size: 170px;
+  }
 }
 
 .likes {
   position: absolute;
+  display: flex;
+  align-items: center;
+  gap: var(--indent-2);
   position-anchor: --trip-avatar;
   position-area: right center;
-  transform: translateX(-24px) translateY(50%);
+  transform: translateX(-24px) translateY(20px);
+
+  @media (min-width: 768px) {
+    position: static;
+    transform: translate(0);
+  }
 }
 
 .likeBtn {
-  margin-inline-end: var(--indent-2);
   padding: var(--indent-2);
   background-color: var(--color-neutral-100);
   color: var(--color-base-400);
@@ -136,6 +248,10 @@
     &:focus-visible {
       opacity: var(--opacity-base);
     }
+  }
+
+  @media (min-width: 768px) {
+    padding: var(--indent-3);
   }
 }
 
