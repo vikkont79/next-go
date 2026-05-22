@@ -1,8 +1,8 @@
 import { TRANSPORT_OPTIONS } from '@/shared/config'
 import { Trip } from '../../types/trip'
-import { Level, Icon, Button, IconButton, Avatar, CountryFlag } from '@/shared/ui'
+import { Level, Icon, Button, IconButton, Avatar, CountryFlag, Link } from '@/shared/ui'
 import { getCountryByCode } from '@/shared/lib/get-country-data'
-import Link from 'next/link'
+
 import styles from './TripCard.module.css'
 
 

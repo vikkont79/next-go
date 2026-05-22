@@ -59,12 +59,8 @@
 
 .name {
   grid-column: 2;
-  margin-block: 0;
-  padding-block-start: 0;
-  color: inherit;
   font-size: var(--font-size-sm);
   font-weight: 700;
-  text-decoration: none;
 
   @media(min-width: 768px) {
     font-size: 30px;
