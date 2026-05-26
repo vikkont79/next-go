@@ -11,7 +11,6 @@ export const getAllTrips = cache(async () => {
   const result = await db
     .select({
       id: trips.id,
-      userId: trips.userId,
       tags: trips.tags,
       transport: trips.transport,
       companions: trips.companions,
@@ -31,18 +30,13 @@ export const getAllTrips = cache(async () => {
     })
     .from(trips)
     .leftJoin(users, eq(trips.userId, users.id))
-    .orderBy(desc(trips.createdAt)) // свежие сверху
+    .orderBy(desc(trips.createdAt))
 
-  // Преобразуем результат в тип Trip[]
-  return result.map((row) => {
-    // Пропускаем трипы без автора (битые данные)
-    if (!row.user || !row.user.id) {
-      return null
-    }
-
-    return {
+  return result
+    .filter(row => row.user && row.user.id)
+    .map((row) => ({
       id: row.id,
-      user: row.user,
+      user: row.user!,
       tags: row.tags,
       transport: row.transport,
       companions: row.companions,
@@ -54,6 +48,6 @@ export const getAllTrips = cache(async () => {
       countries: row.countries,
       likes: row.likes,
       createdAt: row.createdAt ? new Date(row.createdAt).toISOString() : new Date().toISOString(),
-    }
-  }).filter((trip): trip is Trip => trip !== null)
+
+    }))
 })

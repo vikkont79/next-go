@@ -5,9 +5,8 @@ import { trips } from '../../../db/schema'
 import { users } from '../../../db/schema'
 import { eq, desc } from 'drizzle-orm'
 import { cache } from 'react'
-import type { Trip } from '@/entities/trip/types/trip'
 
-export const getUserTrips = cache(async (userId: string): Promise<Trip[]> => {
+export const getUserTrips = cache(async (userId: string) => {
   const result = await db
     .select({
       id: trips.id,
@@ -35,7 +34,7 @@ export const getUserTrips = cache(async (userId: string): Promise<Trip[]> => {
     .orderBy(desc(trips.createdAt))
 
   return result
-    .filter(row => row.user && row.user.id) // отсекаем битые
+    .filter(row => row.user && row.user.id)
     .map(row => ({
       id: row.id,
       userId: row.userId,
