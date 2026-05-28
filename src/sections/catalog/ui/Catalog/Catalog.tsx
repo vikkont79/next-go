@@ -1,23 +1,35 @@
 import { getAllTrips } from '@/shared/lib/get-all-trips'
 import styles from './Catalog.module.css'
-import { TripCard } from '@/entities/trip'
+import { CatalogList } from '../CatalogList/CatalogList'
+import { ITEMS_PER_PAGE } from '@/shared/config'
 
+interface CatalogPageProps {
+  searchParams: Promise<{ page?: string; limit?: string }>
+}
 
-const CatalogPage = async () => {
-  const trips = await getAllTrips()
+const CatalogPage = async ({ searchParams }: CatalogPageProps) => {
+  const { page, limit } = await searchParams
+  const currentPage = Number(page) || 1
+  const currentLimit = Number(limit) || ITEMS_PER_PAGE
+
+  const { trips, totalPages } = await getAllTrips(currentPage, currentLimit)
 
   if (trips.length === 0) {
     return <div>Пока нет ни одного маршрута</div>
   }
   return (
     <main>
+      <h1 className='visually-hidden'>
+        Страница поиска попутчиков
+      </h1>
       <section className={`${styles.catalog} wrapper`}>
-        <h1 className='visually-hidden'>Каталог маршрутов</h1>
-        <div className={styles.list}>
-          {trips.map((trip) => (
-            <TripCard key={trip.id} trip={trip} />
-          ))}
-        </div>
+        <h2 className='visually-hidden'>Каталог маршрутов</h2>
+        <CatalogList
+          trips={trips}
+          currentPage={currentPage}
+          currentLimit={currentLimit}
+          totalPages={totalPages}
+        />
       </section>
     </main>
   )

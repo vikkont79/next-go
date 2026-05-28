@@ -1,5 +1,7 @@
 export const TRANSPORT_OPTIONS = ['plane', 'bus', 'bicycle', 'run',] as const
 
+export const ITEMS_PER_PAGE = 4
+
 export const HOBBY_OPTIONS = [
   { key: 'sport', label: 'Спортзал' },
   { key: 'hookah', label: 'Кальян' },

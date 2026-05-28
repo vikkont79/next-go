@@ -6,7 +6,7 @@ import { faker } from '@faker-js/faker'
 import { TRANSPORT_OPTIONS, countries } from '@/shared/config'
 
 
-const TRIPS_PER_USER = 2
+const TRIPS_PER_USER = 1
 
 async function seedTrips() {
   console.log('🌍 Seeding trips...')
