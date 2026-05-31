@@ -28,6 +28,7 @@ export async function register(input: unknown) {
     name: name,
     email: email,
     passwordHash: hashedPassword,
+    createdAt: new Date(),
   }).returning()
 
   const token = jwt.sign(

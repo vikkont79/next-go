@@ -9,8 +9,8 @@ export const users = sqliteTable('users', {
   passwordHash: text('password_hash').notNull(),
   avatar: text('avatar'),
   level: integer('level').notNull().default(1),
-  createdAt: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`CURRENT_TIMESTAMP`),
-  updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().default(sql`CURRENT_TIMESTAMP`),
+  createdAt: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`),
+  updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`),
 })
 
 export const trips = sqliteTable('trips', {
@@ -28,5 +28,5 @@ export const trips = sqliteTable('trips', {
   likes: integer('likes').notNull().default(0),
   createdAt: integer('created_at', { mode: 'timestamp' })
     .notNull()
-    .default(sql`CURRENT_TIMESTAMP`),
+    .default(sql`(unixepoch())`),
 })

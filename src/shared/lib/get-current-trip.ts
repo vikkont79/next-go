@@ -42,7 +42,6 @@ export const getTripById = cache(async (id: string) => {
     return null
   }
 
-  // Преобразуем даты из Unix timestamp в Date объекты
   return {
     id: row.id,
     userId: row.userId,
@@ -57,6 +56,6 @@ export const getTripById = cache(async (id: string) => {
     },
     countries: row.countries,
     likes: row.likes,
-    createdAt: row.createdAt ? new Date(row.createdAt).toISOString() : new Date().toISOString(),
+    createdAt: new Date(row.createdAt).toISOString(),
   }
 })

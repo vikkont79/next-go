@@ -57,7 +57,7 @@ export const getAllTrips = cache(async (page: number = 1, limit: number = ITEMS_
     },
     countries: row.countries,
     likes: row.likes,
-    createdAt: row.createdAt ? new Date(row.createdAt).toISOString() : new Date().toISOString(),
+    createdAt: new Date(row.createdAt).toISOString(),
 
   }))
 

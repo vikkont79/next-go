@@ -13,9 +13,8 @@ async function checkTrips() {
     return
   }
 
-  // первые 3 трипа с именами пользователей
   const tripsWithUsers = await Promise.all(
-    allTrips.slice(0, 10).map(async (trip) => {
+    allTrips.slice(0, 3).map(async (trip) => {
       const user = await db.select().from(users).where(eq(users.id, trip.userId))
       return {
         id: trip.id,
@@ -27,6 +26,7 @@ async function checkTrips() {
   )
 
   console.log('📋 Sample trips:', tripsWithUsers)
+
 }
 
 checkTrips()
