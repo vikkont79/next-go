@@ -1,5 +1,5 @@
 import { ProfilePage } from '@/sections/profile'
-import { getUserById } from '@/shared/lib/get-user-by-id'
+import { getUserById } from '@/entities/user/api'
 import { Metadata } from 'next'
 
 interface PageProps {

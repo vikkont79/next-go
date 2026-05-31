@@ -1,12 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@/shared/ui'
-import { deleteUser } from '../../api'
 import { useRouter } from 'next/navigation'
-import styles from './DeleteUser.module.css'
+import { Button } from '@/shared/ui'
+import { deleteTrip } from '../../api'
+import styles from './DeleteTrip.module.css'
 
-const DeleteUser = () => {
+const DeleteTrip = ({ tripId }: { tripId: string }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [confirmed, setConfirmed] = useState(false)
@@ -14,7 +14,7 @@ const DeleteUser = () => {
 
   const handleDelete = async () => {
     setIsLoading(true)
-    const result = await deleteUser()
+    const result = await deleteTrip(tripId)
 
     if (result.error) {
       setError(result.error)
@@ -22,21 +22,22 @@ const DeleteUser = () => {
       return
     }
 
-    router.refresh()
+    router.push('/trips')
   }
 
   const handleCancel = () => {
     (document.getElementById('delete-modal') as HTMLDialogElement)?.close()
     setError(null)
+    setConfirmed(false)
   }
 
   return (
     <div className={styles.content}>
       <h2 className={styles.title} id='delete-modal-title'>
-        Удалить аккаунт
+        Удалить маршрут
       </h2>
       <p className={styles.warning}>
-        Это действие необратимо. Все ваши данные будут удалены навсегда.
+        Это действие необратимо. Маршрут будет удалён навсегда.
       </p>
       {error && <div className={styles.error}>{error}</div>}
       <div className={styles.confirm}>
@@ -46,15 +47,14 @@ const DeleteUser = () => {
           onChange={(e) => setConfirmed(e.target.checked)}
         />
         <label htmlFor="confirm-delete">
-          Я понимаю, что данные будут удалены безвозвратно
-        </label>
+          Я подтверждаю удаление маршрута</label>
       </div>
       <Button
         onClick={handleDelete}
         disabled={!confirmed || isLoading}
         size='small'
       >
-        {isLoading ? 'Удаление...' : 'Удалить навсегда'}
+        {isLoading ? 'Удаление...' : 'Удалить маршрут'}
       </Button>
       <Button
         onClick={handleCancel}
@@ -67,4 +67,4 @@ const DeleteUser = () => {
   )
 }
 
-export { DeleteUser }
+export { DeleteTrip }

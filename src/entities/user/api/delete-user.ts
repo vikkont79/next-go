@@ -1,11 +1,10 @@
 'use server'
 
-import { getCurrentUser } from '@/shared/lib/get-current-user'
+import { getCurrentUser } from '@/shared/api/get-current-user'
 import { db } from '../../../../db/client'
 import { users } from '../../../../db/schema'
 import { eq } from 'drizzle-orm'
 import { cookies } from 'next/headers'
-import { revalidatePath } from 'next/cache'
 import { unlink } from 'fs/promises'
 import path from 'path'
 

@@ -1,11 +1,10 @@
 'use server'
 
-import { db } from '../../../db/client'
-import { trips } from '../../../db/schema'
-import { users } from '../../../db/schema'
+import { db } from '../../../../db/client'
+import { trips, users } from '../../../../db/schema'
 import { eq, desc, sql } from 'drizzle-orm'
 import { cache } from 'react'
-import { ITEMS_PER_PAGE } from '../config'
+import { ITEMS_PER_PAGE } from '../../../shared/config'
 
 export const getAllTrips = cache(async (page: number = 1, limit: number = ITEMS_PER_PAGE) => {
   const offset = (page - 1) * ITEMS_PER_PAGE

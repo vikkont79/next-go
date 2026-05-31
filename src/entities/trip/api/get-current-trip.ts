@@ -1,8 +1,7 @@
 'use server'
 
-import { db } from '../../../db/client'
-import { trips } from '../../../db/schema'
-import { users } from '../../../db/schema'
+import { db } from '../../../../db/client'
+import { trips, users } from '../../../../db/schema'
 import { eq } from 'drizzle-orm'
 import { cache } from 'react'
 

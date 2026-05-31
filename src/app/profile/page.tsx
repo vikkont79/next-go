@@ -1,5 +1,5 @@
 import { ProfilePage } from '@/sections/profile'
-import { getCurrentUser } from '@/shared/lib/get-current-user'
+import { getCurrentUser } from '@/shared/api/get-current-user'
 import { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {

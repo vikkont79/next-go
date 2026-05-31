@@ -4,7 +4,7 @@ import logo from '@/shared/assets/images/logo-white.png'
 import logoPopup from '@/shared/assets/images/logo-black.png'
 import { AuthButtons } from '@/features/auth'
 import { HeaderTitle } from '../HeaderTitle/HeaderTitle'
-import { getCurrentUser } from '@/shared/lib/get-current-user'
+import { getCurrentUser } from '@/shared/api/get-current-user'
 import styles from './Header.module.css'
 
 const Header = async () => {

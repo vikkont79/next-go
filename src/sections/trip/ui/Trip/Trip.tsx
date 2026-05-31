@@ -1,9 +1,11 @@
-import { getTripById } from '@/shared/lib/get-current-trip';
+import { getTripById } from '@/entities/trip/api/get-current-trip';
 import { UserInfo } from '@/entities/user';
-import { Level, Icon, Button, IconButton, Avatar, CountryFlag, Link } from '@/shared/ui'
+import { Icon, Button, CountryFlag, Link, Modal } from '@/shared/ui'
 import styles from './Trip.module.css'
 import { getCountryByCode } from '@/shared/lib/get-country-data';
 import { TRANSPORT_OPTIONS } from '@/shared/config';
+import { getCurrentUser } from '@/shared/api/get-current-user';
+import { DeleteTrip } from '@/entities/trip/ui';
 
 interface TripPageProps {
   id: string;
@@ -11,6 +13,8 @@ interface TripPageProps {
 
 const TripPage = async ({ id }: TripPageProps) => {
   const trip = await getTripById(id)
+  const currentUser = await getCurrentUser()
+  const isOwner = currentUser?.id === trip?.user.id
 
   if (!trip) {
     return <div>Маршрут не найден</div>
@@ -42,6 +46,8 @@ const TripPage = async ({ id }: TripPageProps) => {
             </li>
           ))}
         </ul>
+        <p>Компания - {trip.companions} человека</p>
+        <p>Длительность - {trip.duration} дней</p>
         <ul className={styles.countries}>
           {trip.countries.map(c => {
             const country = getCountryByCode(c.code)
@@ -60,6 +66,22 @@ const TripPage = async ({ id }: TripPageProps) => {
             )
           })}
         </ul>
+      </section>
+      <section className={styles.actions}>
+        {isOwner && (
+          <Button
+            className={`${styles.actionBtn} ${styles.deleteBtn}`}
+            variant='transparent'
+            size='large'
+            commandfor='delete-modal'
+            command='show-modal'
+          >
+            Удалить маршрут
+          </Button>
+        )}
+        <Modal id='delete-modal' labelledBy='delete-modal-title'>
+          <DeleteTrip tripId={id} />
+        </Modal>
       </section>
     </main >
   )

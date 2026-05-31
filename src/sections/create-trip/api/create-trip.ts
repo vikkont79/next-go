@@ -2,8 +2,8 @@
 
 import { db } from '../../../../db/client'
 import { trips } from '../../../../db/schema'
-import { getCurrentUser } from '@/shared/lib/get-current-user'
-import { tripFormSchema } from '@/shared/lib/validation/trip-schemas'
+import { getCurrentUser } from '@/shared/api/get-current-user'
+import { tripFormSchema } from '@/shared/lib/validation'
 
 export async function createTrip(input: unknown) {
 
@@ -20,7 +20,7 @@ export async function createTrip(input: unknown) {
   }
 
   //const { dates, countries, plans, ...rest } = result.data
-  const { tags, transport } = result.data
+  const { tags, transport, companions, duration } = result.data
 
   // 3. Подготовка данных для БД
   /*const tripForDB = {
@@ -39,8 +39,8 @@ export async function createTrip(input: unknown) {
     userId: user.id,
     tags: tags,
     transport: transport,
-    companions: 1,
-    duration: 1,
+    companions: companions,
+    duration: duration,
     fromDate: new Date(),
     toDate: new Date(),
     countries: [],

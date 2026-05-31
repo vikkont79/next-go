@@ -25,17 +25,17 @@ export const tripFormSchema = z.object({
   transport: z.array(z.enum(TRANSPORT_OPTIONS))
     .min(1, 'Выберите хотя бы один вид транспорта'),
 
-  /*companions: z.number()
+  companions: z.number()
     .int()
     .min(1, 'От 1 до 10 человек')
     .max(10, 'От 1 до 10 человек'),
-
-  hasChildren: z.boolean().optional(),
 
   duration: z.number()
     .int()
     .min(2, 'От 2 до 31 дня')
     .max(31, 'От 2 до 31 дня'),
+
+  /*hasChildren: z.boolean().optional(),
 
   dates: dateRangeSchema,
 

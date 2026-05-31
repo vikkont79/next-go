@@ -1,4 +1,4 @@
-import { getAllTrips } from '@/shared/lib/get-all-trips'
+import { getAllTrips } from '@/entities/trip/api'
 import styles from './Catalog.module.css'
 import { CatalogList } from '../CatalogList/CatalogList'
 import { ITEMS_PER_PAGE } from '@/shared/config'
