@@ -20,7 +20,7 @@ const UserInfo = ({ className, user, href }: UserInfoProps) => {
         level={user.level}
       />
       <Link href={href}>
-        < Avatar
+        <Avatar
           className={styles.avatar}
           src={avatarSrc}
           alt='Аватар пользователя'

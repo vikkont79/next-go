@@ -8,7 +8,7 @@ export const getRouteConfig = (pathname: string): RouteConfig => {
 
   // динамические роуты (например, /profile/123)
   if (pathname.startsWith('/profile/')) {
-    return routesConfig['/profile']
+    return routesConfig['/profile/']
   }
 
   if (pathname.startsWith('/trips/create/')) {
@@ -21,6 +21,6 @@ export const getRouteConfig = (pathname: string): RouteConfig => {
 
   // дефолтный конфиг
   return {
-    isPrivate: false,
+    withAvatar: false,
   }
 }

@@ -55,7 +55,7 @@ const AuthButtons = ({ className, user }: AuthButtonsProps) => {
     )
   }
 
-  if (routeConfig.isPrivate)
+  if (routeConfig.withAvatar)
     return <LogoutButton className={styles.authBtn} />
 
   return (
