@@ -1,0 +1,14 @@
+.user {
+  padding-block: var(--indent-5);
+
+  @media (min-width: 768px) {
+    position: relative;
+    padding-block: 36px;
+  }
+
+  @media (min-width: 1024px) {
+    position: absolute;
+    right: 100px;
+    top: 80px;
+  }
+}

@@ -35,7 +35,7 @@ const Header = async () => {
         >
           <ul className={styles.navList}>
             <li><Link className={styles.navItem}>о сервисе</Link></li>
-            <li><Link className={styles.navItem} href='#'>направления</Link></li>
+            <li><Link className={styles.navItem} href='/trips/create'>направления</Link></li>
             <li><Link className={styles.navItem} href='/trips'>попутчики</Link></li>
           </ul>
         </nav>

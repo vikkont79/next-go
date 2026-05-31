@@ -1,5 +1,4 @@
 import { CatalogPage } from '@/sections/catalog'
-import { getAllTrips } from '@/shared/lib/get-all-trips'
 import { Metadata } from 'next'
 
 interface PageProps {
@@ -13,7 +12,6 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function Trips({ searchParams }: PageProps) {
-
   return (
     <CatalogPage
       searchParams={searchParams}
