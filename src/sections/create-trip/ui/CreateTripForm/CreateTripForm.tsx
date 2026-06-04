@@ -11,6 +11,7 @@ import { useState } from 'react'
 import { formContent } from '@/shared/config'
 import { StepsNav } from '../StepsNav/StepsNav'
 import styles from './CreateTripForm.module.css'
+import { getStepFields } from '@/shared/lib'
 
 
 const defaultValues = {
@@ -32,16 +33,19 @@ const CreateTripForm = () => {
   const router = useRouter()
   const {
     control,
+    trigger,
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm<TripFormData>({
     resolver: zodResolver(tripFormSchema),
     defaultValues,
   })
 
-  const handleNextClick = () => {
-    if (currentStep < 3) {
+  const handleNextClick = async () => {
+    const stepFields = getStepFields(currentStep)
+    const isValid = await trigger(stepFields)
+    if (isValid && currentStep < 3) {
       setCurrentStep(prev => (prev + 1))
     }
   }
@@ -166,6 +170,7 @@ const CreateTripForm = () => {
                 currentStep={currentStep}
                 onNext={currentStep === 3 ? handleSubmit(onSubmit) : handleNextClick}
                 onBack={handleBackClick}
+                isSubmitting={isSubmitting}
               />
             </fieldset>
           )

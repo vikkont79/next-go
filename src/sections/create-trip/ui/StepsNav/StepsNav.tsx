@@ -5,30 +5,30 @@ interface StepsNavProps {
   currentStep: number;
   onNext: () => void;
   onBack: () => void;
-  isSubmit?: boolean;
+  isSubmitting?: boolean;
 }
 
 const StepsNav = ({
   currentStep,
   onNext,
   onBack,
-  isSubmit = false
+  isSubmitting = false
 }: StepsNavProps) => {
 
   return (
     <div className={styles.stepsNav}>
       <Button
         onClick={onNext}
-        disabled={isSubmit}
+        disabled={isSubmitting}
       >
-        {isSubmit ? 'Отправка...' : currentStep === 3 ? 'Отправить' : 'Следующий шаг'}
+        {isSubmitting ? 'Отправка...' : currentStep === 3 ? 'Отправить' : 'Следующий шаг'}
       </Button>
 
       {currentStep > 1 && (
         <Button
           onClick={onBack}
           variant='outline'
-          disabled={isSubmit}
+          disabled={isSubmitting}
         >
           На шаг назад
         </Button>

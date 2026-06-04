@@ -27,8 +27,8 @@ export const tripFormSchema = z.object({
 
   companions: z.number()
     .int()
-    .min(1, 'От 1 до 10 человек')
-    .max(10, 'От 1 до 10 человек'),
+    .min(1, 'От 1 до 10 чел.')
+    .max(10, 'От 1 до 10 чел.'),
 
   duration: z.number()
     .int()
