@@ -1,81 +1,29 @@
 'use client'
 
-import { Controller, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { TripFormData, tripFormSchema } from '@/shared/lib/validation/trip-schemas'
+import { Controller } from 'react-hook-form'
 import { CounterInput, Input } from '@/shared/ui'
 import { TransportSelector } from '../TransportSelector/TransportSelector'
-import { createTrip } from '../../api'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
 import { formContent } from '@/shared/config'
 import { StepsNav } from '../StepsNav/StepsNav'
+import { useTripForm } from '../../lib'
 import styles from './CreateTripForm.module.css'
-import { getStepFields } from '@/shared/lib'
-
-
-const defaultValues = {
-  tags: '',
-  transport: [],
-  companions: 1,
-  duration: 2,
-  /*hasChildren: false,
-  dates: {
-    from: new Date(),
-    to: new Date(),
-  },
-  countries: [],
-  plans: [],*/
-}
 
 const CreateTripForm = () => {
-  const [currentStep, setCurrentStep] = useState(1)
-  const router = useRouter()
   const {
     control,
-    trigger,
     register,
+    errors,
+    isSubmitting,
+    currentStep,
+    handleNextClick,
+    handleBackClick,
     handleSubmit,
-    formState: { errors, isSubmitting }
-  } = useForm<TripFormData>({
-    resolver: zodResolver(tripFormSchema),
-    defaultValues,
-  })
-
-  const handleNextClick = async () => {
-    const stepFields = getStepFields(currentStep)
-    const isValid = await trigger(stepFields)
-    if (isValid && currentStep < 3) {
-      setCurrentStep(prev => (prev + 1))
-    }
-  }
-
-  const handleBackClick = () => {
-    if (currentStep > 1) {
-      setCurrentStep(prev => (prev - 1))
-    }
-  }
-
-  const onSubmit = async (data: TripFormData) => {
-    try {
-      const result = await createTrip(data)
-      if (!result) {
-        alert('Сервер не вернул результат')
-        return
-      }
-
-      if (result.success) {
-        router.push(`/trips/${result.trip.id}`)
-      } else {
-        alert(result.error)
-      }
-    } catch (error) {
-      alert('Ошибка при отправке формы')
-    }
-  }
+    serverError,
+  } = useTripForm()
 
   return (
     <form>
+      {serverError && <div className='error'>{serverError}</div>}
       <div className={`${styles.baseFields} wrapper`}>
         <h2 className='visually-hidden'>Базовые параметры маршрута</h2>
         <fieldset className={styles.field}>
@@ -168,7 +116,7 @@ const CreateTripForm = () => {
               }
               <StepsNav
                 currentStep={currentStep}
-                onNext={currentStep === 3 ? handleSubmit(onSubmit) : handleNextClick}
+                onNext={currentStep === 3 ? handleSubmit : handleNextClick}
                 onBack={handleBackClick}
                 isSubmitting={isSubmitting}
               />
