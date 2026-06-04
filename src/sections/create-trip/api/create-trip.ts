@@ -13,46 +13,46 @@ export async function createTrip(input: unknown) {
     return { error: result.error.issues[0].message }
   }
 
-  // 2. Авторизация
-  const user = await getCurrentUser()
-  if (!user) {
-    return { error: 'Необходимо авторизоваться' }
-  }
-
-  //const { dates, countries, plans, ...rest } = result.data
-  const { tags, transport, companions, duration } = result.data
-
-  // 3. Подготовка данных для БД
-  /*const tripForDB = {
-    ...rest,
-    id: crypto.randomUUID(),
-    userId: user.id,
-    fromDate: dates.from,
-    toDate: dates.to,
-    countries: countries.map((country, idx) => ({
-      code: country.code,
-      plan: plans[idx],
-    })),
-  }*/
-  const tripForDB = {
-    id: crypto.randomUUID(),
-    userId: user.id,
-    tags: tags,
-    transport: transport,
-    companions: companions,
-    duration: duration,
-    fromDate: new Date(),
-    toDate: new Date(),
-    countries: [],
-    createdAt: new Date(),
-  }
-
-  // 4. Сохранение
   try {
+    // 2. Авторизация
+    const user = await getCurrentUser()
+    if (!user) {
+      return { error: 'Необходимо авторизоваться' }
+    }
+
+    //const { dates, countries, plans, ...rest } = result.data
+    const { tags, transport, companions, duration } = result.data
+
+    // 3. Подготовка данных для БД
+    /*const tripForDB = {
+      ...rest,
+      id: crypto.randomUUID(),
+      userId: user.id,
+      fromDate: dates.from,
+      toDate: dates.to,
+      countries: countries.map((country, idx) => ({
+        code: country.code,
+        plan: plans[idx],
+      })),
+    }*/
+    const tripForDB = {
+      id: crypto.randomUUID(),
+      userId: user.id,
+      tags: tags,
+      transport: transport,
+      companions: companions,
+      duration: duration,
+      fromDate: new Date(),
+      toDate: new Date(),
+      countries: [],
+      createdAt: new Date(),
+    }
+
+    // 4. Сохранение
     const [newTrip] = await db.insert(trips).values(tripForDB).returning()
     return { success: true, trip: newTrip }
   } catch (error) {
-    console.error('Ошибка создания трипа:', error)
+    console.error(error)
     return { error: 'Не удалось создать маршрут' }
   }
 }

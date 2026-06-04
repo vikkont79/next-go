@@ -16,33 +16,38 @@ export async function login(input: unknown) {
 
   const { email, password } = result.data;
 
-  const foundUsers = await db.select().from(users).where(eq(users.email, email))
-  if (foundUsers.length === 0) {
-    return { error: 'Неверный email' }
+  try {
+    const foundUsers = await db.select().from(users).where(eq(users.email, email))
+    if (foundUsers.length === 0) {
+      return { error: 'Неверный email' }
+    }
+
+    const user = foundUsers[0]
+
+    const passwordMatch = await bcrypt.compare(password, user.passwordHash)
+    if (!passwordMatch) {
+      return { error: 'Неверный пароль' }
+    }
+
+    const token = jwt.sign(
+      { userId: user.id, email: user.email },
+      process.env.JWT_SECRET!,
+      { expiresIn: '7d' }
+    )
+
+    const cookieStore = await cookies()
+    cookieStore.set('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 60 * 60 * 24 * 7,
+    })
+
+    const { passwordHash, ...userWithoutPassword } = user
+    return { success: true, user: userWithoutPassword }
+  } catch (error) {
+    console.error(error)
+    return { error: 'Ошибка сервера. Попробуйте позже.' }
   }
-
-  const user = foundUsers[0]
-
-  const passwordMatch = await bcrypt.compare(password, user.passwordHash)
-  if (!passwordMatch) {
-    return { error: 'Неверный пароль' }
-  }
-
-  const token = jwt.sign(
-    { userId: user.id, email: user.email },
-    process.env.JWT_SECRET!,
-    { expiresIn: '7d' }
-  )
-
-  const cookieStore = await cookies()
-  cookieStore.set('token', token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    path: '/',
-    maxAge: 60 * 60 * 24 * 7,
-  })
-
-  const { passwordHash, ...userWithoutPassword } = user
-  return { success: true, user: userWithoutPassword }
 }

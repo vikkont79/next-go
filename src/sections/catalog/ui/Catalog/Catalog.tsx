@@ -12,7 +12,13 @@ const CatalogPage = async ({ searchParams }: CatalogPageProps) => {
   const currentPage = Number(page) || 1
   const currentLimit = Number(limit) || ITEMS_PER_PAGE
 
-  const { trips, totalPages } = await getAllTrips(currentPage, currentLimit)
+  const result = await getAllTrips(currentPage, currentLimit)
+
+  if ('error' in result) {
+    return <div>{result.error}</div>
+  }
+
+  const { trips, totalPages } = result
 
   if (trips.length === 0) {
     return <div>Пока нет ни одного маршрута</div>

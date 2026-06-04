@@ -11,10 +11,15 @@ interface ProfilePageProps {
 }
 
 const ProfilePage = async ({ userId }: ProfilePageProps) => {
-  const user = userId ? await getUserById(userId) : await getCurrentUser()
+  const result = userId ? await getUserById(userId) : await getCurrentUser()
 
-  if (!user) return <div>Пользователь не найден</div>
+  if (result && 'error' in result) {
+    return <div>{result.error}</div>
+  }
 
+  if (!result) return <div>Пользователь не найден</div>
+
+  const user = result
   const isOwner = !userId
   const trips = await getUserTrips(user.id)
 
@@ -23,7 +28,9 @@ const ProfilePage = async ({ userId }: ProfilePageProps) => {
       <h1 className='visually-hidden'>Страница профиля пользователя</h1>
       <UserInfo className={styles.user} user={user} />
       <EditingInfo user={user} isOwner={isOwner} />
-      {trips.length > 0 && (
+      {'error' in trips ? (
+        <div>{trips.error}</div>
+      ) : (
         <section className={styles.trips}>
           <h2 className={styles.tripsTitle}>
             {isOwner ? 'Мои маршруты' : `Маршруты пользователя ${user.name}`}

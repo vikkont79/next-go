@@ -14,11 +14,12 @@ interface TripPageProps {
 const TripPage = async ({ id }: TripPageProps) => {
   const trip = await getTripById(id)
   const currentUser = await getCurrentUser()
-  const isOwner = currentUser?.id === trip?.user.id
 
-  if (!trip) {
-    return <div>Маршрут не найден</div>
+  if ('error' in trip) {
+    return <div>{trip.error}</div>
   }
+
+  const isOwner = currentUser?.id === trip.user.id
 
   return (
     <main className='wrapper'>
