@@ -2,7 +2,7 @@ import { getTripById } from '@/entities/trip/api/get-current-trip';
 import { UserInfo } from '@/entities/user';
 import { Icon, Button, CountryFlag, Link, Modal } from '@/shared/ui'
 import styles from './Trip.module.css'
-import { getCountryByCode } from '@/shared/lib/get-country-data';
+import { getCountryByCode } from '@/shared/lib';
 import { TRANSPORT_OPTIONS } from '@/shared/config';
 import { getCurrentUser } from '@/shared/api/get-current-user';
 import { DeleteTrip } from '@/entities/trip/ui';

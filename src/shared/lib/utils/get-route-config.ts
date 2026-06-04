@@ -1,4 +1,4 @@
-import { routesConfig, type RouteConfig } from '@/shared/config'
+import { routesConfig, type RouteConfig } from '../../config'
 
 export const getRouteConfig = (pathname: string): RouteConfig => {
   // точное совпадение

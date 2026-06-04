@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { getRouteConfig } from '@/shared/lib/get-route-config'
+import { getRouteConfig } from '@/shared/lib'
 import styles from './HeaderTitle.module.css'
 
 const HeaderTitle = () => {

@@ -7,7 +7,7 @@ import { User } from '@/entities/user'
 import styles from './AuthButtons.module.css'
 import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { getRouteConfig } from '@/shared/lib/get-route-config'
+import { getRouteConfig } from '@/shared/lib'
 
 interface AuthButtonsProps {
   className?: string;
