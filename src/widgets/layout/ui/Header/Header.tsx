@@ -8,7 +8,13 @@ import { getCurrentUser } from '@/shared/api/get-current-user'
 import styles from './Header.module.css'
 
 const Header = async () => {
-  const user = await getCurrentUser()
+  let user = null
+  let authError = false
+  try {
+    user = await getCurrentUser()
+  } catch (error) {
+    authError = true
+  }
 
   return (
     <>
@@ -58,6 +64,11 @@ const Header = async () => {
           aria-label='Закрыть меню'
         />
         <AuthButtons className={styles.auth} user={user} />
+        {authError && (
+          <div className="header-error" title='Ошибка загрузки профиля'>
+            ⚠️
+          </div>
+        )}
       </header>
       <HeaderTitle />
     </>

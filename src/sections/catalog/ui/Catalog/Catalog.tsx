@@ -1,7 +1,8 @@
 import { getAllTrips } from '@/entities/trip/api'
-import styles from './Catalog.module.css'
 import { CatalogList } from '../CatalogList/CatalogList'
 import { ITEMS_PER_PAGE } from '@/shared/config'
+import styles from './Catalog.module.css'
+import { Trip } from '@/entities/trip'
 
 interface CatalogPageProps {
   searchParams: Promise<{ page?: string; limit?: string }>
@@ -12,13 +13,22 @@ const CatalogPage = async ({ searchParams }: CatalogPageProps) => {
   const currentPage = Number(page) || 1
   const currentLimit = Number(limit) || ITEMS_PER_PAGE
 
-  const result = await getAllTrips(currentPage, currentLimit)
+  let trips: Trip[] = []
+  let totalPages = 0
+  let error: Error | null = null
 
-  if ('error' in result) {
-    return <div>{result.error}</div>
+  try {
+    const result = await getAllTrips(currentPage, currentLimit)
+    trips = result.trips
+    totalPages = result.totalPages
+  } catch (err) {
+    console.error('Failed to fetch trips:', err)
+    error = err instanceof Error ? err : new Error('Unknown error')
   }
 
-  const { trips, totalPages } = result
+  if (error) {
+    return <div className="error">Ошибка загрузки маршрутов. Попробуйте позже.</div>
+  }
 
   if (trips.length === 0) {
     return <div>Пока нет ни одного маршрута</div>

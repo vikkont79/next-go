@@ -32,7 +32,7 @@ export const getTripById = cache(async (id: string) => {
       .where(eq(trips.id, id))
 
     if (result.length === 0) {
-      return { error: 'Маршрут не найден' }
+      return null
     }
 
     const row = result[0]
@@ -53,7 +53,7 @@ export const getTripById = cache(async (id: string) => {
       createdAt: new Date(row.createdAt).toISOString(),
     }
   } catch (error) {
-    console.error(error)
-    return { error: 'Ошибка сервера' }
+    console.error('Ошибка загрузки маршрута по id', error)
+    throw new Error('Ошибка загрузки маршрута по id')
   }
 })

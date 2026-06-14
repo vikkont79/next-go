@@ -8,9 +8,19 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id } = await params
-  const result = await getUserById(id)
+  let userName: string | null = null
+
+  try {
+    const user = await getUserById(id)
+    if (user && !('error' in user)) {
+      userName = user.name
+    }
+  } catch (error) {
+    console.error(`Failed to fetch user for metadata (id: ${id}):`, error)
+  }
+
   return {
-    title: !result || 'error' in result ? `Пользователь не найден | Next Go` : `Профиль ${result.name} | Next Go`,
+    title: userName ? `Профиль ${userName} | Next Go` : 'Пользователь не найден | Next Go',
   }
 }
 

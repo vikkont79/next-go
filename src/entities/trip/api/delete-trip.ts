@@ -5,7 +5,6 @@ import { trips } from '../../../../db/schema'
 import { eq } from 'drizzle-orm'
 import { getCurrentUser } from '@/shared/api/get-current-user'
 import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
 
 export async function deleteTrip(tripId: string) {
   try {

@@ -16,7 +16,7 @@ export const getUserById = cache(async (id: string) => {
     const { passwordHash, ...userWithoutPassword } = user
     return userWithoutPassword
   } catch (error) {
-    console.error(error)
-    return { error: 'Ошибка сервера' }
+    console.error('Ошибка загрузки пользователя по id', error)
+    throw new Error('Ошибка загрузки пользователя по id')
   }
 })

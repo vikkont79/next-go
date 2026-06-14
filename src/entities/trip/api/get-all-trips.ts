@@ -66,7 +66,7 @@ export const getAllTrips = cache(async (page: number = 1, limit: number = ITEMS_
       totalPages,
     }
   } catch (error) {
-    console.error(error)
-    return { error: 'Ошибка сервера' }
+    console.error('Ошибка загрузки маршрутов', error)
+    throw new Error('Ошибка загрузки маршрутов')
   }
 })

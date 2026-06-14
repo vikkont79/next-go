@@ -52,7 +52,7 @@ export const getUserTrips = cache(async (userId: string) => {
         createdAt: new Date(row.createdAt).toISOString(),
       }))
   } catch (error) {
-    console.error(error)
-    return { error: 'Ошибка сервера' }
+    console.error('Ошибка загрузки маршрутов пользователя', error)
+    throw new Error('Ошибка загрузки маршрутов пользователя')
   }
 })

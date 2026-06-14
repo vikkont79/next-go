@@ -3,9 +3,18 @@ import { getCurrentUser } from '@/shared/api/get-current-user'
 import { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const user = await getCurrentUser()
+  let userName
+
+  try {
+    const user = await getCurrentUser()
+    userName = user?.name ?? null
+  } catch (error) {
+    userName = null
+    console.error('Failed to fetch user for metadata:', error)
+  }
+
   return {
-    title: user ? `Профиль ${user.name} | Next Go` : 'Профиль | Next Go',
+    title: userName ? `Профиль ${userName} | Next Go` : 'Профиль | Next Go',
   }
 }
 

@@ -1,5 +1,5 @@
 import { getTripById } from '@/entities/trip/api/get-current-trip';
-import { UserInfo } from '@/entities/user';
+import { User, UserInfo } from '@/entities/user';
 import { Icon, Button, CountryFlag, Link, Modal } from '@/shared/ui'
 import styles from './Trip.module.css'
 import { getCountryByCode } from '@/shared/lib';
@@ -12,14 +12,35 @@ interface TripPageProps {
 }
 
 const TripPage = async ({ id }: TripPageProps) => {
-  const trip = await getTripById(id)
-  const currentUser = await getCurrentUser()
+  let trip = null
+  let currentUser: User | null = null
 
-  if ('error' in trip) {
-    return <div>{trip.error}</div>
+  let tripError: Error | null = null
+  let authError: Error | null = null
+
+  try {
+    trip = await getTripById(id);
+  } catch (error) {
+    console.error(`TripPage: Failed to fetch trip ${id}`, error);
+    tripError = error instanceof Error ? error : new Error('Unknown trip fetch error');
   }
 
-  const isOwner = currentUser?.id === trip.user.id
+  if (tripError) {
+    return <div className='error'>Ошибка загрузки маршрута. Попробуйте позже.</div>;
+  }
+
+  if (!trip) {
+    return <div className='error'>Маршрут не найден</div>;
+  }
+
+  try {
+    currentUser = await getCurrentUser();
+  } catch (error) {
+    console.error('TripPage: Failed to fetch current user', error);
+    authError = error instanceof Error ? error : new Error('Unknown auth error');
+  }
+
+  const isOwner = !authError && currentUser?.id === trip.user.id
 
   return (
     <main className='wrapper'>
@@ -70,15 +91,19 @@ const TripPage = async ({ id }: TripPageProps) => {
       </section>
       <section className={styles.actions}>
         {isOwner && (
-          <Button
-            className={`${styles.actionBtn} ${styles.deleteBtn}`}
-            variant='transparent'
-            size='large'
-            commandfor='delete-modal'
-            command='show-modal'
-          >
-            Удалить маршрут
-          </Button>
+          authError ? (
+            <div>Ошибка загрузки данных пользователя. Элементы управления недоступны. Обновите страницу</div>
+          ) : (
+            <Button
+              className={`${styles.actionBtn} ${styles.deleteBtn}`}
+              variant='transparent'
+              size='large'
+              commandfor='delete-modal'
+              command='show-modal'
+            >
+              Удалить маршрут
+            </Button>
+          )
         )}
         <Modal id='delete-modal' labelledBy='delete-modal-title'>
           <DeleteTrip tripId={id} />
