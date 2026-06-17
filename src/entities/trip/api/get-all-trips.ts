@@ -17,6 +17,7 @@ export const getAllTrips = cache(async (page: number = 1, limit: number = ITEMS_
         transport: trips.transport,
         companions: trips.companions,
         duration: trips.duration,
+        hasChildren: trips.hasChildren,
         fromDate: trips.fromDate,
         toDate: trips.toDate,
         countries: trips.countries,
@@ -51,6 +52,7 @@ export const getAllTrips = cache(async (page: number = 1, limit: number = ITEMS_
       transport: row.transport,
       companions: row.companions,
       duration: row.duration,
+      hasChildren: row.hasChildren === 1,
       dates: {
         from: new Date(row.fromDate),
         to: new Date(row.toDate),
