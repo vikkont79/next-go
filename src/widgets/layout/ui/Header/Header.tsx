@@ -65,7 +65,7 @@ const Header = async () => {
         />
         <AuthButtons className={styles.auth} user={user} />
         {authError && (
-          <div className="header-error" title='Ошибка загрузки профиля'>
+          <div title='Ошибка загрузки профиля'>
             ⚠️
           </div>
         )}

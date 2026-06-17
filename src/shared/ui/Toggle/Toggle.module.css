@@ -1,0 +1,92 @@
+.toggleWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--indent-6);
+  font-size: var(--font-size-sm);
+
+  &:has(input:checked) .mark,
+  &:has(input:checked) .dot {
+    opacity: 1;
+  }
+
+  &:has(input:focus-visible) .toggleControl {
+    border-color: var(--color-neutral-400);
+  }
+}
+
+.toggleControl {
+  display: grid;
+  place-items: center;
+  border-radius: var(--border-radius-sm);
+  transition: var(--transition-all);
+
+  &:hover {
+    border-color: var(--color-neutral-400);
+  }
+}
+
+input[type='radio']+.toggleControl {
+  border-radius: 50%;
+}
+
+.mark {
+  opacity: 0;
+  transition: var(--transition-all);
+}
+
+.dot {
+  display: block;
+  inline-size: 30%;
+  block-size: 30%;
+  border-radius: 50%;
+  background-color: currentColor;
+  opacity: 0;
+  transition: var(--transition-all);
+}
+
+.labelText {
+  font-weight: 500;
+  text-transform: uppercase;
+
+  @media(max-width: 376px) {
+    font-size: 16px;
+    text-transform: none;
+  }
+}
+
+.primary {
+  background-color: var(--color-white);
+}
+
+.transparent {
+  border: 1px solid var(--color-neutral-200);
+}
+
+.base {
+  inline-size: 36px;
+  block-size: 36px;
+
+  @media(max-width: 376px) {
+    inline-size: 26px;
+    block-size: 26px;
+  }
+}
+
+.small {
+  inline-size: 24px;
+  block-size: 24px;
+}
+
+.error {
+  position: absolute;
+  left: var(--indent-3);
+  top: 100%;
+  color: var(--color-error);
+  font-weight: 500;
+  line-height: 2;
+}
+
+.toggleWrapper:has(.error) .toggleControl {
+  border-color: var(--color-error);
+}

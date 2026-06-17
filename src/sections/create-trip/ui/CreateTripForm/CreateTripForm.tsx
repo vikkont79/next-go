@@ -1,7 +1,7 @@
 'use client'
 
 import { Controller } from 'react-hook-form'
-import { CounterInput, Input } from '@/shared/ui'
+import { CounterInput, Input, Toggle } from '@/shared/ui'
 import { TransportSelector } from '../TransportSelector/TransportSelector'
 import { formContent } from '@/shared/config'
 import { StepsNav } from '../StepsNav/StepsNav'
@@ -93,6 +93,18 @@ const CreateTripForm = () => {
                         min={1}
                         max={10}
                         error={fieldState.error?.message}
+                      />
+                    )}
+                  />
+                  <Controller
+                    name='hasChildren'
+                    control={control}
+                    render={({ field }) => (
+                      <Toggle
+                        label='Можно с детьми'
+                        checked={field.value}
+                        onChange={field.onChange}
+                        variant='transparent'
                       />
                     )}
                   />

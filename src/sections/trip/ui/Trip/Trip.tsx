@@ -70,6 +70,9 @@ const TripPage = async ({ id }: TripPageProps) => {
         </ul>
         <p>Компания - {trip.companions} человека</p>
         <p>Длительность - {trip.duration} дней</p>
+        {trip.hasChildren && (
+          <p>Можно с детьми</p>
+        )}
         <ul className={styles.countries}>
           {trip.countries.map(c => {
             const country = getCountryByCode(c.code)

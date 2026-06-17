@@ -35,9 +35,9 @@ export const tripFormSchema = z.object({
     .min(2, 'От 2 до 31 дня')
     .max(31, 'От 2 до 31 дня'),
 
-  /*hasChildren: z.boolean().optional(),
+  hasChildren: z.boolean().optional(),
 
-  dates: dateRangeSchema,
+  /*dates: dateRangeSchema,
 
   countries: z.array(z.object({
     code: z.string().min(1, 'Выберите страну'),

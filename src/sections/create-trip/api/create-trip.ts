@@ -21,7 +21,7 @@ export async function createTrip(input: unknown) {
     }
 
     //const { dates, countries, plans, ...rest } = result.data
-    const { tags, transport, companions, duration } = result.data
+    const { tags, transport, companions, duration, hasChildren } = result.data
 
     // 3. Подготовка данных для БД
     /*const tripForDB = {
@@ -42,6 +42,7 @@ export async function createTrip(input: unknown) {
       transport: transport,
       companions: companions,
       duration: duration,
+      hasChildren: hasChildren ? 1 : 0,
       fromDate: new Date(),
       toDate: new Date(),
       countries: [],

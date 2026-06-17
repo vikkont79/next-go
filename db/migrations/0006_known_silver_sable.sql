@@ -1,0 +1,1 @@
+ALTER TABLE `trips` ADD `has_children` integer DEFAULT 0 NOT NULL;

@@ -21,6 +21,7 @@ export interface Trip {
   transport: TransportType[];
   companions: number;
   duration: number;
+  hasChildren: boolean;
   dates: TripDateRange;
   countries: TripCountry[];
   likes: number;

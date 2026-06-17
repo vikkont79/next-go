@@ -14,6 +14,7 @@ export const getTripById = cache(async (id: string) => {
         transport: trips.transport,
         companions: trips.companions,
         duration: trips.duration,
+        hasChildren: trips.hasChildren,
         fromDate: trips.fromDate,
         toDate: trips.toDate,
         countries: trips.countries,
@@ -44,6 +45,7 @@ export const getTripById = cache(async (id: string) => {
       transport: row.transport,
       companions: row.companions,
       duration: row.duration,
+      hasChildren: row.hasChildren === 1,
       dates: {
         from: new Date(row.fromDate),
         to: new Date(row.toDate),

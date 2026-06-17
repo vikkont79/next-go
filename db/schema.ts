@@ -22,6 +22,7 @@ export const trips = sqliteTable('trips', {
   transport: text('transport', { mode: 'json' }).$type<TransportType[]>().notNull(),
   companions: integer('companions').notNull(),
   duration: integer('duration').notNull(),
+  hasChildren: integer('has_children').notNull().default(0),
   fromDate: integer('from_date', { mode: 'timestamp' }).notNull(),
   toDate: integer('to_date', { mode: 'timestamp' }).notNull(),
   countries: text('countries', { mode: 'json' }).$type<TripCountry[]>().notNull(),
