@@ -1,0 +1,125 @@
+.selects {
+  display: grid;
+  grid-template-columns: 1fr min-content min-content;
+  row-gap: var(--indent-4);
+}
+
+.select {
+  position: relative;
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1/-1;
+  align-items: center;
+  text-align: start;
+}
+
+.selectButton {
+  max-inline-size: 730px;
+  justify-content: space-between;
+  padding: var(--indent-6);
+  border: 1px solid var(--color-neutral-200);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  text-transform: uppercase;
+
+  @media(max-width: 376px) {
+    padding: var(--indent-3);
+    font-size: 15px;
+    line-height: 18px;
+  }
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:focus-visible {
+    background-color: var(--color-neutral-200);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: -2px;
+  }
+}
+
+.flag {
+  display: inline-block;
+  max-inline-size: 70px;
+  margin-inline: var(--indent-6);
+  justify-self: center;
+  object-fit: contain;
+
+  @media(max-width: 376px) {
+    inline-size: 35px;
+    margin-inline: var(--indent-2);
+    border-radius: 5px;
+  }
+}
+
+.close {
+  padding: 0;
+  justify-self: end;
+  align-self: center;
+  color: var(--color-black);
+  opacity: 0.5;
+
+  @media(max-width: 376px) {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    padding: var(--indent-1);
+    border: 1px var(--color-neutral-300) solid;
+    border-radius: 50%;
+    background-color: var(--color-neutral-200);
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.closeButton {
+  position: relative;
+  top: -74px;
+  grid-column: 1/-1;
+  max-inline-size: 730px;
+  justify-content: space-between;
+  padding-inline: var(--indent-4);
+  padding-block: var(--indent-6);
+  background-color: var(--color-base-500);
+  color: var(--color-white);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  text-transform: uppercase;
+
+  @media(max-width: 376px) {
+    top: -64px;
+    padding: var(--indent-3);
+    font-size: 15px;
+    line-height: 18px;
+  }
+}
+
+.countryDropdown {
+  position: relative;
+  top: -74px;
+  grid-column: 1/-1;
+  grid-template-columns: subgrid;
+  margin-block-end: -74px;
+
+  @media(max-width: 376px) {
+    top: -64px;
+    grid-template-columns: 1fr;
+  }
+}
+
+.error {
+  position: absolute;
+  left: var(--indent-3);
+  top: 100%;
+  color: var(--color-error);
+  line-height: 2;
+}
+
+.select:has(.error) .selectButton {
+  border-color: var(--color-error);
+}

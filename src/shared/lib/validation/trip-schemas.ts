@@ -37,16 +37,14 @@ export const tripFormSchema = z.object({
 
   hasChildren: z.boolean().optional(),
 
-  /*dates: dateRangeSchema,
+  //dates: dateRangeSchema,
 
   countries: z.array(z.object({
-    code: z.string().min(1, 'Выберите страну'),
+    code: z.string(),
+    name_ru: z.string(),
+    continent: z.string(),
+    plan: z.string().optional(),
   })).min(1, 'Добавьте хотя бы одну страну'),
-
-  plans: z.array(z.string()
-    .min(3, 'От 3 до 200 символов')
-    .max(200, 'От 3 до 200 символов')
-  ).min(1, 'Заполните планы для всех стран'),*/
 })
 
 export type TripFormData = z.infer<typeof tripFormSchema>

@@ -21,7 +21,7 @@ export async function createTrip(input: unknown) {
     }
 
     //const { dates, countries, plans, ...rest } = result.data
-    const { tags, transport, companions, duration, hasChildren } = result.data
+    const { tags, transport, companions, duration, hasChildren, countries } = result.data
 
     // 3. Подготовка данных для БД
     /*const tripForDB = {
@@ -35,6 +35,7 @@ export async function createTrip(input: unknown) {
         plan: plans[idx],
       })),
     }*/
+
     const tripForDB = {
       id: crypto.randomUUID(),
       userId: user.id,
@@ -45,7 +46,10 @@ export async function createTrip(input: unknown) {
       hasChildren: hasChildren ? 1 : 0,
       fromDate: new Date(),
       toDate: new Date(),
-      countries: [],
+      countries: countries.map(country => ({
+        code: country.code,
+        plan: country.plan || '',
+      })),
       createdAt: new Date(),
     }
 

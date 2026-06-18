@@ -2,6 +2,7 @@ export type Country = {
   code: string;
   name_ru: string;
   continent: string;
+  plan?: string;
 }
 
 

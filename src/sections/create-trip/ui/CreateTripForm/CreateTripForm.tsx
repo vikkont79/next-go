@@ -1,12 +1,13 @@
 'use client'
 
 import { Controller } from 'react-hook-form'
-import { CounterInput, Input, Toggle } from '@/shared/ui'
+import { CounterInput, CountryPlans, Input, Textarea, Toggle } from '@/shared/ui'
 import { TransportSelector } from '../TransportSelector/TransportSelector'
 import { formContent } from '@/shared/config'
 import { StepsNav } from '../StepsNav/StepsNav'
 import { useTripForm } from '../../lib'
 import styles from './CreateTripForm.module.css'
+import { CountrySelect } from '@/widgets/country-select'
 
 const CreateTripForm = () => {
   const {
@@ -18,7 +19,10 @@ const CreateTripForm = () => {
     handleNextClick,
     handleBackClick,
     handleSubmit,
+    stepErrors,
     serverError,
+    countries,
+    handlePlanChange,
   } = useTripForm()
 
   return (
@@ -126,6 +130,26 @@ const CreateTripForm = () => {
                   />
                 </div>
               }
+              {stepConfig.step === 2 &&
+                <Controller
+                  name='countries'
+                  control={control}
+                  render={({ field, fieldState }) => (
+                    <CountrySelect
+                      value={field.value}
+                      onChange={field.onChange}
+                      error={fieldState.error?.message}
+                    />
+                  )}
+                />
+              }
+              {stepConfig.step === 3 && (
+                <CountryPlans
+                  countries={countries}
+                  onPlanChange={handlePlanChange}
+                  errors={stepErrors}
+                />
+              )}
               <StepsNav
                 currentStep={currentStep}
                 onNext={currentStep === 3 ? handleSubmit : handleNextClick}

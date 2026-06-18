@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
@@ -17,9 +17,8 @@ const defaultValues = {
   /*dates: {
     from: new Date(),
     to: new Date(),
-  },
+  },*/
   countries: [],
-  plans: [],*/
 }
 
 const DRAFT_KEY = 'tripDraft'
@@ -27,6 +26,7 @@ const DRAFT_KEY = 'tripDraft'
 export const useTripForm = () => {
   const [currentStep, setCurrentStep] = useState(1)
   const [serverError, setServerError] = useState<string | null>(null)
+  const [stepErrors, setStepErrors] = useState<Record<string, string>>({})
   const router = useRouter()
 
   const {
@@ -36,6 +36,7 @@ export const useTripForm = () => {
     handleSubmit,
     reset,
     watch,
+    setValue,
     formState: { errors, isSubmitting }
   } = useForm<TripFormData>({
     resolver: zodResolver(tripFormSchema),
@@ -56,11 +57,19 @@ export const useTripForm = () => {
 
   useEffect(() => {
     const subscription = watch((value) => {
-      console.log('Saving draft:', value)
       localStorage.setItem(DRAFT_KEY, JSON.stringify(value))
     })
     return () => subscription.unsubscribe()
   }, [watch])
+
+  const countries = watch('countries')
+
+  const handlePlanChange = useCallback((code: string, value: string) => {
+    const newCountries = countries.map(country =>
+      country.code === code ? { ...country, plan: value } : country
+    )
+    setValue('countries', newCountries)
+  }, [countries, setValue])
 
   const handleNextClick = async () => {
     const stepFields = getStepFields(currentStep)
@@ -78,6 +87,16 @@ export const useTripForm = () => {
 
   const onSubmit = async (data: TripFormData) => {
     setServerError(null)
+
+    const errors: Record<string, string> = {}
+    data.countries.forEach((country) => {
+      const plan = country.plan || ''
+      if (plan.trim().length < 3 || plan.length > 200) {
+        errors[`plan-${country.code}`] = 'От 3 до 200 символов'
+      }
+    })
+    setStepErrors(errors)
+    if (Object.keys(errors).length > 0) return
 
     const result = await createTrip(data)
 
@@ -101,6 +120,9 @@ export const useTripForm = () => {
     handleNextClick,
     handleBackClick,
     handleSubmit: handleSubmit(onSubmit),
+    stepErrors,
     serverError,
+    countries,
+    handlePlanChange,
   }
 }
