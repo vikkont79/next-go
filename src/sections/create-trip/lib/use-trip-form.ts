@@ -1,12 +1,13 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef, useLayoutEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { type TripFormData, tripFormSchema } from '@/shared/lib'
 import { getStepFields } from '@/shared/lib'
 import { createTrip } from '../api'
+import { addDays, differenceInDays } from 'date-fns'
 
 const defaultValues = {
   tags: '',
@@ -14,10 +15,10 @@ const defaultValues = {
   companions: 1,
   duration: 2,
   hasChildren: false,
-  /*dates: {
+  dates: {
     from: new Date(),
-    to: new Date(),
-  },*/
+    to: addDays(new Date(), 1),
+  },
   countries: [],
 }
 
@@ -43,11 +44,21 @@ export const useTripForm = () => {
     defaultValues,
   })
 
+  const countries = watch('countries')
+  const dates = watch('dates')
+  const duration = watch('duration')
+
   useEffect(() => {
     const saved = localStorage.getItem(DRAFT_KEY)
     if (saved) {
       try {
         const parsed = JSON.parse(saved)
+        if (parsed.dates) {
+          parsed.dates = {
+            from: new Date(parsed.dates.from),
+            to: new Date(parsed.dates.to),
+          }
+        }
         reset(parsed)
       } catch (error) {
         console.error('Failed to restore draft:', error)
@@ -62,7 +73,35 @@ export const useTripForm = () => {
     return () => subscription.unsubscribe()
   }, [watch])
 
-  const countries = watch('countries')
+  const isSyncing = useRef(false)
+
+  useLayoutEffect(() => {
+    if (isSyncing.current) return
+
+    const { from, to } = dates
+    if (from && to) {
+      const days = differenceInDays(to, from) + 1
+      if (days !== duration) {
+        isSyncing.current = true
+        setValue('duration', days)
+        setTimeout(() => { isSyncing.current = false }, 0)
+      }
+    }
+  }, [dates.from, dates.to])
+
+  useLayoutEffect(() => {
+    if (isSyncing.current) return
+
+    const { from } = dates
+    if (from && duration) {
+      const newTo = addDays(from, duration - 1)
+      if (newTo !== dates.to) {
+        isSyncing.current = true
+        setValue('dates', { from, to: newTo })
+        setTimeout(() => { isSyncing.current = false }, 0)
+      }
+    }
+  }, [duration])
 
   const handlePlanChange = useCallback((code: string, value: string) => {
     const newCountries = countries.map(country =>
@@ -86,6 +125,7 @@ export const useTripForm = () => {
   }
 
   const onSubmit = async (data: TripFormData) => {
+    console.log('🔵 onSubmit вызван', data)
     setServerError(null)
 
     const errors: Record<string, string> = {}
@@ -111,6 +151,16 @@ export const useTripForm = () => {
     }
   }
 
+  const onSubmitWrapper = handleSubmit(
+    (data) => {
+      console.log('🔵 handleSubmit вызван, данные:', data)
+      onSubmit(data)
+    },
+    (errors) => {
+      console.log('🔵 handleSubmit ошибки:', errors)
+    }
+  )
+
   return {
     control,
     register,
@@ -119,7 +169,7 @@ export const useTripForm = () => {
     currentStep,
     handleNextClick,
     handleBackClick,
-    handleSubmit: handleSubmit(onSubmit),
+    handleSubmit: onSubmitWrapper,
     stepErrors,
     serverError,
     countries,

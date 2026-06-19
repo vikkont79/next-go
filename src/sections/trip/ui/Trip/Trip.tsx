@@ -55,6 +55,7 @@ const TripPage = async ({ id }: TripPageProps) => {
           {trip.user.name}
         </Link>
         <h2 className={styles.title}>Детали маршрута</h2>
+        <p>Даты: {trip.dates.from.toLocaleDateString()} — {trip.dates.to.toLocaleDateString()}</p>
         <div className={styles.tags}>
           {trip.tags.split(' ').map(tag => <span key={tag}>{tag}</span>)}
         </div>

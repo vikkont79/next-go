@@ -37,7 +37,7 @@ export const tripFormSchema = z.object({
 
   hasChildren: z.boolean().optional(),
 
-  //dates: dateRangeSchema,
+  dates: dateRangeSchema,
 
   countries: z.array(z.object({
     code: z.string(),

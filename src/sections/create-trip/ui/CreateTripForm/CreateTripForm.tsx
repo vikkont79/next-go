@@ -6,8 +6,9 @@ import { TransportSelector } from '../TransportSelector/TransportSelector'
 import { formContent } from '@/shared/config'
 import { StepsNav } from '../StepsNav/StepsNav'
 import { useTripForm } from '../../lib'
-import styles from './CreateTripForm.module.css'
 import { CountrySelect } from '@/widgets/country-select'
+import { DatePicker } from '../DatePicker/DatePicker'
+import styles from './CreateTripForm.module.css'
 
 const CreateTripForm = () => {
   const {
@@ -83,52 +84,64 @@ const CreateTripForm = () => {
                 </ul>
               </div>
               {stepConfig.step === 1 &&
-                <div className={styles.counters}>
+                <>
+                  <div className={styles.counters}>
+                    <Controller
+                      name='companions'
+                      control={control}
+                      render={({ field, fieldState }) => (
+                        <CounterInput
+                          className={styles.counterInput}
+                          label='Ищу попутчиков:'
+                          value={field.value}
+                          unit='чел.'
+                          onChange={field.onChange}
+                          min={1}
+                          max={10}
+                          error={fieldState.error?.message}
+                        />
+                      )}
+                    />
+                    <Controller
+                      name='hasChildren'
+                      control={control}
+                      render={({ field }) => (
+                        <Toggle
+                          label='Можно с детьми'
+                          checked={field.value}
+                          onChange={field.onChange}
+                          variant='transparent'
+                        />
+                      )}
+                    />
+                    <Controller
+                      name='duration'
+                      control={control}
+                      render={({ field, fieldState }) => (
+                        <CounterInput
+                          className={styles.counterInput}
+                          label='Длительность'
+                          value={field.value}
+                          unit='дн.'
+                          onChange={field.onChange}
+                          min={2}
+                          max={31}
+                          error={fieldState.error?.message}
+                        />
+                      )}
+                    />
+                  </div>
                   <Controller
-                    name='companions'
+                    name='dates'
                     control={control}
                     render={({ field, fieldState }) => (
-                      <CounterInput
-                        className={styles.counterInput}
-                        label='Ищу попутчиков:'
+                      <DatePicker
                         value={field.value}
-                        unit='чел.'
                         onChange={field.onChange}
-                        min={1}
-                        max={10}
-                        error={fieldState.error?.message}
                       />
                     )}
                   />
-                  <Controller
-                    name='hasChildren'
-                    control={control}
-                    render={({ field }) => (
-                      <Toggle
-                        label='Можно с детьми'
-                        checked={field.value}
-                        onChange={field.onChange}
-                        variant='transparent'
-                      />
-                    )}
-                  />
-                  <Controller
-                    name='duration'
-                    control={control}
-                    render={({ field, fieldState }) => (
-                      <CounterInput
-                        className={styles.counterInput}
-                        label='Длительность'
-                        value={field.value}
-                        unit='дн.'
-                        onChange={field.onChange}
-                        min={2}
-                        max={31}
-                        error={fieldState.error?.message}
-                      />
-                    )}
-                  />
-                </div>
+                </>
               }
               {stepConfig.step === 2 &&
                 <Controller
@@ -143,13 +156,13 @@ const CreateTripForm = () => {
                   )}
                 />
               }
-              {stepConfig.step === 3 && (
+              {stepConfig.step === 3 &&
                 <CountryPlans
                   countries={countries}
                   onPlanChange={handlePlanChange}
                   errors={stepErrors}
                 />
-              )}
+              }
               <StepsNav
                 currentStep={currentStep}
                 onNext={currentStep === 3 ? handleSubmit : handleNextClick}
