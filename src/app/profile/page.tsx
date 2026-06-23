@@ -2,6 +2,8 @@ import { ProfilePage } from '@/sections/profile'
 import { getCurrentUser } from '@/shared/api/get-current-user'
 import { Metadata } from 'next'
 
+export const dynamic = 'force-dynamic'
+
 export async function generateMetadata(): Promise<Metadata> {
   let userName
 
