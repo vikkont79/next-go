@@ -14,10 +14,7 @@ function redirectAuth(request: NextRequest) {
 export function proxy(request: NextRequest) {
   const secret = process.env.JWT_SECRET
   if (!secret) {
-    // Явно логируем/бросаем в dev, но для продакшна безопаснее редирект
-    if (process.env.NODE_ENV === 'development') {
-      throw new Error('Missing JWT_SECRET')
-    }
+    console.error('JWT_SECRET is not set')
     return redirectAuth(request)
   }
 
@@ -28,6 +25,7 @@ export function proxy(request: NextRequest) {
     jwt.verify(token, secret)
     return NextResponse.next()
   } catch (err) {
+    console.error('Invalid token:', err)
     return redirectAuth(request)
   }
 }
