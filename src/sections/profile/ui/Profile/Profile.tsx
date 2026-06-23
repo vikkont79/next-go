@@ -11,6 +11,10 @@ interface ProfilePageProps {
 }
 
 const ProfilePage = async ({ userId }: ProfilePageProps) => {
+  console.log('=== ProfilePage RENDER ===')
+  console.log('userId prop:', userId)
+  console.log('userId type:', typeof userId)
+
   let currentUser: User | null = null
   let targetUser: User | null = null
   let trips: Trip[] = []
@@ -20,14 +24,19 @@ const ProfilePage = async ({ userId }: ProfilePageProps) => {
   let tripsError: Error | null = null
 
   try {
+    console.log('ProfilePage: calling getCurrentUser()...')
     currentUser = await getCurrentUser()
+    console.log('ProfilePage: getCurrentUser() returned:', currentUser ? 'USER' : 'null')
   } catch (error) {
     currentUser = null
     console.error("ProfilePage: Failed to fetch current user", error)
     authError = error instanceof Error ? error : new Error('Unknown auth error')
   }
 
+  console.log('ProfilePage: currentUser after call:', currentUser ? currentUser.id : 'null')
+
   if (userId) {
+    console.log('ProfilePage: userId exists, fetching by id')
     try {
       targetUser = await getUserById(userId)
     } catch (error) {
@@ -36,8 +45,11 @@ const ProfilePage = async ({ userId }: ProfilePageProps) => {
       userError = error instanceof Error ? error : new Error('Unknown user fetch error')
     }
   } else {
+    console.log('ProfilePage: userId is falsy, setting targetUser = currentUser')
     targetUser = currentUser
   }
+
+  console.log('ProfilePage: targetUser final:', targetUser ? targetUser.id : 'null')
 
   if (authError) {
     return <div className='error'>Ошибка при загрузке данных профиля. Пожалуйста, обновите страницу.</div>;
@@ -48,6 +60,7 @@ const ProfilePage = async ({ userId }: ProfilePageProps) => {
   }
 
   if (!targetUser) {
+    console.log('ProfilePage: targetUser is null, showing "Пользователь не найден"')
     return <div className='error'> Пользователь не найден</div>;
   }
 
