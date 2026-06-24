@@ -1,13 +1,12 @@
 'use server'
 
+import { put } from '@vercel/blob'
 import { getCurrentUser } from '@/shared/api/get-current-user'
 import { db } from '../../../../db/client'
 import { users } from '../../../../db/schema'
 import { eq } from 'drizzle-orm'
 import { revalidatePath } from 'next/cache'
 import { userNameSchema, emailSchema, passwordSchema } from '@/shared/lib'
-import { writeFile, mkdir } from 'fs/promises'
-import path from 'path'
 import bcrypt from 'bcrypt'
 
 export async function updateUserName(input: unknown) {
@@ -51,29 +50,21 @@ export async function updateAvatar(formData: FormData) {
       return { error: 'Файл не должен превышать 5 МБ' }
     }
 
-    const bytes = await file.arrayBuffer()
-    const buffer = Buffer.from(bytes)
+    const blob = await put(
+      `avatars/${user.id}-${Date.now()}.jpeg`,
+      file,
+      {
+        access: 'public',
+        contentType: file.type,
+      }
+    )
 
-    // Уникальное имя файла
-    const ext = path.extname(file.name)
-    const filename = `${user.id}-${Date.now()}${ext}`
-    const uploadDir = path.join(process.cwd(), 'public/uploads/avatars')
-    const filepath = path.join(uploadDir, filename)
-
-    // Создаём папку если нет
-    await mkdir(uploadDir, { recursive: true })
-    await writeFile(filepath, buffer)
-
-    // Относительный путь для БД и img
-    const avatarPath = `/uploads/avatars/${filename}`
-
-    // Обновляем БД
     await db.update(users)
-      .set({ avatar: avatarPath })
+      .set({ avatar: blob.url })
       .where(eq(users.id, user.id))
 
     revalidatePath('/profile')
-    return { success: true, avatar: avatarPath }
+    return { success: true, avatar: blob.url }
   } catch (error) {
     console.error(error)
     return { error: 'Ошибка сервера. Попробуйте позже.' }
