@@ -11,8 +11,10 @@
 .avatar {
   display: block;
   inline-size: 48px;
+  block-size: 48px;
   border-radius: 50%;
   align-self: center;
+  object-fit: cover;
 }
 
 .authBtn {

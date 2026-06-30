@@ -70,8 +70,8 @@ const AuthButtons = ({ className, user }: AuthButtonsProps) => {
             className={styles.avatar}
             src={avatarSrc}
             alt='Аватар попутчика'
-            width={220}
-            height={220}
+            width={48}
+            height={48}
             onError={(e) => {
               e.currentTarget.src = '/icons/unknown-raccoon.svg';
             }}
