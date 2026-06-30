@@ -1,7 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import { useState } from 'react'
 
 interface CountryFlagProps {
   className?: string;
@@ -10,9 +9,7 @@ interface CountryFlagProps {
 }
 
 const CountryFlag = ({ className, code, name }: CountryFlagProps) => {
-  const [flagSrc, setFlagSrc] = useState(
-    `https://cdn.jsdelivr.net/npm/flag-icons@6.6.6/flags/4x3/${code.toLowerCase()}.svg`
-  )
+  const flagSrc = `https://cdn.jsdelivr.net/npm/flag-icons@6.6.6/flags/4x3/${code.toLowerCase()}.svg`
 
   return (
     <Image
@@ -21,7 +18,9 @@ const CountryFlag = ({ className, code, name }: CountryFlagProps) => {
       alt={name}
       width={35}
       height={24}
-      onError={() => setFlagSrc('/icons/unknown-flag.svg')}
+      onError={(e) => {
+        (e.currentTarget as HTMLImageElement).style.display = 'none'
+      }}
     />
   )
 }

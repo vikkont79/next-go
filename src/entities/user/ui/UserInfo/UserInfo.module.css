@@ -30,17 +30,21 @@
 }
 
 .avatar {
+  display: block;
   inline-size: 100px;
-  block-size: auto;
+  block-size: 100px;
   border-radius: 50%;
+  object-fit: cover;
 
   @media (min-width: 768px) {
     inline-size: 95px;
+    block-size: 95px;
     border-radius: 7px;
   }
 
   @media (min-width: 1024px) {
     inline-size: 200px;
+    block-size: 200px;
     border-radius: var(--border-radius-lg);
   }
 }
