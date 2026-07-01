@@ -18,6 +18,7 @@ const Avatar = ({ className, src, alt }: AvatarProps) => {
       width={285}
       height={285}
       loading="lazy"
+      unoptimized={process.env.NODE_ENV === 'development'}
       onError={(e) => {
         e.currentTarget.src = '/icons/unknown-raccoon.svg';
       }}

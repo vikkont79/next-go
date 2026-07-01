@@ -72,6 +72,7 @@ const AuthButtons = ({ className, user }: AuthButtonsProps) => {
             alt='Аватар попутчика'
             width={48}
             height={48}
+            unoptimized={process.env.NODE_ENV === 'development'}
             onError={(e) => {
               e.currentTarget.src = '/icons/unknown-raccoon.svg';
             }}
