@@ -26,6 +26,7 @@ const EditingInfo = ({ className, user, isOwner }: EditingInfoProps) => {
       )}
       <InlineEditor
         value={user?.name || ''}
+        field='name'
         onSave={updateUserName}
         isOwner={isOwner}
       />

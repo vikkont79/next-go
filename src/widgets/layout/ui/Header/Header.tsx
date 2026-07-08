@@ -4,18 +4,9 @@ import logo from '@/shared/assets/images/logo-white.png'
 import logoPopup from '@/shared/assets/images/logo-black.png'
 import { AuthButtons } from '@/features/auth'
 import { HeaderTitle } from '../HeaderTitle/HeaderTitle'
-import { getCurrentUser } from '@/shared/api/get-current-user'
 import styles from './Header.module.css'
 
 const Header = async () => {
-  let user = null
-  let authError = false
-  try {
-    user = await getCurrentUser()
-  } catch (error) {
-    authError = true
-  }
-
   return (
     <>
       <header className={`${styles.header} wrapper`}>
@@ -63,12 +54,7 @@ const Header = async () => {
           popoverTargetAction='hide'
           aria-label='Закрыть меню'
         />
-        <AuthButtons className={styles.auth} user={user} />
-        {authError && (
-          <div title='Ошибка загрузки профиля'>
-            ⚠️
-          </div>
-        )}
+        <AuthButtons className={styles.auth} />
       </header>
       <HeaderTitle />
     </>

@@ -17,7 +17,20 @@
 }
 
 .preview {
+  inline-size: 100%;
+  max-inline-size: 100px;
   grid-column: 1/-1;
+  margin-inline: auto;
+
+  @media(min-width: 768px) {
+    max-inline-size: 300px;
+  }
+}
+
+.image {
+  inline-size: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
 }
 
 .input {

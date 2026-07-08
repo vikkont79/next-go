@@ -5,9 +5,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { emailSchema, type EmailInput } from '@/shared/lib'
 import { Button, Input } from '@/shared/ui'
 import { updateEmail } from '../../api'
+import { useUserStore } from '@/entities/user'
 import styles from './ChangeEmail.module.css'
 
 const ChangeEmail = () => {
+  const updateUser = useUserStore((state) => state.updateUser)
+
   const {
     register,
     handleSubmit,
@@ -26,6 +29,7 @@ const ChangeEmail = () => {
       return
     }
 
+    updateUser({ email: data.email })
     reset();
     (document.getElementById('email-modal') as HTMLDialogElement)?.close()
   }

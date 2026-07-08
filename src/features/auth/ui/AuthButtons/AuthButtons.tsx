@@ -3,7 +3,7 @@
 import { Button, IconButton } from '@/shared/ui'
 import { LogoutButton } from '../LogoutButton/LogoutButton'
 import Image from 'next/image'
-import { User } from '@/entities/user'
+import { User, useUserStore } from '@/entities/user'
 import styles from './AuthButtons.module.css'
 import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
@@ -11,14 +11,14 @@ import { getRouteConfig } from '@/shared/lib'
 
 interface AuthButtonsProps {
   className?: string;
-  user: User | null;
 }
 
-const AuthButtons = ({ className, user }: AuthButtonsProps) => {
+const AuthButtons = ({ className }: AuthButtonsProps) => {
   const pathname = usePathname()
   const routeConfig = getRouteConfig(pathname)
   const [showMenu, setShowMenu] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
+  const user = useUserStore((state) => state.user)
   const avatarSrc = user?.avatar || '/icons/unknown-raccoon.svg'
 
   useEffect(() => {
@@ -69,7 +69,7 @@ const AuthButtons = ({ className, user }: AuthButtonsProps) => {
           <Image
             className={styles.avatar}
             src={avatarSrc}
-            alt='Аватар попутчика'
+            alt='Аватар пользователя'
             width={48}
             height={48}
             unoptimized={process.env.NODE_ENV === 'development'}

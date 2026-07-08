@@ -1,6 +1,6 @@
 'use server'
 
-import { put } from '@vercel/blob'
+import { put, del } from '@vercel/blob'
 import { getCurrentUser } from '@/shared/api/get-current-user'
 import { db } from '../../../../db/client'
 import { users } from '../../../../db/schema'
@@ -58,6 +58,11 @@ export async function updateAvatar(formData: FormData) {
         contentType: file.type,
       }
     )
+
+    // Удаляем старый аватар (если он есть и это Vercel Blob URL)
+    if (user.avatar && user.avatar.startsWith('https://')) {
+      await del(user.avatar).catch(() => { }) // игнорируем ошибку
+    }
 
     await db.update(users)
       .set({ avatar: blob.url })

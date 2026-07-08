@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Button } from '@/shared/ui'
 import { deleteUser } from '../../api'
 import { useRouter } from 'next/navigation'
+import { useUserStore } from '@/entities/user'
 import styles from './DeleteUser.module.css'
 
 const DeleteUser = () => {
@@ -11,6 +12,7 @@ const DeleteUser = () => {
   const [error, setError] = useState<string | null>(null)
   const [confirmed, setConfirmed] = useState(false)
   const router = useRouter()
+  const clearUser = useUserStore((state) => state.clearUser)
 
   const handleDelete = async () => {
     setIsLoading(true)
@@ -22,6 +24,7 @@ const DeleteUser = () => {
       return
     }
 
+    clearUser()
     router.refresh()
   }
 
