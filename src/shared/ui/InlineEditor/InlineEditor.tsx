@@ -3,10 +3,12 @@
 import { useState } from 'react'
 import { IconButton, Input } from '@/shared/ui'
 import styles from './InlineEditor.module.css'
+import { User, useUserStore } from '@/entities/user';
 
 interface InlineEditorProps {
   className?: string;
   value: string;
+  field: keyof User;
   onSave: (newValue: string) => Promise<{ error?: string; success?: boolean }>;
   isOwner: boolean;
 }
@@ -14,12 +16,14 @@ interface InlineEditorProps {
 const InlineEditor = ({
   className = '',
   value,
+  field,
   onSave,
   isOwner
 }: InlineEditorProps) => {
   const [isEditing, setIsEditing] = useState(false)
   const [editValue, setEditValue] = useState(value)
   const [error, setError] = useState<string | undefined>()
+  const updateUser = useUserStore((state) => state.updateUser)
 
   const handleSave = async () => {
     if (!editValue.trim() || editValue === value) {
@@ -35,6 +39,7 @@ const InlineEditor = ({
       return
     }
 
+    updateUser({ [field]: editValue.trim() })
     setError(undefined)
     setIsEditing(false)
   }

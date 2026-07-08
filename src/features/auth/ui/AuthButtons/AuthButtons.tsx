@@ -69,7 +69,7 @@ const AuthButtons = ({ className }: AuthButtonsProps) => {
           <Image
             className={styles.avatar}
             src={avatarSrc}
-            alt='Аватар попутчика'
+            alt='Аватар пользователя'
             width={48}
             height={48}
             unoptimized={process.env.NODE_ENV === 'development'}

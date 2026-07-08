@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react'
 import { Button } from '@/shared/ui'
 import { updateAvatar } from '../../api'
+import { useUserStore } from '../../store'
 import styles from './AvatarUpload.module.css'
 
 const AvatarUpload = () => {
@@ -11,6 +12,7 @@ const AvatarUpload = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const updateUser = useUserStore((state) => state.updateUser)
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0]
@@ -43,7 +45,8 @@ const AvatarUpload = () => {
       setError(result.error)
     }
 
-    if (result.success) {
+    if (result.success && result.avatar) {
+      updateUser({ avatar: result.avatar });
       (document.getElementById('avatar-modal') as HTMLDialogElement)?.close()
       setPreview(null)
       setFile(null)
