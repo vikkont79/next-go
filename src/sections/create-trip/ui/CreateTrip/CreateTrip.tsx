@@ -1,7 +1,7 @@
 import { getCurrentUser } from '@/shared/api/get-current-user'
 import { UserInfo } from '@/entities/user'
-import styles from './CreateTrip.module.css'
 import { CreateTripForm } from '../CreateTripForm/CreateTripForm'
+import styles from './CreateTrip.module.css'
 
 
 
@@ -23,7 +23,7 @@ const CreateTripPage = async () => {
   return (
     <main className='wrapper'>
       <h1 className='visually-hidden'>Страница создания маршрута</h1>
-      {user && <UserInfo className={styles.user} user={user} />}
+      {user && <UserInfo className={styles.user} />}
       <CreateTripForm />
     </main>
   )

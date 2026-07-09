@@ -3,7 +3,7 @@
 import { Button, IconButton } from '@/shared/ui'
 import { LogoutButton } from '../LogoutButton/LogoutButton'
 import Image from 'next/image'
-import { User, useUserStore } from '@/entities/user'
+import { useUserStore } from '@/entities/user'
 import styles from './AuthButtons.module.css'
 import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'

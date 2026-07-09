@@ -63,7 +63,7 @@ const ProfilePage = async ({ userId }: ProfilePageProps) => {
   return (
     <main className={`${styles.profile} wrapper`} >
       <h1 className='visually-hidden'>Страница профиля пользователя</h1>
-      <UserInfo className={styles.user} user={user} />
+      <UserInfo className={styles.user} targetUser={user} />
       <EditingInfo user={user} isOwner={isOwner} />
       {tripsError ? (
         <div>Ошибка загрузки маршрутов</div>
