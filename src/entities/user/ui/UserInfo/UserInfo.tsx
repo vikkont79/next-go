@@ -1,16 +1,19 @@
 'use client'
 
 import { Avatar, Level, Link } from '@/shared/ui'
-import type { User } from '@/entities/user'
+import { User, useUserStore } from '@/entities/user'
 import styles from './UserInfo.module.css'
 
 interface UserInfoProps {
-  user: User;
+  targetUser?: User;
   className?: string;
   href?: string;
 }
 
-const UserInfo = ({ className, user, href }: UserInfoProps) => {
+const UserInfo = ({ className, targetUser, href }: UserInfoProps) => {
+  const currentUser = useUserStore((state) => state.user)
+  const user = targetUser ? targetUser : currentUser
+  if (!user) return null
   const avatarSrc = user?.avatar || '/icons/unknown-raccoon.svg'
   return (
     <section className={`${styles.user} ${className}`}>

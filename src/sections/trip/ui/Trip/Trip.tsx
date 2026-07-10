@@ -1,11 +1,12 @@
-import { getTripById } from '@/entities/trip/api/get-current-trip';
-import { User, UserInfo } from '@/entities/user';
+import { getTripById } from '@/entities/trip/api/get-current-trip'
+import { User, UserInfo } from '@/entities/user'
 import { Icon, Button, CountryFlag, Link, Modal } from '@/shared/ui'
+import { getCountryByCode } from '@/shared/lib'
+import { TRANSPORT_OPTIONS } from '@/shared/config'
+import { getCurrentUser } from '@/shared/api/get-current-user'
+import { DeleteTrip } from '@/entities/trip/ui'
 import styles from './Trip.module.css'
-import { getCountryByCode } from '@/shared/lib';
-import { TRANSPORT_OPTIONS } from '@/shared/config';
-import { getCurrentUser } from '@/shared/api/get-current-user';
-import { DeleteTrip } from '@/entities/trip/ui';
+
 
 interface TripPageProps {
   id: string;
@@ -19,25 +20,25 @@ const TripPage = async ({ id }: TripPageProps) => {
   let authError: Error | null = null
 
   try {
-    trip = await getTripById(id);
+    trip = await getTripById(id)
   } catch (error) {
-    console.error(`TripPage: Failed to fetch trip ${id}`, error);
-    tripError = error instanceof Error ? error : new Error('Unknown trip fetch error');
+    console.error(`TripPage: Failed to fetch trip ${id}`, error)
+    tripError = error instanceof Error ? error : new Error('Unknown trip fetch error')
   }
 
   if (tripError) {
-    return <div className='error'>Ошибка загрузки маршрута. Попробуйте позже.</div>;
+    return <div className='error'>Ошибка загрузки маршрута. Попробуйте позже.</div>
   }
 
   if (!trip) {
-    return <div className='error'>Маршрут не найден</div>;
+    return <div className='error'>Маршрут не найден</div>
   }
 
   try {
-    currentUser = await getCurrentUser();
+    currentUser = await getCurrentUser()
   } catch (error) {
-    console.error('TripPage: Failed to fetch current user', error);
-    authError = error instanceof Error ? error : new Error('Unknown auth error');
+    console.error('TripPage: Failed to fetch current user', error)
+    authError = error instanceof Error ? error : new Error('Unknown auth error')
   }
 
   const isOwner = !authError && currentUser?.id === trip.user.id
@@ -47,7 +48,7 @@ const TripPage = async ({ id }: TripPageProps) => {
       <h1 className='visually-hidden'>Полная информация о маршруте</h1>
       <UserInfo
         className={styles.user}
-        user={trip.user}
+        targetUser={trip.user}
         href={`/profile/${trip.user.id}`}
       />
       <section className={styles.info}>
