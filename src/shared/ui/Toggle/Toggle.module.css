@@ -18,7 +18,7 @@
 .toggleControl {
   display: grid;
   place-items: center;
-  border-radius: var(--border-radius-sm);
+  border-radius: 4px;
   transition: var(--transition-all);
 
   &:hover {
@@ -46,12 +46,15 @@ input[type='radio']+.toggleControl {
 }
 
 .labelText {
-  font-weight: 500;
-  text-transform: uppercase;
+  font-size: var(--font-size-base);
 
-  @media(max-width: 376px) {
-    font-size: 16px;
-    text-transform: none;
+
+
+  @media(min-width: 768px) {
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    letter-spacing: 0.1;
+    text-transform: uppercase;
   }
 }
 
@@ -64,12 +67,12 @@ input[type='radio']+.toggleControl {
 }
 
 .base {
-  inline-size: 36px;
-  block-size: 36px;
+  inline-size: 26px;
+  block-size: 26px;
 
-  @media(max-width: 376px) {
-    inline-size: 26px;
-    block-size: 26px;
+  @media(min-width: 768px) {
+    inline-size: 36px;
+    block-size: 36px;
   }
 }
 

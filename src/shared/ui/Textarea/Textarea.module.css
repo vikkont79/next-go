@@ -33,10 +33,10 @@
 
 .base {
   padding: var(--indent-6);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
 
-  @media(max-width: 376px) {
-    font-size: 16px;
+  @media(min-width: 768px) {
+    font-size: var(--font-size-sm);
     line-height: 22px;
   }
 }

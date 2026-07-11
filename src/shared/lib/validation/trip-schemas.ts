@@ -1,8 +1,6 @@
 import { optional, z } from 'zod'
 import { TRANSPORT_OPTIONS } from '@/shared/config'
 
-const tagsRegex = /#\w+/
-
 const dateRangeSchema = z.object({
   from: z.date().refine((date) => date !== undefined, {
     message: 'Укажите дату начала',
@@ -18,8 +16,11 @@ const dateRangeSchema = z.object({
 export const tripFormSchema = z.object({
   tags: z.string()
     .min(1, 'Добавьте хотя бы один тег')
-    .refine((val) => tagsRegex.test(val), {
-      message: 'Тег должен начинаться с # (например, #путешествие)',
+    .refine((val) => {
+      const words = val.split(/\s+/).filter(Boolean)
+      return words.length > 0 && words.every(word => /^#[\wа-яёА-ЯЁ]+$/.test(word))
+    }, {
+      message: 'Каждый тег должен начинаться с #',
     }),
 
   transport: z.array(z.enum(TRANSPORT_OPTIONS))

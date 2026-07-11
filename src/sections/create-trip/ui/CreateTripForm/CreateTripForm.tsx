@@ -36,6 +36,7 @@ const CreateTripForm = () => {
             теги
           </legend>
           <Input
+            className={styles.tags}
             label='Список тегов'
             hiddenLabel={true}
             placeholder='#делатьдичь'
@@ -43,17 +44,23 @@ const CreateTripForm = () => {
             error={errors.tags?.message}
           />
         </fieldset>
-        <Controller
-          name='transport'
-          control={control}
-          render={({ field, fieldState }) => (
-            <TransportSelector
-              selected={field.value}
-              onChange={field.onChange}
-              error={fieldState.error?.message}
-            />
-          )}
-        />
+        <fieldset className={styles.field}>
+          <legend className={styles.fieldTitle}>
+            транспорт
+          </legend>
+          <Controller
+            name='transport'
+            control={control}
+            render={({ field, fieldState }) => (
+              <TransportSelector
+                className={styles.transport}
+                selected={field.value}
+                onChange={field.onChange}
+                error={fieldState.error?.message}
+              />
+            )}
+          />
+        </fieldset>
       </div>
       <div className={`${styles.stepFields} wrapper`}>
         <h2 className='visually-hidden'>Пошаговый план маршрута</h2>
@@ -73,12 +80,13 @@ const CreateTripForm = () => {
                   </p>
                 </div>
                 <ul className={styles.stepList}>
-                  {formContent.map((stepConfig) => (
+                  {formContent.map((item) => (
                     <li
-                      className={`${styles.stepItem} ${currentStep === stepConfig.step ? styles.active : ''}`.trim()}
-                      key={stepConfig.step}
+                      className={`${styles.stepItem} ${currentStep === item.step ? styles.active : ''}`.trim()}
+                      key={item.step}
                     >
-                      {stepConfig.nav}
+                      <span className={styles.stepDot} aria-hidden="true" />
+                      <span className={styles.stepNav}>{item.nav}</span>
                     </li>
                   ))}
                 </ul>
@@ -107,6 +115,7 @@ const CreateTripForm = () => {
                       control={control}
                       render={({ field }) => (
                         <Toggle
+                          className={styles.checkbox}
                           label='Можно с детьми'
                           checked={field.value}
                           onChange={field.onChange}

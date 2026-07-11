@@ -1,11 +1,13 @@
 .stepsNav {
   display: flex;
-  justify-content: space-between;
-  margin-block-start: 60px;
+  flex-direction: column;
+  gap: var(--indent-2);
+  margin-block-start: var(--indent-6);
 
-  @media(max-width: 376px) {
-    flex-direction: column;
-    gap: var(--indent-2);
-    margin-block-start: var(--indent-6);
+
+  @media(min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-block-start: 60px;
   }
 }

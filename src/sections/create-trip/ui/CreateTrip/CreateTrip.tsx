@@ -8,9 +8,12 @@ import styles from './CreateTrip.module.css'
 const CreateTripPage = async () => {
 
   return (
-    <main className='wrapper'>
+    <main>
       <h1 className='visually-hidden'>Страница создания маршрута</h1>
-      <UserInfo className={styles.user} />
+      <UserInfo
+        className={styles.user}
+        href='/profile'
+      />
       <CreateTripForm />
     </main>
   )
