@@ -1,0 +1,134 @@
+.rdp-root {
+  position: relative;
+  border-top: 1px solid var(--color-neutral-300);
+  font-size: 14px;
+  line-height: 18px;
+
+  @media(min-width: 768px) {
+    font-size: 18px;
+    line-height: 1;
+  }
+}
+
+.rdp-nav {
+  inline-size: 100%;
+  block-size: auto;
+  display: flex;
+  justify-content: space-between;
+
+  @media(min-width: 768px) {
+    block-size: 85px;
+  }
+}
+
+.rdp-nav button {
+  border: none;
+  background-color: transparent;
+  color: var(--color-black);
+  opacity: 0.3;
+  cursor: pointer;
+}
+
+.rdp-month_caption {
+  block-size: auto;
+  border-bottom: 1px solid var(--color-neutral-300);
+}
+
+.rdp-caption_label {
+  margin-inline: auto;
+  padding-block: var(--indent-3);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  text-transform: capitalize;
+
+  @media(min-width: 768px) {
+    padding-block: var(--indent-6);
+    font-size: var(--font-size-xxl);
+  }
+}
+
+.rdp-month_grid {
+  inline-size: 100%;
+  table-layout: fixed;
+  border-spacing: 0;
+}
+
+.rdp-weekday {
+  padding-block: 22px 10px;
+  color: var(--color-neutral-500);
+  font-weight: 400;
+  text-transform: uppercase;
+
+  @media(min-width: 768px) {
+    padding-block: 36px 12px;
+    text-transform: capitalize;
+  }
+}
+
+.rdp-weekday:nth-child(6),
+.rdp-weekday:nth-child(7) {
+  color: var(--color-error);
+}
+
+.rdp-weeks {
+  inline-size: 100%;
+}
+
+.rdp-selected {
+  font-size: inherit;
+  font-weight: 500;
+}
+
+.rdp-day {
+  min-inline-size: 34px;
+  inline-size: auto;
+  block-size: 32px;
+  padding: 0;
+  border: 1px solid var(--color-neutral-300);
+
+  @media(min-width: 768px) {
+    block-size: 68px;
+  }
+
+  @media(min-width: 1024px) {
+    block-size: 72px;
+  }
+}
+
+.rdp-day_button {
+  min-inline-size: 32px;
+  inline-size: 100%;
+  block-size: 32px;
+  border: none;
+  border-radius: 0;
+  background-color: var(--color-neutral-50);
+  color: var(--color-neutral-500);
+  font: inherit;
+  cursor: pointer;
+
+  @media(min-width: 768px) {
+    block-size: 68px;
+  }
+
+  @media(min-width: 1024px) {
+    block-size: 72px;
+    justify-content: start;
+    align-items: start;
+    padding-inline-start: 16px;
+    padding-block-start: 14px;
+  }
+}
+
+.rdp-selected .rdp-day_button {
+  background-color: var(--color-base-500);
+  color: var(--color-white);
+
+  &:hover {
+    outline: 4px solid var(--color-error);
+    outline-offset: -4px;
+  }
+}
+
+.rdp-disabled:not(.rdp-selected) {
+  opacity: 0.3;
+}
