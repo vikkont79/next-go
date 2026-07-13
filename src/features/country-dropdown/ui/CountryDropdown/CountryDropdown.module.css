@@ -6,14 +6,14 @@
   max-inline-size: 730px;
   display: grid;
   grid-column: 1/-1;
-  grid-template-columns: min-content min-content;
+  grid-template-columns: 1fr;
   justify-content: space-between;
   background-color: var(--color-white);
   box-shadow: 0px 8px 16px 0px rgba(54, 80, 148, 0.18);
 
 
-  @media(max-width: 376px) {
-    grid-template-columns: 1fr;
+  @media(min-width: 768px) {
+    grid-template-columns: min-content min-content;
   }
 }
 
@@ -21,34 +21,30 @@
   display: grid;
   grid-template-columns: repeat(5, min-content);
   grid-template-rows: repeat(5, min-content);
-  gap: var(--indent-4);
-  padding-inline: var(--indent-6);
-  padding-block: var(--indent-6);
 
-  @media(max-width: 769px) {
-    gap: 0;
+  @media(min-width: 768px) {
+    padding-inline: var(--indent-6);
+    padding-block: var(--indent-6);
   }
 
-  @media(max-width: 376px) {
-    padding: 0;
+  @media(min-width: 1024px) {
+    gap: var(--indent-4);
   }
 }
 
 .letter {
-  padding-inline: var(--indent-5);
-  padding-block: var(--indent-6);
+  padding-inline: var(--indent-4);
+  padding-block: var(--indent-3);
   border: 1px solid var(--color-neutral-200);
-  font-size: var(--font-size-sm);
+  border-radius: 0;
+  font-size: 14px;
   font-weight: 500;
 
-  @media(max-width: 769px) {
-    border-radius: 0;
-  }
-
-  @media(max-width: 376px) {
+  @media(min-width: 1024px) {
     padding-inline: var(--indent-5);
-    padding-block: var(--indent-4);
-    font-size: 15px;
+    padding-block: var(--indent-6);
+    border-radius: 4px;
+    font-size: var(--font-size-sm);
     line-height: 18px;
   }
 
@@ -73,6 +69,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding-inline-start: var(--indent-5);
   padding-block: var(--indent-8);
 }
 

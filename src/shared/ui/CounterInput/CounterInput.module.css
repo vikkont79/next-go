@@ -2,35 +2,34 @@
   display: flex;
   align-items: center;
   gap: var(--indent-4);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
   line-height: 18px;
   font-weight: 500;
   text-transform: uppercase;
   text-align: start;
 
-  @media(max-width: 376px) {
+  @media(min-width: 1024px) {
     font-size: 16px;
   }
 }
 
 .counter {
   position: relative;
+  grid-column: 1/-1;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   padding: var(--indent-6);
-  gap: var(--indent-6);
+  gap: var(--indent-4);
   border: 1px solid var(--color-neutral-200);
   border-radius: 4px;
+  order: 1;
 
-  @media(max-width: 1025px) {
-    order: 1;
-    grid-column: 1/-1;
-    justify-content: space-between;
-  }
-
-  @media(max-width: 376px) {
-    padding: var(--indent-4);
+  @media(min-width: 1024px) {
+    grid-column: 2/-3;
+    justify-content: center;
+    padding: var(--indent-6);
+    order: 0;
   }
 }
 

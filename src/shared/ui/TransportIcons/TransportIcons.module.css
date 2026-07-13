@@ -1,13 +1,19 @@
 .transportList {
   display: flex;
+  justify-content: center;
   gap: 2px;
   margin-block: 0;
   padding-inline-start: 0;
+  padding-block: var(--indent-2);
   list-style-type: none;
+
+  @media (min-width: 768px) {
+    padding-block: var(--indent-5);
+  }
 }
 
 .transportButton {
-  padding: 10px;
+  padding: var(--indent-2);
   background-color: var(--color-white);
   color: var(--color-neutral-300);
 

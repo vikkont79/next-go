@@ -3,12 +3,14 @@ import { TransportIcons } from '@/shared/ui'
 import styles from './TransportSelector.module.css'
 
 type TransportSelectorProps = {
+  className: string;
   selected: TransportType[];
   onChange: (value: TransportType[]) => void;
   error?: string;
 }
 
 const TransportSelector = ({
+  className,
   selected,
   onChange,
   error,
@@ -20,21 +22,14 @@ const TransportSelector = ({
     onChange(newSelected)
   }
   return (
-    <>
-      <fieldset
-        className={styles.field}
-        data-invalid={!!error}
-      >
-        <legend className={styles.fieldTitle}>
-          транспорт
-        </legend>
-        <TransportIcons
-          selected={selected}
-          onChange={handleToggle}
-        />
-      </fieldset>
+    <div className={`${styles.transport} ${className}`} data-invalid={!!error}>
+      <TransportIcons
+        className={styles.list}
+        selected={selected}
+        onChange={handleToggle}
+      />
       {error && <span className={styles.error}>{error}</span>}
-    </>
+    </div>
   )
 }
 

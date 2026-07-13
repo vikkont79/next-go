@@ -82,6 +82,7 @@ const AvatarUpload = () => {
         ref={inputRef}
         type='file'
         accept='image/*'
+        capture
         onChange={handleFileChange}
         className={styles.input}
       />

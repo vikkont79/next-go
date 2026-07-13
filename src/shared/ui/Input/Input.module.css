@@ -21,12 +21,12 @@
   background-color: transparent;
   color: inherit;
   font: inherit;
-  font-size: 14px;
-  line-height: 16px;
+  font-size: var(--font-size-base);
+  line-height: 18px;
 
   @media(min-width: 768px) {
-    font-size: var(--font-size-base);
-    line-height: 20px;
+    font-size: var(--font-size-sm);
+    line-height: 22px;
   }
 }
 
