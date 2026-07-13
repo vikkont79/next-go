@@ -31,3 +31,29 @@ export const trips = sqliteTable('trips', {
     .notNull()
     .default(sql`(unixepoch())`),
 })
+
+// db/schema.ts
+
+export const joinRequests = sqliteTable('join_requests', {
+  id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+
+  tripId: text('trip_id')
+    .notNull()
+    .references(() => trips.id, { onDelete: 'cascade' }),
+
+  userId: text('user_id')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+
+  status: text('status').notNull().default('pending'),
+
+  message: text('message'),
+
+  createdAt: integer('created_at', { mode: 'timestamp' })
+    .notNull()
+    .default(sql`(unixepoch())`),
+
+  updatedAt: integer('updated_at', { mode: 'timestamp' })
+    .notNull()
+    .default(sql`(unixepoch())`),
+})

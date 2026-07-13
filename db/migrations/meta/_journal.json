@@ -50,6 +50,13 @@
       "when": 1781678496932,
       "tag": "0006_known_silver_sable",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1783971325267,
+      "tag": "0007_acoustic_maverick",
+      "breakpoints": true
     }
   ]
 }
