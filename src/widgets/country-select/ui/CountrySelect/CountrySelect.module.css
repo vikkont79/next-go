@@ -16,15 +16,16 @@
 .selectButton {
   max-inline-size: 730px;
   justify-content: space-between;
-  padding: var(--indent-6);
+  padding: var(--indent-3);
   border: 1px solid var(--color-neutral-200);
-  font-size: var(--font-size-sm);
+  border-radius: 4px;
+  font-size: 14px;
   font-weight: 500;
   text-transform: uppercase;
 
-  @media(max-width: 376px) {
-    padding: var(--indent-3);
-    font-size: 15px;
+  @media(min-width: 768px) {
+    padding: var(--indent-6);
+    font-size: var(--font-size-sm);
     line-height: 18px;
   }
 
@@ -43,33 +44,38 @@
 
 .flag {
   display: inline-block;
-  max-inline-size: 70px;
-  margin-inline: var(--indent-6);
+  max-inline-size: 35px;
+  margin-inline: var(--indent-2);
   justify-self: center;
+  border-radius: 5px;
   object-fit: contain;
 
-  @media(max-width: 376px) {
-    inline-size: 35px;
-    margin-inline: var(--indent-2);
-    border-radius: 5px;
+  @media(min-width: 768px) {
+    inline-size: 70px;
+    margin-inline: var(--indent-6);
+    border-radius: 0;
   }
 }
 
 .close {
-  padding: 0;
-  justify-self: end;
-  align-self: center;
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  padding: var(--indent-1);
+  border: 1px var(--color-neutral-300) solid;
+  border-radius: 50%;
+  background-color: var(--color-neutral-200);
   color: var(--color-black);
   opacity: 0.5;
 
-  @media(max-width: 376px) {
-    position: absolute;
-    top: -12px;
-    right: -12px;
-    padding: var(--indent-1);
-    border: 1px var(--color-neutral-300) solid;
-    border-radius: 50%;
-    background-color: var(--color-neutral-200);
+
+  @media(min-width: 768px) {
+    position: static;
+    padding: 0;
+    justify-self: end;
+    align-self: center;
+    border: none;
+    background-color: transparent;
   }
 
   &:hover {
@@ -79,36 +85,37 @@
 
 .closeButton {
   position: relative;
-  top: -74px;
+  top: -64px;
   grid-column: 1/-1;
   max-inline-size: 730px;
   justify-content: space-between;
-  padding-inline: var(--indent-4);
-  padding-block: var(--indent-6);
+  padding: var(--indent-3);
+  border-radius: 4px;
   background-color: var(--color-base-500);
   color: var(--color-white);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
   font-weight: 500;
+  line-height: 18px;
   text-transform: uppercase;
 
-  @media(max-width: 376px) {
-    top: -64px;
-    padding: var(--indent-3);
-    font-size: 15px;
-    line-height: 18px;
+  @media(min-width: 768px) {
+    top: -74px;
+    padding-inline: var(--indent-4);
+    padding-block: var(--indent-6);
+    font-size: var(--font-size-sm);
   }
 }
 
 .countryDropdown {
   position: relative;
-  top: -74px;
+  top: -64px;
   grid-column: 1/-1;
-  grid-template-columns: subgrid;
+  grid-template-columns: 1fr;
   margin-block-end: -74px;
 
-  @media(max-width: 376px) {
-    top: -64px;
-    grid-template-columns: 1fr;
+  @media(min-width: 768px) {
+    top: -74px;
+    grid-template-columns: subgrid;
   }
 }
 
