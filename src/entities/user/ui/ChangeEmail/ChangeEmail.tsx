@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { emailSchema, type EmailInput } from '@/shared/lib'
 import { Button, Input } from '@/shared/ui'
-import { updateEmail } from '../../api'
+import { updateEmail } from '../../api/update-user-data'
 import { useUserStore } from '@/entities/user'
 import styles from './ChangeEmail.module.css'
 

@@ -1,5 +1,4 @@
-'use server'
-
+import 'server-only'
 import { db } from '../../../../db/client'
 import { trips, users } from '../../../../db/schema'
 import { eq, desc } from 'drizzle-orm'
@@ -34,25 +33,23 @@ export const getUserTrips = cache(async (userId: string) => {
       .where(eq(trips.userId, userId))
       .orderBy(desc(trips.createdAt))
 
-    return result
-      .filter(row => row.user && row.user.id)
-      .map(row => ({
-        id: row.id,
-        userId: row.userId,
-        user: row.user!,
-        tags: row.tags,
-        transport: row.transport,
-        companions: row.companions,
-        duration: row.duration,
-        hasChildren: row.hasChildren === 1,
-        dates: {
-          from: new Date(row.fromDate),
-          to: new Date(row.toDate),
-        },
-        countries: row.countries,
-        likes: row.likes,
-        createdAt: new Date(row.createdAt).toISOString(),
-      }))
+    return result.map(row => ({
+      id: row.id,
+      userId: row.userId,
+      user: row.user!,
+      tags: row.tags,
+      transport: row.transport,
+      companions: row.companions,
+      duration: row.duration,
+      hasChildren: row.hasChildren === 1,
+      dates: {
+        from: new Date(row.fromDate),
+        to: new Date(row.toDate),
+      },
+      countries: row.countries,
+      likes: row.likes,
+      createdAt: new Date(row.createdAt).toISOString(),
+    }))
   } catch (error) {
     console.error('Ошибка загрузки маршрутов пользователя', error)
     throw new Error('Ошибка загрузки маршрутов пользователя')

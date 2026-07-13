@@ -1,8 +1,8 @@
-import { getUserById } from '@/entities/user/api'
+import { getUserById } from '@/entities/user/api/get-user-by-id'
 import { getCurrentUser } from '@/shared/api/get-current-user'
 import { User, UserInfo } from '@/entities/user'
 import { EditingInfo } from '../EditingInfo/EditingInfo'
-import { getUserTrips } from '@/entities/trip/api'
+import { getUserTrips } from '@/entities/trip/api/get-user-trips'
 import { Trip, TripCard } from '@/entities/trip'
 import styles from './Profile.module.css'
 

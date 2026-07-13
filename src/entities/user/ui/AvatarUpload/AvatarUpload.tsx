@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react'
 import { Button } from '@/shared/ui'
-import { updateAvatar } from '../../api'
+import { updateAvatar } from '../../api/update-user-data'
 import { useUserStore } from '../../store'
 import styles from './AvatarUpload.module.css'
 

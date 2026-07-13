@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { Button } from '@/shared/ui'
-import { deleteUser } from '../../api'
+import { deleteUser } from '../../api/delete-user'
 import { useRouter } from 'next/navigation'
 import { useUserStore } from '@/entities/user'
 import styles from './DeleteUser.module.css'

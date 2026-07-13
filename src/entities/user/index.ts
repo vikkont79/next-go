@@ -1,6 +1,5 @@
 export * from './types'
 export * from './store'
-export * from './api'
 export { UserInfo } from './ui'
 export { AvatarUpload } from './ui'
 export { ChangeEmail } from './ui'

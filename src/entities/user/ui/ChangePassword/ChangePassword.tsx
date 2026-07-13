@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { passwordSchema, type PasswordInput } from '@/shared/lib'
 import { Button, Input } from '@/shared/ui'
-import { updatePassword } from '../../api'
+import { updatePassword } from '../../api/update-user-data'
 import styles from './ChangePassword.module.css'
 
 const ChangePassword = () => {

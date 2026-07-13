@@ -1,8 +1,8 @@
 import { TripCard, type Trip } from '@/entities/trip'
-import styles from './CatalogList.module.css'
 import { Pagination } from '../Pagination/Pagination'
 import { ITEMS_PER_PAGE } from '@/shared/config'
 import { LoadMoreBtn } from '../LoadMoreBtn/LoadMoreBtn'
+import styles from './CatalogList.module.css'
 
 interface CatalogListProps {
   trips: Trip[];

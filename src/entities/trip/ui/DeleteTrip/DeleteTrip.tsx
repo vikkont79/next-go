@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/shared/ui'
-import { deleteTrip } from '../../api'
+import { deleteTrip } from '../../api/delete-trip'
 import styles from './DeleteTrip.module.css'
 
 const DeleteTrip = ({ tripId }: { tripId: string }) => {

@@ -1,4 +1,3 @@
-import { getCurrentUser } from '@/shared/api/get-current-user'
 import { UserInfo } from '@/entities/user'
 import { CreateTripForm } from '../CreateTripForm/CreateTripForm'
 import styles from './CreateTrip.module.css'

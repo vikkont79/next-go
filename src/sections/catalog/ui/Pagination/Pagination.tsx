@@ -1,9 +1,9 @@
 'use client'
 
 import { Icon, Link } from '@/shared/ui'
-
+import { useCreateURL } from '../../lib/create-url'
 import styles from './Pagination.module.css'
-import { useCreateURL } from '../../lib/create-url';
+
 
 interface PaginationProps {
   currentPage: number;

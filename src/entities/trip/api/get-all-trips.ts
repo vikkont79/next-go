@@ -1,5 +1,4 @@
-'use server'
-
+import 'server-only'
 import { db } from '../../../../db/client'
 import { trips, users } from '../../../../db/schema'
 import { eq, desc, sql } from 'drizzle-orm'
@@ -40,7 +39,9 @@ export const getAllTrips = cache(async (page: number = 1, limit: number = ITEMS_
     const totalResult = await db
       .select({ count: sql<number>`count(*)` })
       .from(trips)
-      .innerJoin(users, eq(trips.userId, users.id))
+      .where(
+        sql`EXISTS (SELECT 1 FROM ${users} WHERE ${users.id} = ${trips.userId})`
+      )
 
     const totalTrips = totalResult[0]?.count ?? 0
     const totalPages = Math.ceil(totalTrips / ITEMS_PER_PAGE)
