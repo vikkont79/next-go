@@ -3,7 +3,8 @@ import { getCurrentUser } from '@/shared/api/get-current-user'
 import { User, UserInfo } from '@/entities/user'
 import { EditingInfo } from '../EditingInfo/EditingInfo'
 import { getUserTrips } from '@/entities/trip/api/get-user-trips'
-import { Trip, TripCard } from '@/entities/trip'
+import { Trip } from '@/entities/trip'
+import { TripCard } from '@/widgets/trip-card'
 import styles from './Profile.module.css'
 
 interface ProfilePageProps {

@@ -1,5 +1,5 @@
 import { TRANSPORT_OPTIONS } from '@/shared/config'
-import { Trip } from '../../types/trip'
+import { Trip } from '../../../../entities/trip/types/trip'
 import { Level, Icon, Button, IconButton, Avatar, CountryFlag, Link } from '@/shared/ui'
 import { getCountryByCode } from '@/shared/lib'
 import styles from './TripCard.module.css'
@@ -60,7 +60,7 @@ const TripCard = ({ trip, className }: TripCardProps) => {
           className={styles.call}
           href='#'
         >
-          Позвать!
+          Хочу!
         </Button>
         <div className={styles.likes}>
           <IconButton

@@ -1,10 +1,10 @@
 import { getTripById } from '@/entities/trip/api/get-current-trip'
 import { User, UserInfo } from '@/entities/user'
-import { Icon, Button, CountryFlag, Link, Modal } from '@/shared/ui'
+import { Icon, Button, CountryFlag, Link, Modal, IconButton } from '@/shared/ui'
 import { getCountryByCode } from '@/shared/lib'
 import { TRANSPORT_OPTIONS } from '@/shared/config'
 import { getCurrentUser } from '@/shared/api/get-current-user'
-import { DeleteTrip } from '@/entities/trip/ui'
+import { DeleteTrip } from '@/entities/trip'
 import styles from './Trip.module.css'
 
 
@@ -95,6 +95,16 @@ const TripPage = async ({ id }: TripPageProps) => {
         </ul>
       </section>
       <section className={styles.actions}>
+        {!isOwner && (
+          <div className={styles.likes}>
+            <IconButton
+              className={styles.likeBtn}
+              icon='heart'
+              iconLabel='Избранное'
+            />
+            <span className={styles.likeQty}>{trip.likes}</span>
+          </div>
+        )}
         {isOwner && (
           authError ? (
             <div>Ошибка загрузки данных пользователя. Элементы управления недоступны. Обновите страницу</div>
