@@ -1,0 +1,14 @@
+.pending {
+  background-color: yellow;
+  cursor: not-allowed;
+}
+
+.approved {
+  background-color: green;
+  cursor: not-allowed;
+}
+
+.rejected {
+  background-color: var(--color-error);
+  cursor: not-allowed;
+}

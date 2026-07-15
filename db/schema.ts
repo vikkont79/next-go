@@ -32,8 +32,6 @@ export const trips = sqliteTable('trips', {
     .default(sql`(unixepoch())`),
 })
 
-// db/schema.ts
-
 export const joinRequests = sqliteTable('join_requests', {
   id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
 
@@ -45,7 +43,7 @@ export const joinRequests = sqliteTable('join_requests', {
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
 
-  status: text('status').notNull().default('pending'),
+  status: text('status').$type<'pending' | 'approved' | 'rejected'>().notNull().default('pending'),
 
   message: text('message'),
 

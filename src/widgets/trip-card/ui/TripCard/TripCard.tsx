@@ -1,16 +1,24 @@
-import { TRANSPORT_OPTIONS } from '@/shared/config'
+import { JoinRequestStatus, TRANSPORT_OPTIONS } from '@/shared/config'
 import { Trip } from '../../../../entities/trip/types/trip'
 import { Level, Icon, Button, IconButton, Avatar, CountryFlag, Link } from '@/shared/ui'
 import { getCountryByCode } from '@/shared/lib'
 import styles from './TripCard.module.css'
+import { JoinButton } from '@/entities/join-request'
 
 
 interface TripCardProps {
   trip: Trip;
   className?: string;
+  initialStatus?: JoinRequestStatus;
+  hideActions?: boolean;
 }
 
-const TripCard = ({ trip, className }: TripCardProps) => {
+const TripCard = ({
+  trip,
+  className,
+  initialStatus = 'idle',
+  hideActions = false,
+}: TripCardProps) => {
   const avatarSrc = trip.user.avatar || '/icons/unknown-raccoon.svg'
   return (
     <article className={`${styles.card} ${className || ''}`.trim()}>
@@ -55,22 +63,23 @@ const TripCard = ({ trip, className }: TripCardProps) => {
         </ul>
         <Level className={styles.level} level={trip.user.level} />
       </div>
-      <div className={styles.actions}>
-        <Button
-          className={styles.call}
-          href='#'
-        >
-          Хочу!
-        </Button>
-        <div className={styles.likes}>
-          <IconButton
-            className={styles.likeBtn}
-            icon='heart'
-            iconLabel='Избранное'
+      {!hideActions && (
+        <div className={styles.actions}>
+          <JoinButton
+            className={styles.join}
+            tripId={trip.id}
+            initialStatus={initialStatus}
           />
-          <span className={styles.likeQty}>{trip.likes}</span>
+          <div className={styles.likes}>
+            <IconButton
+              className={styles.likeBtn}
+              icon='heart'
+              iconLabel='Избранное'
+            />
+            <span className={styles.likeQty}>{trip.likes}</span>
+          </div>
         </div>
-      </div>
+      )}
     </article>
   )
 }

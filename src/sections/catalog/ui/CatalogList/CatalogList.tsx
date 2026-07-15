@@ -31,7 +31,11 @@ const CatalogList = ({
   return (
     <div className={styles.list}>
       {trips.map((trip) => (
-        <TripCard key={trip.id} trip={trip} />
+        <TripCard
+          key={trip.id}
+          trip={trip}
+          initialStatus={trip.joinStatus}
+        />
       ))}
       {canLoadMore && (
         <LoadMoreBtn

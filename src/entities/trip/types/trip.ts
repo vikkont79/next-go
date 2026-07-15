@@ -1,5 +1,5 @@
 import type { User } from '@/entities/user'
-import type { Country } from '@/shared/config'
+import type { Country, JoinRequestStatus } from '@/shared/config'
 import type { TRANSPORT_OPTIONS } from '@/shared/config'
 
 export type TransportType = typeof TRANSPORT_OPTIONS[number];
@@ -26,4 +26,5 @@ export interface Trip {
   countries: TripCountry[];
   likes: number;
   createdAt: string;
+  joinStatus?: JoinRequestStatus;
 }

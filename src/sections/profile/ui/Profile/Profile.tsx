@@ -53,7 +53,7 @@ const ProfilePage = async ({ userId }: ProfilePageProps) => {
   }
 
   try {
-    trips = await getUserTrips(user.id)
+    trips = await getUserTrips(user.id, currentUser?.id)
   } catch (error) {
     console.error('Failed to load user trips:', error)
     tripsError = error instanceof Error ? error : new Error('Unknown error')
@@ -75,7 +75,12 @@ const ProfilePage = async ({ userId }: ProfilePageProps) => {
           </h2>
           <div className={styles.list}>
             {trips.map(trip => (
-              <TripCard key={trip.id} trip={trip} />
+              <TripCard
+                key={trip.id}
+                trip={trip}
+                initialStatus={trip.joinStatus}
+                hideActions={isOwner}
+              />
             ))}
           </div>
         </section>
