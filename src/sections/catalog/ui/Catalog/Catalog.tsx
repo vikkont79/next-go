@@ -3,6 +3,7 @@ import { CatalogList } from '../CatalogList/CatalogList'
 import { ITEMS_PER_PAGE } from '@/shared/config'
 import styles from './Catalog.module.css'
 import { Trip } from '@/entities/trip'
+import { getCurrentUser } from '@/shared/api/get-current-user'
 
 interface CatalogPageProps {
   searchParams: Promise<{ page?: string; limit?: string }>
@@ -13,12 +14,21 @@ const CatalogPage = async ({ searchParams }: CatalogPageProps) => {
   const currentPage = Number(page) || 1
   const currentLimit = Number(limit) || ITEMS_PER_PAGE
 
+  let userId: string | undefined
+
   let trips: Trip[] = []
   let totalPages = 0
   let error: Error | null = null
 
   try {
-    const result = await getAllTrips(currentPage, currentLimit)
+    const user = await getCurrentUser()
+    userId = user?.id
+  } catch (error) {
+    console.error('CatalogPage: Failed to fetch current user:', error)
+  }
+
+  try {
+    const result = await getAllTrips(currentPage, currentLimit, userId)
     trips = result.trips
     totalPages = result.totalPages
   } catch (err) {

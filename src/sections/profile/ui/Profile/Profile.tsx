@@ -3,8 +3,14 @@ import { getCurrentUser } from '@/shared/api/get-current-user'
 import { User, UserInfo } from '@/entities/user'
 import { EditingInfo } from '../EditingInfo/EditingInfo'
 import { getUserTrips } from '@/entities/trip/api/get-user-trips'
-import { Trip, TripCard } from '@/entities/trip'
+import { Trip } from '@/entities/trip'
+import { TripCard } from '@/widgets/trip-card'
 import styles from './Profile.module.css'
+import { Dashboard } from '../Dashboard/Dashboard'
+import { JoinRequest } from '@/entities/join-request'
+import { getOwnerJoinRequests } from '@/entities/join-request/api/get-join-requests'
+import { approveJoinRequest } from '@/entities/join-request/api/approve-join-request'
+import { rejectJoinRequest } from '@/entities/join-request/api/reject-join-request'
 
 interface ProfilePageProps {
   userId?: string | undefined;
@@ -14,10 +20,13 @@ const ProfilePage = async ({ userId }: ProfilePageProps) => {
   let currentUser: User | null = null //Текущий авторизованный пользователь
   let targetUser: User | null = null //Пользователь переданный в пропсах
   let trips: Trip[] = []
+  let requests: JoinRequest[] = []
+
 
   let authError: Error | null = null
   let userError: Error | null = null
   let tripsError: Error | null = null
+  let requestsError: Error | null = null
 
   try {
     currentUser = await getCurrentUser()
@@ -52,7 +61,7 @@ const ProfilePage = async ({ userId }: ProfilePageProps) => {
   }
 
   try {
-    trips = await getUserTrips(user.id)
+    trips = await getUserTrips(user.id, currentUser?.id)
   } catch (error) {
     console.error('Failed to load user trips:', error)
     tripsError = error instanceof Error ? error : new Error('Unknown error')
@@ -60,23 +69,52 @@ const ProfilePage = async ({ userId }: ProfilePageProps) => {
 
   const isOwner = !userId
 
+  if (isOwner) {
+    try {
+      requests = await getOwnerJoinRequests()
+    } catch (error) {
+      console.error('ProfilePage: Failed to fetch join requests', error)
+      requestsError = error instanceof Error ? error : new Error('Unknown error')
+    }
+  }
+
   return (
     <main className={`${styles.profile} wrapper`} >
       <h1 className='visually-hidden'>Страница профиля пользователя</h1>
       <UserInfo className={styles.user} targetUser={user} />
       <EditingInfo user={user} isOwner={isOwner} />
+      {isOwner && (
+        <>
+          {requestsError ? (
+            <div className="error">
+              Ошибка загрузки заявок. Попробуйте позже.
+            </div>
+          ) : (
+            <Dashboard
+              requests={requests}
+              onApprove={approveJoinRequest}
+              onReject={rejectJoinRequest}
+            />
+          )}
+        </>
+      )}
       {tripsError ? (
         <div>Ошибка загрузки маршрутов</div>
       ) : trips.length > 0 && (
         <section className={styles.trips}>
-          <h2 className={styles.tripsTitle}>
+          <h2 className={styles.title}>
             {isOwner ? 'Мои маршруты' : `Маршруты пользователя ${user.name}`}
           </h2>
-          <div className={styles.list}>
+          <ul className={styles.list}>
             {trips.map(trip => (
-              <TripCard key={trip.id} trip={trip} />
+              <TripCard
+                key={trip.id}
+                trip={trip}
+                initialStatus={trip.joinStatus}
+                hideActions={isOwner}
+              />
             ))}
-          </div>
+          </ul>
         </section>
       )}
     </main >

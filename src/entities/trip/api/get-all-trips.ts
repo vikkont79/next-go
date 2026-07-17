@@ -1,11 +1,15 @@
 import 'server-only'
 import { db } from '../../../../db/client'
-import { trips, users } from '../../../../db/schema'
-import { eq, desc, sql } from 'drizzle-orm'
+import { joinRequests, trips, users } from '../../../../db/schema'
+import { eq, desc, sql, and } from 'drizzle-orm'
 import { cache } from 'react'
-import { ITEMS_PER_PAGE } from '../../../shared/config'
+import { ITEMS_PER_PAGE, JoinRequestStatus } from '@/shared/config'
 
-export const getAllTrips = cache(async (page: number = 1, limit: number = ITEMS_PER_PAGE) => {
+export const getAllTrips = cache(async (
+  page: number = 1,
+  limit: number = ITEMS_PER_PAGE,
+  userId?: string,
+) => {
   const offset = (page - 1) * ITEMS_PER_PAGE
 
   try {
@@ -29,9 +33,16 @@ export const getAllTrips = cache(async (page: number = 1, limit: number = ITEMS_
           avatar: users.avatar,
           level: users.level,
         },
+        joinStatus: joinRequests.status,
       })
       .from(trips)
       .innerJoin(users, eq(trips.userId, users.id))
+      .leftJoin(joinRequests,
+        and(
+          eq(joinRequests.tripId, trips.id),
+          eq(joinRequests.userId, userId ?? '')
+        )
+      )
       .orderBy(desc(trips.createdAt))
       .offset(offset)
       .limit(limit)
@@ -61,7 +72,7 @@ export const getAllTrips = cache(async (page: number = 1, limit: number = ITEMS_
       countries: row.countries,
       likes: row.likes,
       createdAt: new Date(row.createdAt).toISOString(),
-
+      joinStatus: row.joinStatus as JoinRequestStatus ?? 'idle',
     }))
 
     return {

@@ -1,11 +1,13 @@
 import { getTripById } from '@/entities/trip/api/get-current-trip'
 import { User, UserInfo } from '@/entities/user'
-import { Icon, Button, CountryFlag, Link, Modal } from '@/shared/ui'
+import { Icon, Button, CountryFlag, Link, Modal, IconButton } from '@/shared/ui'
 import { getCountryByCode } from '@/shared/lib'
-import { TRANSPORT_OPTIONS } from '@/shared/config'
+import { JoinRequestStatus, TRANSPORT_OPTIONS } from '@/shared/config'
 import { getCurrentUser } from '@/shared/api/get-current-user'
-import { DeleteTrip } from '@/entities/trip/ui'
+import { DeleteTrip } from '@/entities/trip'
 import styles from './Trip.module.css'
+import { JoinButton } from '@/entities/join-request'
+import { getUserJoinRequestStatus } from '@/entities/join-request/api/get-request-status'
 
 
 interface TripPageProps {
@@ -15,9 +17,11 @@ interface TripPageProps {
 const TripPage = async ({ id }: TripPageProps) => {
   let trip = null
   let currentUser: User | null = null
+  let joinStatus: JoinRequestStatus = 'idle'
 
   let tripError: Error | null = null
   let authError: Error | null = null
+  let statusError: Error | null = null
 
   try {
     trip = await getTripById(id)
@@ -39,6 +43,13 @@ const TripPage = async ({ id }: TripPageProps) => {
   } catch (error) {
     console.error('TripPage: Failed to fetch current user', error)
     authError = error instanceof Error ? error : new Error('Unknown auth error')
+  }
+
+  try {
+    joinStatus = await getUserJoinRequestStatus(id)
+  } catch (error) {
+    console.error('TripPage: Failed to fetch requesr status')
+    statusError = error instanceof Error ? error : new Error('Unknown fetch requesr status error')
   }
 
   const isOwner = !authError && currentUser?.id === trip.user.id
@@ -95,6 +106,17 @@ const TripPage = async ({ id }: TripPageProps) => {
         </ul>
       </section>
       <section className={styles.actions}>
+        {!isOwner && (
+          statusError ? (
+            <div>Ошибка загрузки статуса запроса на присоединение. Присоединение к маршруту недоступно Обновите страницу</div>
+          ) : (
+            <JoinButton
+              className={styles.join}
+              tripId={trip.id}
+              initialStatus={joinStatus}
+            />
+          )
+        )}
         {isOwner && (
           authError ? (
             <div>Ошибка загрузки данных пользователя. Элементы управления недоступны. Обновите страницу</div>

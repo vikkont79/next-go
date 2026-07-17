@@ -43,16 +43,20 @@
 .avatar {
   display: block;
   max-inline-size: 70px;
+  max-block-size: 70px;
   border-radius: 50%;
+  object-fit: cover;
   anchor-name: --trip-avatar;
 
   @media (min-width: 768px) {
     max-inline-size: 190px;
+    max-block-size: 190px;
     border-radius: 20px;
   }
 
   @media (min-width: 1024px) {
     max-inline-size: 285px;
+    max-block-size: 285px;
     border-radius: 0;
   }
 }
@@ -190,7 +194,7 @@
   }
 }
 
-.call {
+.join {
   inline-size: 100%;
   padding-block: var(--indent-3);
 

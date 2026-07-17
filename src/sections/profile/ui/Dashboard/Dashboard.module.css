@@ -1,23 +1,8 @@
-.profile {
-  padding-block-end: 30px;
+.dashboard {
+  padding-block-end: var(--indent-6);
 
   @media (min-width: 768px) {
-    padding-block-end: 60px;
-  }
-}
-
-.user {
-  padding-block: var(--indent-6);
-
-  @media (min-width: 768px) {
-    position: relative;
-    padding-block: 36px;
-  }
-
-  @media (min-width: 1024px) {
-    position: absolute;
-    right: 100px;
-    top: 80px;
+    padding-block-end: 36px;
   }
 }
 
@@ -31,14 +16,6 @@
   }
 }
 
-.trips {
-  padding-block-end: var(--indent-6);
-
-  @media (min-width: 768px) {
-    padding-block-end: 36px;
-  }
-}
-
 .list {
   display: grid;
   grid-template-columns: max-content 1fr;
@@ -46,7 +23,6 @@
   row-gap: var(--indent-3);
   margin-block: 0;
   padding-inline-start: 0;
-
 
   @media (min-width: 768px) {
     grid-template-columns: max-content 1fr min-content;
@@ -60,4 +36,13 @@
     grid-auto-rows: 285px;
     column-gap: 62px;
   }
+}
+
+.empty {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
 }

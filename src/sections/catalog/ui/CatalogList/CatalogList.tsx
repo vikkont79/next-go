@@ -1,7 +1,8 @@
-import { TripCard, type Trip } from '@/entities/trip'
+import { Trip } from '@/entities/trip'
 import { Pagination } from '../Pagination/Pagination'
 import { ITEMS_PER_PAGE } from '@/shared/config'
 import { LoadMoreBtn } from '../LoadMoreBtn/LoadMoreBtn'
+import { TripCard } from '@/widgets/trip-card'
 import styles from './CatalogList.module.css'
 
 interface CatalogListProps {
@@ -30,7 +31,11 @@ const CatalogList = ({
   return (
     <div className={styles.list}>
       {trips.map((trip) => (
-        <TripCard key={trip.id} trip={trip} />
+        <TripCard
+          key={trip.id}
+          trip={trip}
+          initialStatus={trip.joinStatus}
+        />
       ))}
       {canLoadMore && (
         <LoadMoreBtn

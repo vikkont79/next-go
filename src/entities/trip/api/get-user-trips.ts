@@ -1,10 +1,11 @@
 import 'server-only'
 import { db } from '../../../../db/client'
-import { trips, users } from '../../../../db/schema'
-import { eq, desc } from 'drizzle-orm'
+import { joinRequests, trips, users } from '../../../../db/schema'
+import { eq, desc, and } from 'drizzle-orm'
 import { cache } from 'react'
+import { JoinRequestStatus } from '@/shared/config'
 
-export const getUserTrips = cache(async (userId: string) => {
+export const getUserTrips = cache(async (userId: string, currentUserId?: string) => {
   try {
     const result = await db
       .select({
@@ -27,9 +28,16 @@ export const getUserTrips = cache(async (userId: string) => {
           avatar: users.avatar,
           level: users.level,
         },
+        joinStatus: joinRequests.status,
       })
       .from(trips)
       .innerJoin(users, eq(trips.userId, users.id))
+      .leftJoin(joinRequests,
+        and(
+          eq(joinRequests.tripId, trips.id),
+          eq(joinRequests.userId, currentUserId ?? '')
+        )
+      )
       .where(eq(trips.userId, userId))
       .orderBy(desc(trips.createdAt))
 
@@ -49,6 +57,7 @@ export const getUserTrips = cache(async (userId: string) => {
       countries: row.countries,
       likes: row.likes,
       createdAt: new Date(row.createdAt).toISOString(),
+      joinStatus: row.joinStatus as JoinRequestStatus ?? 'idle',
     }))
   } catch (error) {
     console.error('Ошибка загрузки маршрутов пользователя', error)

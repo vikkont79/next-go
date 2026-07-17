@@ -1,2 +1,2 @@
-export { TripCard } from './ui'
 export * from './types'
+export { DeleteTrip } from './ui'
