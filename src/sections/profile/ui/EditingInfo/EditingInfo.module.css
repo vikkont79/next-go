@@ -1,7 +1,7 @@
 .info {
   display: grid;
   row-gap: var(--indent-5);
-  padding-block-end: var(--indent-5);
+  padding-block-end: var(--indent-6);
 
 
   @media (min-width: 768px) {
@@ -11,7 +11,7 @@
   }
 
   @media (min-width: 1024px) {
-    grid-template-columns: 1fr 220px;
+    grid-template-columns: 1fr 240px;
     grid-auto-flow: dense;
     column-gap: var(--indent-8);
     padding-inline: 70px;
@@ -38,4 +38,5 @@
 .deleteBtn {
   background-color: var(--color-error);
   color: var(--color-white);
+  line-height: 1.5;
 }

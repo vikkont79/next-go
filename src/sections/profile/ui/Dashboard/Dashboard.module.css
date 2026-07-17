@@ -1,5 +1,19 @@
 .dashboard {
-  margin-top: 2rem;
+  padding-block-end: var(--indent-6);
+
+  @media (min-width: 768px) {
+    padding-block-end: 36px;
+  }
+}
+
+.title {
+  margin-block: 0 var(--indent-6);
+  font-size: var(--font-size-md);
+
+  @media (min-width: 768px) {
+    margin-block-end: 36px;
+    font-size: var(--font-size-xxl);
+  }
 }
 
 .list {
@@ -7,8 +21,8 @@
   grid-template-columns: max-content 1fr;
   column-gap: var(--indent-4);
   row-gap: var(--indent-3);
+  margin-block: 0;
   padding-inline-start: 0;
-  padding-block-end: 30px;
 
   @media (min-width: 768px) {
     grid-template-columns: max-content 1fr min-content;

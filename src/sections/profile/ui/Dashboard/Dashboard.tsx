@@ -51,8 +51,8 @@ const Dashboard = ({
   }
 
   return (
-    <div className={styles.dashboard}>
-      <h2>Входящие заявки ({requests.length})</h2>
+    <section className={styles.dashboard}>
+      <h2 className={styles.title}>Входящие заявки ({requests.length})</h2>
       <ul className={styles.list}>
         {requests.map((request) => (
           <RequestCard
@@ -64,7 +64,7 @@ const Dashboard = ({
           />
         ))}
       </ul>
-    </div>
+    </section>
   )
 }
 

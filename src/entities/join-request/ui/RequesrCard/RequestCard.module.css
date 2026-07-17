@@ -165,15 +165,17 @@
 
 .actions {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  gap: var(--indent-4);
   grid-column: 1/-1;
   margin-block: var(--indent-6);
 
   @media (min-width: 768px) {
     grid-column: 2;
+    flex-direction: row;
     justify-content: flex-start;
-    gap: var(--base-indent);
     margin-block: auto 0;
   }
 
@@ -182,11 +184,25 @@
   }
 }
 
-.join {
+.button {
   inline-size: 100%;
-  padding-block: var(--indent-3);
+  padding: var(--indent-3);
+  color: var(--color-white);
 
   @media (min-width: 768px) {
-    max-inline-size: 170px;
+    max-inline-size: 180px;
+    font-size: var(--font-size-sm);
   }
+}
+
+.approve {
+  background-color: green;
+}
+
+.reject {
+  background-color: var(--color-error);
+}
+
+.status {
+  text-transform: uppercase;
 }

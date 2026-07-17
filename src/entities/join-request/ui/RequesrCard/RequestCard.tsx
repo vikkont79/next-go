@@ -1,8 +1,8 @@
 import { Avatar, Button, CountryFlag, Icon, Link } from '@/shared/ui'
 import { JoinRequest } from '../../types'
+import { getCountryByCode } from '@/shared/lib'
+import { TRANSPORT_OPTIONS } from '@/shared/config'
 import styles from './RequestCard.module.css'
-import { getCountryByCode } from '@/shared/lib';
-import { TRANSPORT_OPTIONS } from '@/shared/config';
 
 interface RequestCardProps {
   request: JoinRequest;
@@ -64,16 +64,18 @@ const RequestCard = ({
         {request.status === 'pending' ? (
           <>
             <Button
+              className={`${styles.button} ${styles.approve}`}
               onClick={() => onApprove(request.id)}
               disabled={isLoading}
             >
-              ✅ Подтвердить
+              Подтвердить
             </Button>
             <Button
+              className={`${styles.button} ${styles.reject}`}
               onClick={() => onReject(request.id)}
               disabled={isLoading}
             >
-              ❌ Отклонить
+              Отклонить
             </Button>
           </>) : (
           <span className={styles.status}>

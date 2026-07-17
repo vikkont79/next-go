@@ -102,10 +102,10 @@ const ProfilePage = async ({ userId }: ProfilePageProps) => {
         <div>Ошибка загрузки маршрутов</div>
       ) : trips.length > 0 && (
         <section className={styles.trips}>
-          <h2 className={styles.tripsTitle}>
+          <h2 className={styles.title}>
             {isOwner ? 'Мои маршруты' : `Маршруты пользователя ${user.name}`}
           </h2>
-          <div className={styles.list}>
+          <ul className={styles.list}>
             {trips.map(trip => (
               <TripCard
                 key={trip.id}
@@ -114,7 +114,7 @@ const ProfilePage = async ({ userId }: ProfilePageProps) => {
                 hideActions={isOwner}
               />
             ))}
-          </div>
+          </ul>
         </section>
       )}
     </main >
