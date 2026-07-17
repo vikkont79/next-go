@@ -26,8 +26,6 @@ const JoinButton = ({
 
   const handleClick = async () => {
     setIsLoading(true)
-    const result = await createJoinRequest(tripId)
-
     try {
       const result = await createJoinRequest(tripId)
 
@@ -55,7 +53,7 @@ const JoinButton = ({
       onClick={handleClick}
       disabled={config.disabled || isLoading}
     >
-      {isLoading ? 'Отправка...' : config.text}
+      {isLoading ? 'Запрос...' : config.text}
     </Button>
   )
 }

@@ -57,7 +57,7 @@ export async function createJoinRequest(input: unknown) {
       }).returning()
 
     revalidatePath(`/trips/${tripId}`)
-    revalidatePath(`/trips`)
+    revalidatePath('/trips')
 
     return { success: true, request: newRequest }
   } catch (error) {
