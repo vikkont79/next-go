@@ -1,4 +1,3 @@
-// entities/join-request/api/approve-join-request.ts
 'use server'
 
 import { db } from '../../../../db/client'

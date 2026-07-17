@@ -5,12 +5,12 @@ import { EditingInfo } from '../EditingInfo/EditingInfo'
 import { getUserTrips } from '@/entities/trip/api/get-user-trips'
 import { Trip } from '@/entities/trip'
 import { TripCard } from '@/widgets/trip-card'
-import styles from './Profile.module.css'
 import { Dashboard } from '../Dashboard/Dashboard'
 import { JoinRequest } from '@/entities/join-request'
 import { getOwnerJoinRequests } from '@/entities/join-request/api/get-join-requests'
 import { approveJoinRequest } from '@/entities/join-request/api/approve-join-request'
 import { rejectJoinRequest } from '@/entities/join-request/api/reject-join-request'
+import styles from './Profile.module.css'
 
 interface ProfilePageProps {
   userId?: string | undefined;
