@@ -93,10 +93,11 @@
 }
 
 .actions {
+  margin-block-end: 30px;
   padding-block-end: 30px;
 
   @media (min-width: 768px) {
-    padding-block-end: 60px;
+    margin-block-end: 60px;
   }
 }
 

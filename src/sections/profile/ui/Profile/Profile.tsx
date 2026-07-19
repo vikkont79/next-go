@@ -6,27 +6,21 @@ import { getUserTrips } from '@/entities/trip/api/get-user-trips'
 import { Trip } from '@/entities/trip'
 import { TripCard } from '@/widgets/trip-card'
 import { Dashboard } from '../Dashboard/Dashboard'
-import { JoinRequest } from '@/entities/join-request'
-import { getOwnerJoinRequests } from '@/entities/join-request/api/get-join-requests'
-import { approveJoinRequest } from '@/entities/join-request/api/approve-join-request'
-import { rejectJoinRequest } from '@/entities/join-request/api/reject-join-request'
 import styles from './Profile.module.css'
 
 interface ProfilePageProps {
-  userId?: string | undefined;
+  userId?: string;
 }
 
 const ProfilePage = async ({ userId }: ProfilePageProps) => {
   let currentUser: User | null = null //Текущий авторизованный пользователь
   let targetUser: User | null = null //Пользователь переданный в пропсах
   let trips: Trip[] = []
-  let requests: JoinRequest[] = []
-
 
   let authError: Error | null = null
   let userError: Error | null = null
   let tripsError: Error | null = null
-  let requestsError: Error | null = null
+
 
   try {
     currentUser = await getCurrentUser()
@@ -69,34 +63,13 @@ const ProfilePage = async ({ userId }: ProfilePageProps) => {
 
   const isOwner = !userId
 
-  if (isOwner) {
-    try {
-      requests = await getOwnerJoinRequests()
-    } catch (error) {
-      console.error('ProfilePage: Failed to fetch join requests', error)
-      requestsError = error instanceof Error ? error : new Error('Unknown error')
-    }
-  }
-
   return (
     <main className={`${styles.profile} wrapper`} >
       <h1 className='visually-hidden'>Страница профиля пользователя</h1>
       <UserInfo className={styles.user} targetUser={user} />
       <EditingInfo user={user} isOwner={isOwner} />
       {isOwner && (
-        <>
-          {requestsError ? (
-            <div className="error">
-              Ошибка загрузки заявок. Попробуйте позже.
-            </div>
-          ) : (
-            <Dashboard
-              requests={requests}
-              onApprove={approveJoinRequest}
-              onReject={rejectJoinRequest}
-            />
-          )}
-        </>
+        <Dashboard user={user} />
       )}
       {tripsError ? (
         <div>Ошибка загрузки маршрутов</div>

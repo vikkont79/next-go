@@ -7,11 +7,11 @@
 }
 
 .title {
-  margin-block: 0 var(--indent-6);
+  margin-block: var(--indent-6);
   font-size: var(--font-size-md);
 
   @media (min-width: 768px) {
-    margin-block-end: 36px;
+    margin-block: 36px;
     font-size: var(--font-size-xxl);
   }
 }
