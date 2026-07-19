@@ -2,14 +2,12 @@ import 'server-only'
 import { db } from '../../../../db/client'
 import { joinRequests, trips, users } from '../../../../db/schema'
 import { eq, desc } from 'drizzle-orm'
-import { getCurrentUser } from '@/shared/api/get-current-user'
 import { JoinRequest } from '../types'
+import { User } from '@/entities/user'
+import { cache } from 'react'
 
-export const getOwnerJoinRequests = async (): Promise<JoinRequest[]> => {
+export const getOwnerJoinRequests = cache(async (user: User): Promise<JoinRequest[]> => {
   try {
-    const user = await getCurrentUser()
-    if (!user) throw new Error('Не авторизован')
-
     const requests = await db
       .select({
         id: joinRequests.id,
@@ -35,6 +33,6 @@ export const getOwnerJoinRequests = async (): Promise<JoinRequest[]> => {
     return requests
   } catch (error) {
     console.error(error)
-    throw new Error('Не удалось получить список заявок')
+    throw new Error('Не удалось получить список входящих заявок')
   }
-}
+})

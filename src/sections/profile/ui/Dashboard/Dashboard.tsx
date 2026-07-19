@@ -1,72 +1,76 @@
-'use client'
-import { Button, Avatar, CountryFlag, Link } from '@/shared/ui'
 import { JoinRequest, RequestCard } from '@/entities/join-request'
-import { getCountryByCode } from '@/shared/lib'
-import { useState } from 'react'
 import styles from './Dashboard.module.css'
-import { useRouter } from 'next/navigation'
+import { Trip } from '@/entities/trip'
+import { TripCard } from '@/widgets/trip-card'
+import { getOwnerJoinRequests } from '@/entities/join-request/api/get-join-requests'
+import { getUserJoinRequests } from '@/entities/join-request/api/get-my-join-requests'
+import { User } from '@/entities/user'
 
-interface DashboardWidgetProps {
-  requests: JoinRequest[]
-  onApprove: (requestId: string) => Promise<{ success: boolean; error?: string }>
-  onReject: (requestId: string) => Promise<{ success: boolean; error?: string }>
+interface DashboardProps {
+  className?: string;
+  user: User;
 }
 
-const Dashboard = ({
-  requests,
-  onApprove,
-  onReject,
-}: DashboardWidgetProps) => {
-  const [isLoading, setIsLoading] = useState(false)
-  const router = useRouter()
+const Dashboard = async ({ className, user }: DashboardProps) => {
+  let requests: JoinRequest[] = []
+  let myRequests: Trip[] = []
 
-  const handleApprove = async (requestId: string) => {
-    setIsLoading(true)
-    const result = await onApprove(requestId)
-    if (result.success) {
-      router.refresh()
-    } else {
-      console.error(result.error || 'Не удалось подтвердить заявку')
-    }
-    setIsLoading(false)
+  let requestsError: Error | null = null
+  let myRequestsError: Error | null = null
+
+  try {
+    requests = await getOwnerJoinRequests(user)
+  } catch (error) {
+    console.error('ProfilePage: Failed to fetch join requests', error)
+    requestsError = error instanceof Error ? error : new Error('Unknown error')
   }
 
-  const handleReject = async (requestId: string) => {
-    setIsLoading(true)
-    const result = await onReject(requestId)
-    if (result.success) {
-      router.refresh()
-    } else {
-      console.error(result.error || 'Не удалось отклонить заявку')
-    }
-    setIsLoading(false)
-  }
-
-  if (requests.length === 0) {
-    return (
-      <div className={styles.empty}>
-        <p>📭 Нет входящих заявок</p>
-      </div>
-    )
+  try {
+    myRequests = await getUserJoinRequests(user)
+  } catch (error) {
+    console.error('ProfilePage: Failed to fetch my join requests', error)
+    myRequestsError = error instanceof Error ? error : new Error('Unknown error')
   }
 
   return (
     <section className={styles.dashboard}>
-      <h2 className={styles.title}>Входящие заявки ({requests.length})</h2>
-      <ul className={styles.list}>
-        {requests.map((request) => (
-          <RequestCard
-            key={request.id}
-            request={request}
-            isLoading={isLoading}
-            onApprove={handleApprove}
-            onReject={handleReject}
-          />
-        ))}
-      </ul>
+      {requestsError ? (
+        <div className={styles.empty}>
+          <p>Не удалось загрузить список входящих заявок</p>
+        </div>
+      ) : requests.length > 0 && (
+        <>
+          <h2 className={styles.title}>Входящие заявки ({requests.length})</h2>
+          <ul className={styles.list}>
+            {requests.map((request) => (
+              <RequestCard
+                key={request.id}
+                request={request}
+              />
+            ))}
+          </ul>
+        </>
+      )}
+      {myRequestsError ? (
+        <div className={styles.empty}>
+          <p>Не удалось загрузить список ваших заявок</p>
+        </div>
+      ) : myRequests.length > 0 && (
+        <>
+          <h2 className={styles.title}>Мои заявки ({myRequests.length})</h2>
+          <ul className={styles.list}>
+            {myRequests.map((request) => (
+              <TripCard
+                key={request.id}
+                trip={request}
+                initialStatus={request.joinStatus}
+              />
+            ))}
+          </ul>
+        </>
+      )}
     </section>
   )
 }
-
 
 export { Dashboard }

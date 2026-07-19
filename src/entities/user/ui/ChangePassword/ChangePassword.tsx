@@ -6,6 +6,7 @@ import { passwordSchema, type PasswordInput } from '@/shared/lib'
 import { Button, Input } from '@/shared/ui'
 import { updatePassword } from '../../api/update-user-data'
 import styles from './ChangePassword.module.css'
+import { toast } from 'sonner'
 
 const ChangePassword = () => {
   const {
@@ -26,6 +27,7 @@ const ChangePassword = () => {
       return
     }
 
+    toast.success('✅ Пароль обновлён')
     reset();
     (document.getElementById('password-modal') as HTMLDialogElement)?.close()
   }

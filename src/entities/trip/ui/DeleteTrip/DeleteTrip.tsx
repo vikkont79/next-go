@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/shared/ui'
 import { deleteTrip } from '../../api/delete-trip'
+import { toast } from 'sonner'
 import styles from './DeleteTrip.module.css'
 
 const DeleteTrip = ({ tripId }: { tripId: string }) => {
@@ -22,6 +23,7 @@ const DeleteTrip = ({ tripId }: { tripId: string }) => {
       return
     }
 
+    toast.success('✅ Маршрут удалён')
     router.push('/trips')
   }
 

@@ -1,24 +1,58 @@
+'use client'
 import { Avatar, Button, CountryFlag, Icon, Link } from '@/shared/ui'
 import { JoinRequest } from '../../types'
+import { approveJoinRequest } from '@/entities/join-request/api/approve-join-request'
+import { rejectJoinRequest } from '@/entities/join-request/api/reject-join-request'
 import { getCountryByCode } from '@/shared/lib'
 import { TRANSPORT_OPTIONS } from '@/shared/config'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 import styles from './RequestCard.module.css'
 
 interface RequestCardProps {
   request: JoinRequest;
   className?: string;
-  isLoading: boolean;
-  onApprove: (requestId: string) => void
-  onReject: (requestId: string) => void
 }
 
 const RequestCard = ({
   request,
   className,
-  isLoading,
-  onApprove,
-  onReject,
 }: RequestCardProps) => {
+  const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
+
+  const handleApprove = async (requestId: string) => {
+    setIsLoading(true)
+
+    const result = await approveJoinRequest(requestId)
+    if (result.error) {
+      console.error(result.error)
+      toast.error(result.error)
+      setIsLoading(false)
+      return
+    }
+
+    toast.success('Заявка подтверждена')
+    router.refresh()
+    setIsLoading(false)
+  }
+
+  const handleReject = async (requestId: string) => {
+    setIsLoading(true)
+    const result = await rejectJoinRequest(requestId)
+    if (result.error) {
+      console.error(result.error)
+      toast.error(result.error)
+      setIsLoading(false)
+      return
+    }
+
+    toast.success('Заявка отклонена')
+    router.refresh()
+    setIsLoading(false)
+  }
+
   const avatarSrc = request.user.avatar || '/icons/unknown-raccoon.svg'
   return (
     <article className={`${styles.card} ${className || ''}`.trim()}>
@@ -65,14 +99,14 @@ const RequestCard = ({
           <>
             <Button
               className={`${styles.button} ${styles.approve}`}
-              onClick={() => onApprove(request.id)}
+              onClick={() => handleApprove(request.id)}
               disabled={isLoading}
             >
               Подтвердить
             </Button>
             <Button
               className={`${styles.button} ${styles.reject}`}
-              onClick={() => onReject(request.id)}
+              onClick={() => handleReject(request.id)}
               disabled={isLoading}
             >
               Отклонить

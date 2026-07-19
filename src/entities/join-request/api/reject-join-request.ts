@@ -10,7 +10,7 @@ import { revalidatePath } from 'next/cache'
 export async function rejectJoinRequest(requestId: string) {
   try {
     const user = await getCurrentUser()
-    if (!user) throw new Error('Не авторизован')
+    if (!user) return { error: 'Не авторизован' }
 
     const [request] = await db
       .select({
@@ -22,8 +22,8 @@ export async function rejectJoinRequest(requestId: string) {
       .where(eq(joinRequests.id, requestId))
       .limit(1)
 
-    if (!request) throw new Error('Заявка не найдена')
-    if (request.tripOwnerId !== user.id) throw new Error('Нет прав на отклонение')
+    if (!request) return { error: 'Заявка не найдена' }
+    if (request.tripOwnerId !== user.id) return { error: 'Нет прав на отклонение' }
 
     await db
       .update(joinRequests)
@@ -36,6 +36,6 @@ export async function rejectJoinRequest(requestId: string) {
     return { success: true }
   } catch (error) {
     console.error(error)
-    throw new Error('Не удалось отклонить заявку')
+    return { error: 'Не удалось отклонить заявку' }
   }
 }

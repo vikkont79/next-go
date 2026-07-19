@@ -6,6 +6,7 @@ import { Button } from '@/shared/ui'
 import { createJoinRequest } from '../../api/create-join-request'
 import styles from './JoinButton.module.css'
 import { JOIN_BUTTON_STATUSES, JoinRequestStatus } from '@/shared/config'
+import { toast } from 'sonner'
 
 interface JoinButtonProps {
   className: string;
@@ -25,17 +26,22 @@ const JoinButton = ({
 
   const handleClick = async () => {
     setIsLoading(true)
-    const result = await createJoinRequest(tripId)
+    try {
+      const result = await createJoinRequest(tripId)
 
-    if (result.success) {
+      if (!result.success) {
+        toast.error(result.error || 'Не удалось отправить заявку')
+        return
+      }
+
       setStatus('pending')
+      toast.success('Заявка отправлена!')
       router.refresh()
-    } else {
-      // TODO: тост или alert
-      alert(result.error)
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Произошла ошибка')
+    } finally {
+      setIsLoading(false)
     }
-
-    setIsLoading(false)
   }
 
   const config = JOIN_BUTTON_STATUSES[status]
@@ -47,7 +53,7 @@ const JoinButton = ({
       onClick={handleClick}
       disabled={config.disabled || isLoading}
     >
-      {isLoading ? 'Отправка...' : config.text}
+      {isLoading ? 'Запрос...' : config.text}
     </Button>
   )
 }

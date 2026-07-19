@@ -105,6 +105,17 @@ const TripPage = async ({ id }: TripPageProps) => {
           })}
         </ul>
       </section>
+      {(isOwner || joinStatus === 'approved') && (
+        <section className={styles.chat}>
+          <h2 className={styles.title}>💬 Чат маршрута</h2>
+          <div className={styles.chatPlaceholder}>
+            <p>Здесь будет чат для участников маршрута</p>
+            <p className={styles.chatHint}>
+              Доступно только организатору и подтверждённым участникам
+            </p>
+          </div>
+        </section>
+      )}
       <section className={styles.actions}>
         {!isOwner && (
           statusError ? (

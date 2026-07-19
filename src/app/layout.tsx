@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { roboto } from '@/shared/assets/fonts'
 import { Layout } from '@/widgets/layout'
+import { Toaster } from 'sonner'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -19,6 +20,7 @@ export default function RootLayout({
         <Layout>
           {children}
         </Layout>
+        <Toaster position="top-left" richColors />
       </body>
     </html>
   )
