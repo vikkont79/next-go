@@ -1,7 +1,7 @@
 'use server'
 
 import { db } from '../../../../db/client'
-import { joinRequests, trips } from '../../../../db/schema'
+import { joinRequests, notifications, trips } from '../../../../db/schema'
 import { eq, and } from 'drizzle-orm'
 import { getCurrentUser } from '@/shared/api/get-current-user'
 import { revalidatePath } from 'next/cache'
@@ -47,21 +47,35 @@ export async function createJoinRequest(input: unknown) {
       }
     }
 
-    const [newRequest] = await db
-      .insert(joinRequests).values({
+    const result = await db.transaction(async (tx) => {
+      const [newRequest] = await tx
+        .insert(joinRequests).values({
+          id: crypto.randomUUID(),
+          tripId,
+          userId: user.id,
+          status: 'pending',
+          message: null,
+        }).returning()
+
+      await tx.insert(notifications).values({
         id: crypto.randomUUID(),
-        tripId,
-        userId: user.id,
-        status: 'pending',
-        message: null,
-      }).returning()
+        userId: trip[0].userId,
+        text: 'К вашему маршруту хотят присоединиться',
+        read: false,
+      })
+
+      return newRequest
+    })
 
     revalidatePath(`/trips/${tripId}`)
     revalidatePath('/trips')
 
-    return { success: true, request: newRequest }
+    return { success: true, request: result }
   } catch (error) {
     console.error(error)
+    if (error instanceof Error && error.message.includes('UNIQUE constraint failed')) {
+      return { error: 'Вы уже подали заявку на этот маршрут' }
+    }
     return { error: 'Не удалось создать заявку. Попробуйте позже.' }
   }
 }

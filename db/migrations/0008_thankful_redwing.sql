@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX `unique_trip_user` ON `join_requests` (`trip_id`,`user_id`);

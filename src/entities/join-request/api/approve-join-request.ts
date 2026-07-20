@@ -1,7 +1,7 @@
 'use server'
 
 import { db } from '../../../../db/client'
-import { joinRequests, trips } from '../../../../db/schema'
+import { joinRequests, trips, notifications } from '../../../../db/schema'
 import { eq } from 'drizzle-orm'
 import { getCurrentUser } from '@/shared/api/get-current-user'
 import { revalidatePath } from 'next/cache'
@@ -16,6 +16,7 @@ export async function approveJoinRequest(requestId: string) {
       .select({
         tripId: joinRequests.tripId,
         tripOwnerId: trips.userId,
+        requestUserId: joinRequests.userId,
       })
       .from(joinRequests)
       .innerJoin(trips, eq(joinRequests.tripId, trips.id))
@@ -25,10 +26,19 @@ export async function approveJoinRequest(requestId: string) {
     if (!request) return { error: 'Заявка не найдена' }
     if (request.tripOwnerId !== user.id) return { error: 'Нет прав на подтверждение' }
 
-    await db
-      .update(joinRequests)
-      .set({ status: 'approved' })
-      .where(eq(joinRequests.id, requestId))
+    await db.transaction(async (tx) => {
+      await tx
+        .update(joinRequests)
+        .set({ status: 'approved' })
+        .where(eq(joinRequests.id, requestId))
+
+      await tx.insert(notifications).values({
+        id: crypto.randomUUID(),
+        userId: request.requestUserId,
+        text: 'Ваша заявка принята',
+        read: false,
+      })
+    })
 
     revalidatePath('/profile')
     revalidatePath(`/trips/${request.tripId}`)

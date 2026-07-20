@@ -5,6 +5,7 @@ import logoPopup from '@/shared/assets/images/logo-black.png'
 import { AuthButtons } from '@/features/auth'
 import { HeaderTitle } from '../HeaderTitle/HeaderTitle'
 import styles from './Header.module.css'
+import { NotificationBell } from '@/entities/notifications/ui/NotificationBell/NotificationBell'
 
 const Header = async () => {
   return (
@@ -55,6 +56,7 @@ const Header = async () => {
           aria-label='Закрыть меню'
         />
         <AuthButtons className={styles.auth} />
+        <NotificationBell />
       </header>
       <HeaderTitle />
     </>

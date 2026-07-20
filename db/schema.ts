@@ -1,4 +1,4 @@
-import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core'
+import { sqliteTable, text, integer, uniqueIndex } from 'drizzle-orm/sqlite-core'
 import { sql } from 'drizzle-orm'
 import type { TransportType, TripCountry } from '@/entities/trip/types/trip'
 
@@ -52,6 +52,24 @@ export const joinRequests = sqliteTable('join_requests', {
     .default(sql`(unixepoch())`),
 
   updatedAt: integer('updated_at', { mode: 'timestamp' })
+    .notNull()
+    .default(sql`(unixepoch())`),
+}, (table) => [
+  uniqueIndex('unique_trip_user').on(table.tripId, table.userId)
+])
+
+export const notifications = sqliteTable('notifications', {
+  id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+
+  userId: text('user_id')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+
+  text: text('text').notNull(),
+
+  read: integer('read', { mode: 'boolean' }).notNull().default(false),
+
+  createdAt: integer('created_at', { mode: 'timestamp' })
     .notNull()
     .default(sql`(unixepoch())`),
 })

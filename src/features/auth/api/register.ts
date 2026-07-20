@@ -51,6 +51,9 @@ export async function register(input: unknown) {
     return { success: true, user: userWithoutPassword }
   } catch (error) {
     console.error(error)
+    if (error instanceof Error && error.message.includes('UNIQUE constraint failed')) {
+      return { error: 'Пользователь с таким email уже существует' }
+    }
     return { error: 'Ошибка сервера. Попробуйте позже.' }
   }
 }
