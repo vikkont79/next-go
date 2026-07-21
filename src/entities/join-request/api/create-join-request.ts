@@ -5,7 +5,7 @@ import { joinRequests, notifications, trips } from '../../../../db/schema'
 import { eq, and } from 'drizzle-orm'
 import { getCurrentUser } from '@/shared/api/get-current-user'
 import { revalidatePath } from 'next/cache'
-import { createJoinRequestSchema } from '@/shared/lib'
+import { createJoinRequestSchema, incrementUnreadCount } from '@/shared/lib'
 
 export async function createJoinRequest(input: unknown) {
   const validation = createJoinRequestSchema.safeParse({ tripId: input })
@@ -63,6 +63,8 @@ export async function createJoinRequest(input: unknown) {
         text: 'К вашему маршруту хотят присоединиться',
         read: false,
       })
+
+      await incrementUnreadCount(trip[0].userId)
 
       return newRequest
     })

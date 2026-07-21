@@ -5,13 +5,13 @@ import { joinRequests, trips, notifications } from '../../../../db/schema'
 import { eq } from 'drizzle-orm'
 import { getCurrentUser } from '@/shared/api/get-current-user'
 import { revalidatePath } from 'next/cache'
+import { incrementUnreadCount } from '@/shared/lib'
 
 export async function approveJoinRequest(requestId: string) {
   try {
     const user = await getCurrentUser()
     if (!user) return { error: 'Не авторизован' }
 
-    // Проверяем, что заявка существует и принадлежит маршруту текущего пользователя
     const [request] = await db
       .select({
         tripId: joinRequests.tripId,
@@ -38,6 +38,8 @@ export async function approveJoinRequest(requestId: string) {
         text: 'Ваша заявка принята',
         read: false,
       })
+
+      await incrementUnreadCount(request.requestUserId)
     })
 
     revalidatePath('/profile')

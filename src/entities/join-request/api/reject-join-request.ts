@@ -6,6 +6,7 @@ import { joinRequests, notifications, trips } from '../../../../db/schema'
 import { eq } from 'drizzle-orm'
 import { getCurrentUser } from '@/shared/api/get-current-user'
 import { revalidatePath } from 'next/cache'
+import { incrementUnreadCount } from '@/shared/lib'
 
 export async function rejectJoinRequest(requestId: string) {
   try {
@@ -38,6 +39,8 @@ export async function rejectJoinRequest(requestId: string) {
         text: 'Ваша заявка отклонена',
         read: false,
       })
+
+      await incrementUnreadCount(request.requestUserId)
     })
 
     revalidatePath('/profile')

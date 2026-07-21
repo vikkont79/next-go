@@ -4,10 +4,11 @@ import { Notification } from "../../types"
 
 interface NotificationListProps {
   notifications: Notification[]
+  isLoading: boolean
   onClose: () => void
 }
 
-export function NotificationList({ notifications, onClose }: NotificationListProps) {
+export function NotificationList({ notifications, isLoading, onClose }: NotificationListProps) {
 
   return (
     <div>
